@@ -37,7 +37,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:singleLine="true"
-        android:phoneNumber="true" />
+        android:phoneNumber="true"
+        />
 
     <Space
         android:layout_width="match_parent"
@@ -57,7 +58,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.07" />
 
-    <TimePicker
+   <TimePicker
         android:id = "@+id/timePicker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -77,7 +78,9 @@
         android:layout_height="wrap_content"
         android:inputType="numberPassword"
         android:ems="10"
-        android:id="@+id/editText" />
+        android:id="@+id/pin"
+        android:maxLength="@string/max_length_of_pin"/>
+
 
     <Space
         android:layout_width="match_parent"
@@ -92,5 +95,6 @@
         android:clickable="true"
         android:layout_gravity="center_horizontal"
         android:text="Send SMS"/>
+
 
 </LinearLayout>

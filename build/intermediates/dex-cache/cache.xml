@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/home/nam/AndroidstudioProjects/BeMan/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="/home/nam/AndroidstudioProjects/BeMan/app/build/intermediates/pre-dexed/debug/classes-339b9f7c5c4e29cca125c8375d51ce041615fb3e.jar" />
+    </item>
+    <item
+        jar="/home/nam/AndroidstudioProjects/BeMan/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="/home/nam/AndroidstudioProjects/BeMan/app/build/intermediates/pre-dexed/debug/classes-695a6019a289ede96e01c8a2ebde4b1aeb3887e9.jar" />
+    </item>
+    <item
+        jar="/home/nam/Android/Sdk2/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="/home/nam/AndroidstudioProjects/BeMan/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-5fa1a5ad5dcd4cff369cda16a16da58d8380beb7.jar" />
+    </item>
+    <item
+        jar="/home/nam/AndroidstudioProjects/BeMan/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="/home/nam/AndroidstudioProjects/BeMan/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-22cb9bfd3b4b349940b1af2f012c73efaa229216.jar" />
+    </item>
+    <item
+        jar="/home/nam/AndroidstudioProjects/BeMan/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="dd9247ea0fabe8ee479638c4b4a23e93752be256">
+        <dex dex="/home/nam/AndroidstudioProjects/BeMan/app/build/intermediates/pre-dexed/debug/classes-bf321903d60fc18d9df465c06551d7fb582ed462.jar" />
+    </item>
+
+</items>

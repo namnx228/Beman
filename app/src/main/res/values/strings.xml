@@ -3,4 +3,10 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_bm__be_men_mode">BM_BeMenMode</string>
+    <string name="title_activity_bm_g_irlm_ode">bm_gIRLmODE</string>
+    <string name="title_activity_bm__girl_mode">BM_GirlMode</string>
+    <string name="title_activity_bm__wrong_pass">BM_WrongPass</string>
+    <string name="max_length_of_pin">4</string>
+
 </resources>

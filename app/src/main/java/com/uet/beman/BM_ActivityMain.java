@@ -9,6 +9,8 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.telephony.SmsManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,16 +19,19 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 
 public class BM_ActivityMain extends ActionBarActivity {
 
     Button sendBtn;
     EditText txtMessage;
     EditText txtPhoneNo;
+    EditText pin;
     TimePicker timer;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bm_activity_main);
 
@@ -34,6 +39,7 @@ public class BM_ActivityMain extends ActionBarActivity {
         txtMessage = (EditText) findViewById(R.id.message);
         txtPhoneNo = (EditText) findViewById(R.id.number);
         timer = (TimePicker) findViewById(R.id.timePicker);
+        pin = (EditText) findViewById(R.id.pin);
 
         sendBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -44,10 +50,24 @@ public class BM_ActivityMain extends ActionBarActivity {
                 if(phoneNumber.length() > 0 && message.length() >0) {
                     sendSMS(phoneNumber, message);
                 } else {
-                    Toast.makeText(getBaseContext(), "Please enter both phone number and message.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), "please enter...",Toast.LENGTH_LONG).show();
                 }
             }
         });
+
+        PinWatcher pinWatcher = new PinWatcher();
+
+
+        pinWatcher.setSize(4);
+
+
+        pinWatcher.setActivity(this);
+        pinWatcher.setBeMenMode(new Intent(this,BM_BeMenMode.class));
+        pinWatcher.setGirlMode(new Intent(this,BM_GirlMode.class));
+        pinWatcher.setWrongPass(new Intent(this,BM_WrongPass.class));
+        pin.addTextChangedListener(pinWatcher);
+
+
     }
 
     //---sends an SMS message to another device---
