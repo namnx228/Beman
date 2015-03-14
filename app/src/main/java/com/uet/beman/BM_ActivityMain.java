@@ -37,6 +37,9 @@ public class BM_ActivityMain extends ActionBarActivity implements View.OnClickLi
     EditText pin;
     TimePicker timer;
     DatePicker datePicker;
+    SharedPreferencesHelper helper;
+    BM_ModelScheduler scheduler;
+
     public static final int PICK_CONTACT = 1;
 
     @Override
@@ -51,6 +54,9 @@ public class BM_ActivityMain extends ActionBarActivity implements View.OnClickLi
         timer = (TimePicker) findViewById(R.id.timePicker);
         datePicker = (DatePicker) findViewById(R.id.datePicker);
         pin = (EditText) findViewById(R.id.pin);
+
+        helper = SharedPreferencesHelper.getInstance();
+        scheduler = BM_ModelScheduler.getInstance();
 
         sendBtn.setOnClickListener(this);
 
@@ -101,7 +107,10 @@ public class BM_ActivityMain extends ActionBarActivity implements View.OnClickLi
             String time = sendDay + " " + sendMonth + " " + sendYear + " " + sendHr + ":" + sendMin + ":00";
             String value = "message: " + message + " phoneNumber: " + phoneNumber + " Time: " +
                         time + " " + convertDate(time);
-            SentenceNode node = new SentenceNode();
+            helper.setDestNumber(phoneNumber);
+            SentenceNode node = new SentenceNode(message, convertDate(time));
+            scheduler.addSentence(node);
+            scheduler.addSchedule(node);
             Toast.makeText(this, value, Toast.LENGTH_LONG).show();
         }
     }
