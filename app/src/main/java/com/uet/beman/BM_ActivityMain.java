@@ -109,7 +109,7 @@ public class BM_ActivityMain extends ActionBarActivity implements View.OnClickLi
                         time + " " + convertDate(time);
             helper.setDestNumber(phoneNumber);
             SentenceNode node = new SentenceNode(message, convertDate(time));
-            scheduler.addSentence(node);
+//            scheduler.addSentence(node);
             scheduler.addSchedule(node);
             Toast.makeText(this, value, Toast.LENGTH_LONG).show();
         }

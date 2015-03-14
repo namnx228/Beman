@@ -72,20 +72,41 @@ public class BM_ModelScheduler {
 
     public void addSchedule(SentenceNode node) {
         openDb();
-        String[] allColumn = { ScheduleEntry.COLUMN_MESSAGE_ID, ScheduleEntry.COLUMN_ALARM_TIME };
+        String[] allColumn1 = { ScheduleEntry._ID, ScheduleEntry.COLUMN_MESSAGE };
 
-        String selection = ScheduleEntry.COLUMN_MESSAGE_ID + " = " + node.getMessageId();
+        String selection1 = ScheduleEntry.COLUMN_MESSAGE + " = '" + node.getMessage() + "'";
 
-        Cursor cursor = db.query(ScheduleEntry.TABLE_MSG_TIME, allColumn, selection, null, null, null, null);
+        Cursor cursor1 = db.query(ScheduleEntry.TABLE_MESSAGE, allColumn1, selection1, null, null, null, null);
 
-        if(cursor.getCount() == 0) {
+        if(cursor1.getCount() == 0) {
+            ContentValues values = new ContentValues();
+//            values.put(ScheduleEntry.COLUMN_MESSAGE_ID, node.getMessageId());
+            values.put(ScheduleEntry.COLUMN_MESSAGE, node.getMessage());
+
+            long id = db.insert(ScheduleEntry.TABLE_MESSAGE, null, values);
+            node.setMessageId((int)id);
+        } else if(cursor1.getCount() > 0){
+            cursor1.moveToFirst();
+            int id = cursor1.getInt(cursor1.getColumnIndex(ScheduleEntry._ID));
+            node.setMessageId(id);
+        }
+        cursor1.close();
+
+        String[] allColumn2 = { ScheduleEntry.COLUMN_MESSAGE_ID, ScheduleEntry.COLUMN_ALARM_TIME };
+
+        String selection2 = ScheduleEntry.COLUMN_ALARM_TIME + " = '" + node.getSendTime() + "' AND " +
+                            ScheduleEntry.COLUMN_MESSAGE_ID + " = " + node.getMessageId();
+
+        Cursor cursor2 = db.query(ScheduleEntry.TABLE_MSG_TIME, allColumn2, selection2, null, null, null, null);
+
+        if(cursor2.getCount() == 0) {
             ContentValues values = new ContentValues();
             values.put(ScheduleEntry.COLUMN_MESSAGE_ID, node.getMessageId());
             values.put(ScheduleEntry.COLUMN_ALARM_TIME, node.getSendTime());
 
             db.insert(ScheduleEntry.TABLE_MSG_TIME, null, values);
         }
-        cursor.close();
+        cursor2.close();
         closeDb();
     }
 
