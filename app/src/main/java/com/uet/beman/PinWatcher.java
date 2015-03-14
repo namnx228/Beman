@@ -1,10 +1,8 @@
 package com.uet.beman;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.widget.EditText;
 
 /**
  * Created by nam on 09/03/2015.

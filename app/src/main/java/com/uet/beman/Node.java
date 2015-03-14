@@ -19,6 +19,10 @@ public abstract class Node {
         setParentId(parentId);
     }
 
+    public Node(String message) {
+        setMessage(message);
+    }
+
 //    public int getId() { return id; }
 //
 //    public void setId(int id) { this.id = id; }

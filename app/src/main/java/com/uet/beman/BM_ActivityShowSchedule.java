@@ -6,19 +6,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class BM_WrongPass extends ActionBarActivity {
+public class BM_ActivityShowSchedule extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bm__wrong_pass);
+        setContentView(R.layout.activity_bm_activity_show_schedule);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_bm__wrong_pass, menu);
+        getMenuInflater().inflate(R.menu.menu_bm_activity_show_schedule, menu);
         return true;
     }
 

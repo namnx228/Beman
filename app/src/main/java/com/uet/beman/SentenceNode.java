@@ -10,10 +10,10 @@ public class SentenceNode extends Node{
     public SentenceNode() {
     }
 
-    public SentenceNode(int id, String message, int parentId, String sendTime, String sendTimeEpoch) {
-        super(id, message, parentId);
+    public SentenceNode(String message, String sendTime) {
+        super(message);
         setSendTime(sendTime);
-        setSendTimeEpoch(sendTimeEpoch);
+        // setSendTimeEpoch(sendTimeEpoch);
     }
 
     public String getSendTime() { return sendTime; }

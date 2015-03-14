@@ -9,13 +9,12 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class ScheduleDbHelper extends SQLiteOpenHelper{
     public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "Schedule.db";
+    public static final String DATABASE_NAME = "Scheduler.db";
 
     private static ScheduleDbHelper instance = null;
 
     public static ScheduleDbHelper getInstance() {
-//        Context context;
-//        if (instance == null) instance = new ScheduleDbHelper(context);
+        if (instance == null) instance = new ScheduleDbHelper(BM_Application.getInstance());
         return instance;
     }
 

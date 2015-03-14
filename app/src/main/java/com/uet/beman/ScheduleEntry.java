@@ -5,10 +5,11 @@ import android.provider.BaseColumns;
 /**
  * Created by thanhpd on 3/11/2015.
  */
-public class ScheduleEntry implements BaseColumns{
+public abstract class ScheduleEntry implements BaseColumns{
     public static final String TEXT_TYPE = " TEXT";
     public static final String DATE_TIME_TYPE = " INT";
     public static final String COMMA_SEP = ",";
+    public static final String DOT_SEP = ".";
 
     public static final String COLUMN_MESSAGE_ID = "messageId";
     public static final String COLUMN_MESSAGE = "msg";
@@ -36,5 +37,11 @@ public class ScheduleEntry implements BaseColumns{
                                                             TABLE_MSG_TIME + "(" + COLUMN_MESSAGE_ID + ")" +
                                                             " )";
 
+    public static final String SQL_JOIN_TABLES_BY_ID = "SELECT " + TABLE_MESSAGE + DOT_SEP + COLUMN_MESSAGE_ID +
+                                                        COMMA_SEP + TABLE_MESSAGE + DOT_SEP + COLUMN_MESSAGE +
+                                                        COMMA_SEP + TABLE_MSG_TIME + DOT_SEP + COLUMN_ALARM_TIME +
+                                                        " FROM " + TABLE_MESSAGE + " JOIN " + TABLE_MSG_TIME + " ON " +
+                                                        TABLE_MESSAGE + DOT_SEP + COLUMN_MESSAGE_ID + " = " +
+                                                        TABLE_MSG_TIME + DOT_SEP + COLUMN_MESSAGE_ID;
 
 }
