@@ -33,7 +33,7 @@ public class BM_ActivityMain extends ActionBarActivity implements View.OnClickLi
 
     Button sendBtn;
     RadioGroup txtMessage;
-    Button txtPhoneNo, scheduleBtn;
+    Button txtPhoneNo, scheduleBtn, showBtn;
     EditText pin;
     TimePicker timer;
     DatePicker datePicker;
@@ -51,6 +51,7 @@ public class BM_ActivityMain extends ActionBarActivity implements View.OnClickLi
         txtMessage = (RadioGroup) findViewById(R.id.message);
         txtPhoneNo = (Button) findViewById(R.id.number);
         scheduleBtn = (Button) findViewById(R.id.saveBtn);
+        showBtn = (Button) findViewById(R.id.showBtn);
         timer = (TimePicker) findViewById(R.id.timePicker);
         datePicker = (DatePicker) findViewById(R.id.datePicker);
         pin = (EditText) findViewById(R.id.pin);
@@ -63,6 +64,8 @@ public class BM_ActivityMain extends ActionBarActivity implements View.OnClickLi
         txtPhoneNo.setOnClickListener(this);
 
         scheduleBtn.setOnClickListener(this);
+
+        showBtn.setOnClickListener(this);
 
         PinWatcher pinWatcher = new PinWatcher();
 
@@ -112,6 +115,9 @@ public class BM_ActivityMain extends ActionBarActivity implements View.OnClickLi
 //            scheduler.addSentence(node);
             scheduler.addSchedule(node);
             Toast.makeText(this, value, Toast.LENGTH_LONG).show();
+        } else if (arg0 == showBtn) {
+            Intent intent = new Intent(this, BM_ActivityShowSchedule.class);
+            startActivity(intent);
         }
     }
 

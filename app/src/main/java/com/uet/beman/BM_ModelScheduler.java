@@ -44,7 +44,7 @@ public class BM_ModelScheduler {
 
     private Node cursorToSchedule(Cursor cursor) {
         SentenceNode node = new SentenceNode();
-        node.setMessageId(cursor.getInt(cursor.getColumnIndex(ScheduleEntry.COLUMN_MESSAGE_ID)));
+//        node.setMessageId(cursor.getInt(cursor.getColumnIndex(ScheduleEntry.COLUMN_MESSAGE_ID)));
         node.setMessage(cursor.getString(cursor.getColumnIndex(ScheduleEntry.COLUMN_MESSAGE)));
 //        node.setParentId(cursor.getInt(cursor.getColumnIndex(ScheduleEntry)));
         node.setSendTime(cursor.getString(cursor.getColumnIndex(ScheduleEntry.COLUMN_ALARM_TIME)));
@@ -142,6 +142,30 @@ public class BM_ModelScheduler {
         String getDate = "date('" + ScheduleEntry.TABLE_MSG_TIME + ScheduleEntry.DOT_SEP +
                          ScheduleEntry.COLUMN_ALARM_TIME + "')";
         String selection = ScheduleEntry.SQL_JOIN_TABLES_BY_ID + " WHERE " + getDate + " = " + date;
+
+        Cursor cursor = db.rawQuery(selection, null);
+        if(cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()) {
+                SentenceNode tmp = (SentenceNode) cursorToSchedule(cursor);
+                result.add(tmp);
+                cursor.moveToNext();
+            }
+        }
+        cursor.close();
+        closeDb();
+        return result;
+    }
+
+    public List<SentenceNode> getAllNodes() {
+        openDb();
+        List<SentenceNode> result = new ArrayList<>();
+//        String[] tableMessageColumn = { ScheduleEntry.COLUMN_MESSAGE_ID, ScheduleEntry.COLUMN_MESSAGE };
+//        String[] tableScheduleColumn = { ScheduleEntry.COLUMN_MESSAGE_ID, ScheduleEntry.COLUMN_ALARM_TIME };
+
+        String getDate = "date('" + ScheduleEntry.TABLE_MSG_TIME + ScheduleEntry.DOT_SEP +
+                ScheduleEntry.COLUMN_ALARM_TIME + "')";
+        String selection = ScheduleEntry.SQL_JOIN_TABLES_BY_ID + " GROUP BY Message.cid ORDER BY Schedule.alarmTime";
 
         Cursor cursor = db.rawQuery(selection, null);
         if(cursor.getCount() > 0) {
