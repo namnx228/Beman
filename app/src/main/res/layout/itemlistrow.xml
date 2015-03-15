@@ -7,7 +7,7 @@
         android:id="@+id/TableRow01"
         android:layout_height="wrap_content">
 
-        <TextView android:textColor="#FFFFFF"
+        <TextView android:textColor="#000000"
             android:id="@+id/id"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -21,7 +21,7 @@
     <TableRow android:layout_height="wrap_content"
         android:layout_width="fill_parent">
 
-        <TextView android:textColor="#FFFFFF"
+        <TextView android:textColor="#000000"
             android:id="@+id/categoryId"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
         <TextView android:layout_height="wrap_content"
             android:layout_width="fill_parent"
             android:layout_weight="1"
-            android:textColor="#FFFFFF"
+            android:textColor="#000000"
             android:gravity="right"
             android:id="@+id/description"
             android:text="description"

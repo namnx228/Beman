@@ -165,7 +165,7 @@ public class BM_ModelScheduler {
 
         String getDate = "date('" + ScheduleEntry.TABLE_MSG_TIME + ScheduleEntry.DOT_SEP +
                 ScheduleEntry.COLUMN_ALARM_TIME + "')";
-        String selection = ScheduleEntry.SQL_JOIN_TABLES_BY_ID + " GROUP BY Message.cid ORDER BY Schedule.alarmTime";
+        String selection = ScheduleEntry.SQL_JOIN_TABLES_BY_ID + " ORDER BY Schedule.alarmTime";
 
         Cursor cursor = db.rawQuery(selection, null);
         if(cursor.getCount() > 0) {

@@ -34,7 +34,7 @@ public abstract class ScheduleEntry implements BaseColumns{
                                                             COLUMN_MESSAGE_ID + TEXT_TYPE + COMMA_SEP +
                                                             COLUMN_ALARM_TIME + TEXT_TYPE + COMMA_SEP +
                                                             "FOREIGN KEY (" + COLUMN_MESSAGE_ID + ") REFERENCES " +
-                                                            TABLE_MSG_TIME + "(" + COLUMN_MESSAGE_ID + ")" +
+                                                            TABLE_MESSAGE + "(" + _ID + ")" +
                                                             " )";
 
     public static final String SQL_JOIN_TABLES_BY_ID = "SELECT " + TABLE_MESSAGE + DOT_SEP + _ID +
