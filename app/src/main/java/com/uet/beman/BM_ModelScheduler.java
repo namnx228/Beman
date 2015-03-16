@@ -180,5 +180,11 @@ public class BM_ModelScheduler {
         closeDb();
         return result;
     }
+
+    public void updateEarliestNode() {
+        openDb();
+        db.execSQL(ScheduleEntry.SQL_DELETE_SENT_SMS);
+        closeDb();
+    }
 }
 

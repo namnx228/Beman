@@ -1,6 +1,7 @@
 package com.uet.beman;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
@@ -10,6 +11,7 @@ import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.telephony.SmsManager;
@@ -39,6 +41,8 @@ public class BM_ActivityMain extends ActionBarActivity implements View.OnClickLi
     DatePicker datePicker;
     SharedPreferencesHelper helper;
     BM_ModelScheduler scheduler;
+    AlarmManager alarmManager;
+
 
     public static final int PICK_CONTACT = 1;
 
@@ -58,6 +62,7 @@ public class BM_ActivityMain extends ActionBarActivity implements View.OnClickLi
 
         helper = SharedPreferencesHelper.getInstance();
         scheduler = BM_ModelScheduler.getInstance();
+        alarmManager = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
 
         sendBtn.setOnClickListener(this);
 
@@ -85,8 +90,6 @@ public class BM_ActivityMain extends ActionBarActivity implements View.OnClickLi
             RadioButton tmp = (RadioButton) findViewById(selectedId);
             String message = tmp.getText().toString();
             String phoneNumber = txtPhoneNo.getText().toString();
-            int sendHr = timer.getCurrentHour();
-            int sendMin = timer.getCurrentMinute();
             if(phoneNumber.length() > 0 && message.length() >0) {
                 sendSMS(phoneNumber, message);
             } else {
@@ -114,7 +117,16 @@ public class BM_ActivityMain extends ActionBarActivity implements View.OnClickLi
             SentenceNode node = new SentenceNode(message, convertDate(time));
 //            scheduler.addSentence(node);
             scheduler.addSchedule(node);
-            Toast.makeText(this, value, Toast.LENGTH_LONG).show();
+
+            BM_NodeListHandler handler = new BM_NodeListHandler();
+            Intent intent = new Intent(this, BM_BroadcastReceiver.class);
+            intent.putExtra("phoneNo", phoneNumber);
+            intent.putExtra("message", message);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
+            long tmp1 = handler.getRemainingTime();
+            alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + tmp1, pendingIntent);
+
+            //Toast.makeText(this, String.valueOf(tmp1), Toast.LENGTH_LONG).show();
         } else if (arg0 == showBtn) {
             Intent intent = new Intent(this, BM_ActivityShowSchedule.class);
             startActivity(intent);
@@ -157,7 +169,7 @@ public class BM_ActivityMain extends ActionBarActivity implements View.OnClickLi
                         }
 //                        String number = c.getString(c.getColumnIndex(ContactsContract.Data.DATA1));
                         // TODO Whatever you want to do with the selected contact name.
-                        txtPhoneNo.setText(name + " " + no);
+                        txtPhoneNo.setText(no);
                         phoneCursor.close();
                     }
                     c.close();
@@ -177,7 +189,6 @@ public class BM_ActivityMain extends ActionBarActivity implements View.OnClickLi
 
         PendingIntent deliveredPI = PendingIntent.getBroadcast(this, 0,
                 new Intent(DELIVERED), 0);
-
         //---when the SMS has been sent---
         registerReceiver(new BroadcastReceiver(){
             @Override

@@ -22,6 +22,4 @@ public class BM_ActivityShowSchedule extends Activity {
         adapter = new SentenceNodeListAdapter(this, R.layout.itemlistrow, nodeList);
         listView.setAdapter(adapter);
     }
-
-
 }

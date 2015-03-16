@@ -30,29 +30,29 @@
                 android:text="chooseMesage">
 
                 <RadioButton
-                    android:id="@+id/radioTQG"
+                    android:id="@+id/radio1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ToQGer"
+                    android:text="Ngủ ngon nhé S2"
                     android:checked="true" />
 
                 <RadioButton
-                    android:id="@+id/radioNNG"
+                    android:id="@+id/radio2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ninninger" />
+                    android:text="Dậy đi, sáng rồi :3" />
 
                 <RadioButton
-                    android:id="@+id/radioSKG"
+                    android:id="@+id/radio3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Shinkenger" />
+                    android:text="Lalalala" />
 
                 <RadioButton
-                    android:id="@+id/radioGKG"
+                    android:id="@+id/radio4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Gokaiger" />
+                    android:text="Về đến nhà chưa?" />
 
             </RadioGroup>
 

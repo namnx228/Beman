@@ -44,4 +44,8 @@ public abstract class ScheduleEntry implements BaseColumns{
                                                         TABLE_MESSAGE + DOT_SEP + _ID + " = " +
                                                         TABLE_MSG_TIME + DOT_SEP + COLUMN_MESSAGE_ID;
 
+    public static final String SQL_DELETE_SENT_SMS = "DELETE FROM " + TABLE_MSG_TIME + " WHERE " +
+                                                     COLUMN_ALARM_TIME + " = (SELECT MIN(" + COLUMN_ALARM_TIME +
+                                                     ") FROM " + TABLE_MSG_TIME +")";
+
 }

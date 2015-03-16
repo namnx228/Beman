@@ -67,6 +67,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.uet.beman.BM_ActivityMain" />
         </activity>
+        
+        <receiver android:name=".BM_BroadcastReceiver"
+                  android:exported="false">
+            <intent-filter>
+                <action android:name="com.uet.beman.SMS_SENT" />
+                <action android:name="com.uet.beman.SMS_DELIVERED" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>
