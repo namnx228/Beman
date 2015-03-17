@@ -1,4 +1,4 @@
-package com.uet.beman.schedule;
+package com.uet.beman.object;
 
 /**
  * Created by thanhpd on 3/12/2015.

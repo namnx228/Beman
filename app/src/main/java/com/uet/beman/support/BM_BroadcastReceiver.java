@@ -1,4 +1,4 @@
-package com.uet.beman;
+package com.uet.beman.support;
 
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;

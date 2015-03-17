@@ -1,8 +1,11 @@
-package com.uet.beman.schedule;
+package com.uet.beman.database;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.uet.beman.object.Node;
+import com.uet.beman.object.SentenceNode;
 
 import java.util.ArrayList;
 import java.util.List;

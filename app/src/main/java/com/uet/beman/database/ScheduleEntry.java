@@ -1,4 +1,4 @@
-package com.uet.beman.schedule;
+package com.uet.beman.database;
 
 import android.provider.BaseColumns;
 

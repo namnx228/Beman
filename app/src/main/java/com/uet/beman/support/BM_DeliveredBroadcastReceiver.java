@@ -1,4 +1,4 @@
-package com.uet.beman;
+package com.uet.beman.support;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;

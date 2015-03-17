@@ -1,7 +1,7 @@
-package com.uet.beman;
+package com.uet.beman.support;
 
-import com.uet.beman.schedule.BM_ModelScheduler;
-import com.uet.beman.schedule.SentenceNode;
+import com.uet.beman.database.BM_ModelScheduler;
+import com.uet.beman.object.SentenceNode;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

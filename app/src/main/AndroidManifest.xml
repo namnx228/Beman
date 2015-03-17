@@ -22,7 +22,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".gui.BM_ActivityMain"
+            android:name=".activity.BM_ActivityMain"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,12 +31,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".gui.BM_BeMenMode"
+            android:name=".activity.BM_BeMenMode"
             android:label="@string/title_activity_bm__be_men_mode"
-            android:parentActivityName=".gui.BM_ActivityMain" >
+            android:parentActivityName=".activity.BM_ActivityMain" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".gui.BM_ActivityMain" />
+                android:value=".activity.BM_ActivityMain" />
         </activity>
 
         <meta-data
@@ -44,31 +44,31 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".gui.BM_GirlMode"
+            android:name=".activity.BM_GirlMode"
             android:label="@string/title_activity_bm__girl_mode"
-            android:parentActivityName=".gui.BM_ActivityMain" >
+            android:parentActivityName=".activity.BM_ActivityMain" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".gui.BM_ActivityMain" />
+                android:value=".activity.BM_ActivityMain" />
         </activity>
         <activity
-            android:name=".BM_WrongPass"
+            android:name=".support.BM_WrongPass"
             android:label="@string/title_activity_bm__wrong_pass"
-            android:parentActivityName=".gui.BM_ActivityMain" >
+            android:parentActivityName=".activity.BM_ActivityMain" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".gui.BM_ActivityMain" />
+                android:value=".activity.BM_ActivityMain" />
         </activity>
         <activity
-            android:name=".gui.BM_ActivityShowSchedule"
+            android:name=".activity.BM_ActivityShowSchedule"
             android:label="@string/title_activity_bm__activity_show_schedule"
-            android:parentActivityName=".gui.BM_ActivityMain" >
+            android:parentActivityName=".activity.BM_ActivityMain" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".gui.BM_ActivityMain" />
+                android:value=".activity.BM_ActivityMain" />
         </activity>
         
-        <receiver android:name=".BM_BroadcastReceiver"
+        <receiver android:name=".support.BM_BroadcastReceiver"
                   android:exported="false">
             <intent-filter>
                 <action android:name="com.uet.beman.SMS_SENT" />

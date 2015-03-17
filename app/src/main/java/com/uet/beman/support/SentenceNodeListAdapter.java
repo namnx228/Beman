@@ -1,4 +1,4 @@
-package com.uet.beman.schedule;
+package com.uet.beman.support;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.uet.beman.R;
+import com.uet.beman.object.SentenceNode;
 
 import java.util.List;
 

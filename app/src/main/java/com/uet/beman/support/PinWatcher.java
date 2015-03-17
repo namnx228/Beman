@@ -1,10 +1,10 @@
-package com.uet.beman;
+package com.uet.beman.support;
 
 import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 
-import com.uet.beman.gui.BM_ActivityMain;
+import com.uet.beman.activity.BM_ActivityMain;
 
 /**
  * Created by nam on 09/03/2015.

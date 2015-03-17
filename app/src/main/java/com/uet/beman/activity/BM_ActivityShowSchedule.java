@@ -1,13 +1,13 @@
-package com.uet.beman.gui;
+package com.uet.beman.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ListView;
 
 import com.uet.beman.R;
-import com.uet.beman.schedule.BM_ModelScheduler;
-import com.uet.beman.schedule.SentenceNode;
-import com.uet.beman.schedule.SentenceNodeListAdapter;
+import com.uet.beman.database.BM_ModelScheduler;
+import com.uet.beman.object.SentenceNode;
+import com.uet.beman.support.SentenceNodeListAdapter;
 
 import java.util.List;
 

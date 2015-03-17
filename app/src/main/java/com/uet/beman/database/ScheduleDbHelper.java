@@ -1,4 +1,4 @@
-package com.uet.beman.schedule;
+package com.uet.beman.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
