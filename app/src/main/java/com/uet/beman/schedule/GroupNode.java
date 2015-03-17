@@ -1,4 +1,4 @@
-package com.uet.beman;
+package com.uet.beman.schedule;
 
 import java.util.ArrayList;
 import java.util.List;

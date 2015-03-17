@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 
+import com.uet.beman.gui.BM_ActivityMain;
+
 /**
  * Created by nam on 09/03/2015.
  */

@@ -1,4 +1,4 @@
-package com.uet.beman;
+package com.uet.beman.common;
 
 import android.content.Context;
 import android.content.SharedPreferences;

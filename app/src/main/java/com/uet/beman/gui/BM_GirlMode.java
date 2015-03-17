@@ -1,9 +1,11 @@
-package com.uet.beman;
+package com.uet.beman.gui;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.uet.beman.R;
 
 
 public class BM_GirlMode extends ActionBarActivity {

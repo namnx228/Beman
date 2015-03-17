@@ -1,8 +1,10 @@
-package com.uet.beman;
+package com.uet.beman.schedule;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.uet.beman.common.BM_Application;
 
 /**
  * Created by thanhpd on 3/11/2015.

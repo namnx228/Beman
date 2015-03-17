@@ -152,7 +152,7 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:layout_gravity="center_horizontal"
-                android:text="Save SMS"/>
+                android:text="Send SMS"/>
 
             </LinearLayout>
     </ScrollView>

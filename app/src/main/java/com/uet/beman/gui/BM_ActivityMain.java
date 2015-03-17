@@ -1,4 +1,4 @@
-package com.uet.beman;
+package com.uet.beman.gui;
 
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -25,6 +25,15 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.uet.beman.BM_BroadcastReceiver;
+import com.uet.beman.BM_NodeListHandler;
+import com.uet.beman.BM_WrongPass;
+import com.uet.beman.PinWatcher;
+import com.uet.beman.R;
+import com.uet.beman.common.SharedPreferencesHelper;
+import com.uet.beman.schedule.BM_ModelScheduler;
+import com.uet.beman.schedule.SentenceNode;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
