@@ -23,6 +23,10 @@ public class BM_NodeListHandler {
         nodeList = model.getAllNodes();
     }
 
+    public List<SentenceNode> getNodeList() {
+        return nodeList;
+    }
+
     public long getEarliestTimeInEpoch() {
         SentenceNode earliestNode = nodeList.get(0);
         nodeList.remove(0);

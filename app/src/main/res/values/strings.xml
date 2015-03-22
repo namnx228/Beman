@@ -9,7 +9,14 @@
     <string name="title_activity_bm__wrong_pass">BM_WrongPass</string>
     <string name="max_length_of_pin">4</string>
     <string name="title_activity_bm__activity_show_schedule">BM_ActivityShowSchedule</string>
+    <string name="title_activity_activity_message_list">ActivityMessageList</string>
 
+    <string name="action_add_items">"Add item"</string>
 
+    <string name="time_morning">Morning</string>
+    <string name="time_noon">Noon</string>
+    <string name="time_afternoon">Afternoon</string>
+    <string name="time_evening">Evening</string>
+    <string name="time_night">Night</string>
 
 </resources>

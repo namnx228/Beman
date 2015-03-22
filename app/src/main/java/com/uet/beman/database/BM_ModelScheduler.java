@@ -52,6 +52,7 @@ public class BM_ModelScheduler {
 //        node.setParentId(cursor.getInt(cursor.getColumnIndex(ScheduleEntry)));
         node.setSendTime(cursor.getString(cursor.getColumnIndex(ScheduleEntry.COLUMN_ALARM_TIME)));
 //        node.setSendTimeEpoch(cursor.getString(cursor.getColumnIndex(ScheduleEntry.COLUMN_ALARM_TIME)));
+        node.setId(cursor.getString(cursor.getColumnIndex(ScheduleEntry._ID)));
         return node;
     }
 
@@ -87,11 +88,11 @@ public class BM_ModelScheduler {
             values.put(ScheduleEntry.COLUMN_MESSAGE, node.getMessage());
 
             long id = db.insert(ScheduleEntry.TABLE_MESSAGE, null, values);
-            node.setMessageId((int)id);
+            node.setMessageId(String.valueOf(id));
         } else if(cursor1.getCount() > 0){
             cursor1.moveToFirst();
             int id = cursor1.getInt(cursor1.getColumnIndex(ScheduleEntry._ID));
-            node.setMessageId(id);
+            node.setMessageId(String.valueOf(id));
         }
         cursor1.close();
 

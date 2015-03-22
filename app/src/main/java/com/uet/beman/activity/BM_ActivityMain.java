@@ -11,7 +11,6 @@ import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.telephony.SmsManager;
@@ -30,8 +29,6 @@ import com.uet.beman.R;
 import com.uet.beman.common.SharedPreferencesHelper;
 import com.uet.beman.database.BM_ModelScheduler;
 import com.uet.beman.object.SentenceNode;
-import com.uet.beman.support.BM_BroadcastReceiver;
-import com.uet.beman.support.BM_NodeListHandler;
 import com.uet.beman.support.BM_WrongPass;
 import com.uet.beman.support.PinWatcher;
 
@@ -127,13 +124,13 @@ public class BM_ActivityMain extends ActionBarActivity implements View.OnClickLi
 //            scheduler.addSentence(node);
             scheduler.addSchedule(node);
 
-            BM_NodeListHandler handler = new BM_NodeListHandler();
-            Intent intent = new Intent(this, BM_BroadcastReceiver.class);
-            intent.putExtra("phoneNo", phoneNumber);
-            intent.putExtra("message", message);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
-            long tmp1 = handler.getRemainingTime();
-            alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + tmp1, pendingIntent);
+//            BM_NodeListHandler handler = new BM_NodeListHandler();
+//            Intent intent = new Intent(this, BM_BroadcastReceiver.class);
+//            intent.putExtra("phoneNo", phoneNumber);
+//            intent.putExtra("message", message);
+//            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
+//            long tmp1 = handler.getRemainingTime();
+//            alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + tmp1, pendingIntent);
 
             //Toast.makeText(this, String.valueOf(tmp1), Toast.LENGTH_LONG).show();
         } else if (arg0 == showBtn) {
@@ -266,7 +263,8 @@ public class BM_ActivityMain extends ActionBarActivity implements View.OnClickLi
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent intent = new Intent(this, BM_ActivityMessageList.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);

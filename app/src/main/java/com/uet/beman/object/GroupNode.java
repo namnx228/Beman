@@ -13,12 +13,12 @@ public class GroupNode extends Node {
     public GroupNode() {
     }
 
-    public GroupNode(int id, String message, int parentId, List<Node> childNode) {
+    public GroupNode(String id, String message, String parentId, List<Node> childNode) {
         super(id, message, parentId);
         setChildNodeList(childNode);
     }
 
-    public GroupNode(int id) { super(id, null, 0); }
+    public GroupNode(String id) { super(id, null, "0"); }
 
     public List<Node> getChildNodeList() { return childNode; }
 

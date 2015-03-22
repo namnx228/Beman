@@ -4,15 +4,15 @@ package com.uet.beman.object;
  * Created by thanhpd on 3/12/2015.
  */
 public abstract class Node {
-    private int id;
+    private String id;
     private String message;
-    private int messageId;
-    private int parentId;
+    private String messageId;
+    private String parentId;
 
     public Node() {
     }
 
-    public Node(int messageId, String message, int parentId) {
+    public Node(String messageId, String message, String parentId) {
 //        setId(id);
         setMessageId(messageId);
         setMessage(message);
@@ -23,21 +23,21 @@ public abstract class Node {
         setMessage(message);
     }
 
-//    public int getId() { return id; }
-//
-//    public void setId(int id) { this.id = id; }
+    public String getId() { return id; }
 
-    public int getParentId() { return parentId; }
+    public void setId(String id) { this.id = id; }
 
-    public void setParentId(int id) { parentId = id; }
+    public String getParentId() { return parentId; }
+
+    public void setParentId(String id) { parentId = id; }
 
     public String getMessage() { return message; }
 
     public void setMessage(String message) { this.message = message; }
 
-    public int getMessageId() { return messageId; }
+    public String getMessageId() { return messageId; }
 
-    public void setMessageId(int messageId) { this.messageId = messageId; }
+    public void setMessageId(String messageId) { this.messageId = messageId; }
 
     public abstract boolean isSentenceNode();
 
