@@ -26,11 +26,14 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.uet.beman.R;
+import com.uet.beman.common.BM_ActivitySetting;
 import com.uet.beman.common.SharedPreferencesHelper;
 import com.uet.beman.database.BM_ModelScheduler;
+import com.uet.beman.login.BM_BeMenMode;
+import com.uet.beman.login.BM_GirlMode;
 import com.uet.beman.object.SentenceNode;
-import com.uet.beman.support.BM_WrongPass;
-import com.uet.beman.support.PinWatcher;
+import com.uet.beman.login.BM_WrongPass;
+import com.uet.beman.login.PinWatcher;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -77,16 +80,6 @@ public class BM_ActivityMain extends ActionBarActivity implements View.OnClickLi
         scheduleBtn.setOnClickListener(this);
 
         showBtn.setOnClickListener(this);
-
-        PinWatcher pinWatcher = new PinWatcher();
-
-        pinWatcher.setSize(4);
-
-        pinWatcher.setActivity(this);
-        pinWatcher.setBeMenMode(new Intent(this,BM_BeMenMode.class));
-        pinWatcher.setGirlMode(new Intent(this,BM_GirlMode.class));
-        pinWatcher.setWrongPass(new Intent(this,BM_WrongPass.class));
-        pin.addTextChangedListener(pinWatcher);
     }
 
     @Override
@@ -260,11 +253,17 @@ public class BM_ActivityMain extends ActionBarActivity implements View.OnClickLi
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        Intent intent = null;
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, BM_ActivityMessageList.class);
-            startActivity(intent);
+        switch (id) {
+            case R.id.activity_message_list:
+                intent = new Intent(this, BM_ActivityMessageList.class);
+                startActivity(intent);
+                break;
+            case R.id.action_settings:
+                intent = new Intent(this, BM_ActivitySetting.class);
+                startActivity(intent);
+                break;
         }
 
         return super.onOptionsItemSelected(item);

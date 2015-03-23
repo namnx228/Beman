@@ -18,5 +18,9 @@
     <string name="time_afternoon">Afternoon</string>
     <string name="time_evening">Evening</string>
     <string name="time_night">Night</string>
+    <string name="title_activity_bm__activity_setting">BM_ActivitySetting</string>
+    <string name="checkbox_login">Enable login</string>
+    <string name="title_activity_advertisment">Advertisment</string>
+    <string name="title_activity_bm__activity_login">BM_ActivityLogin</string>
 
 </resources>

@@ -20,6 +20,18 @@ public class SharedPreferencesHelper {
         }
         return instance;
     }
+    public boolean getCheckLogin()
+    {
+        SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
+        return  sharedPreferences.getBoolean("CHECK_LOGIN",false);
+    }
+
+    public void setCheckLogin(boolean checkLogin){
+        SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor user = sharedPreferences.edit();
+        user.putBoolean("CHECK_LOGIN", checkLogin);
+        user.apply();
+    }
 
     public String getUserRealPW(){
         SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
