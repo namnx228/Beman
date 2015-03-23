@@ -1,32 +1,37 @@
 package com.uet.beman.activity;
 
-import android.os.Message;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.uet.beman.R;
-import com.uet.beman.object.MessageCard;
+import com.uet.beman.object.ScheduleCard;
 
-public class BM_ActivityMessageList extends ActionBarActivity {
+import it.gmariotti.cardslib.library.view.CardView;
+
+public class BM_ActivityScheduleList extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bm_activity_message_list);
+        setContentView(R.layout.activity_message_list);
 
-        MessageCard morningCard = new MessageCard(this);
-        morningCard.init();
+        ScheduleCard card = new ScheduleCard(this);
+        card.init();
+        card.updateItems();
 
-
+        //Set card in the cardView
+        CardView cardView = (CardView) this.findViewById(R.id.carddemo_weathercard);
+        cardView.setCard(card);
     }
+
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_bm_activity_message_list, menu);
+        getMenuInflater().inflate(R.menu.menu_activity_message_list, menu);
         return true;
     }
 

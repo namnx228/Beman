@@ -26,6 +26,11 @@ public class BM_ModelScheduler {
 
     public BM_ModelScheduler() {
         mDbHelper = ScheduleDbHelper.getInstance();
+//        try {
+//            mDbHelper.createDB();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     private void openDb() {
@@ -53,6 +58,8 @@ public class BM_ModelScheduler {
         node.setSendTime(cursor.getString(cursor.getColumnIndex(ScheduleEntry.COLUMN_ALARM_TIME)));
 //        node.setSendTimeEpoch(cursor.getString(cursor.getColumnIndex(ScheduleEntry.COLUMN_ALARM_TIME)));
         node.setId(cursor.getString(cursor.getColumnIndex(ScheduleEntry._ID)));
+        node.setLabel(cursor.getString(cursor.getColumnIndex(ScheduleEntry.COLUMN_LABEL)));
+        node.setLanguage(cursor.getString(cursor.getColumnIndex(ScheduleEntry.COLUMN_LANGUAGE)));
         return node;
     }
 
@@ -164,8 +171,6 @@ public class BM_ModelScheduler {
     public List<SentenceNode> getAllNodes() {
         openDb();
         List<SentenceNode> result = new ArrayList<>();
-//        String[] tableMessageColumn = { ScheduleEntry.COLUMN_MESSAGE_ID, ScheduleEntry.COLUMN_MESSAGE };
-//        String[] tableScheduleColumn = { ScheduleEntry.COLUMN_MESSAGE_ID, ScheduleEntry.COLUMN_ALARM_TIME };
 
         String getDate = "date('" + ScheduleEntry.TABLE_MSG_TIME + ScheduleEntry.DOT_SEP +
                 ScheduleEntry.COLUMN_ALARM_TIME + "')";
@@ -190,5 +195,26 @@ public class BM_ModelScheduler {
         db.execSQL(ScheduleEntry.SQL_DELETE_SENT_SMS);
         closeDb();
     }
+
+    public List<SentenceNode> getMessages(String label) {
+        openDb();
+        List<SentenceNode> result = new ArrayList<>();
+
+        String selection = "SELECT * FROM " + ScheduleEntry.TABLE_MESSAGE + " WHERE " + ScheduleEntry.COLUMN_LABEL + " = " + label;
+
+        Cursor cursor = db.rawQuery(selection, null);
+        if(cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()) {
+                SentenceNode tmp = (SentenceNode) cursorToSchedule(cursor);
+                result.add(tmp);
+                cursor.moveToNext();
+            }
+        }
+        cursor.close();
+        closeDb();
+        return result;
+    }
+
 }
 

@@ -14,19 +14,25 @@ public abstract class ScheduleEntry implements BaseColumns{
     public static final String COLUMN_MESSAGE_ID = "messageId";
     public static final String COLUMN_MESSAGE = "msg";
     public static final String COLUMN_ALARM_TIME = "alarmTime";
+    public static final String COLUMN_STATUS = "state";
+    public static final String COLUMN_LABEL = "label";
+    public static final String COLUMN_LANGUAGE = "lang";
 
     public static final String TABLE_MESSAGE = "Message";
     public static final String TABLE_MSG_TIME = "Schedule";
+    public static final String TABLE_SENT_HISTORY = "History";
 
     public static final String _ID = "cid";
 
     public static final String SQL_DELETE_TABLE_MESSAGE = "DROP TABLE IF EXISTS" + TABLE_MESSAGE;
     public static final String SQL_DELETE_TABLE_MSG_TIME = "DROP TABLE IF EXISTS" + TABLE_MSG_TIME;
+    public static final String SQL_DELETE_TABLE_SENT_HISTORY = "DROP TABLE IF EXISTS" + TABLE_SENT_HISTORY;
 
     public static final String SQL_CREATE_TABLE_MESSAGE = "CREATE TABLE " + TABLE_MESSAGE + " (" +
                                                             _ID + " INTEGER PRIMARY KEY," +
-                                                            COLUMN_MESSAGE_ID + TEXT_TYPE + COMMA_SEP +
-                                                            COLUMN_MESSAGE + TEXT_TYPE +
+                                                            COLUMN_MESSAGE + TEXT_TYPE + COMMA_SEP +
+                                                            COLUMN_LANGUAGE + TEXT_TYPE + COMMA_SEP +
+                                                            COLUMN_LABEL + TEXT_TYPE +
                                                             " )";
 
     public static final String SQL_CREATE_TABLE_MSG_TIME = "CREATE TABLE " + TABLE_MSG_TIME + " (" +
@@ -36,6 +42,15 @@ public abstract class ScheduleEntry implements BaseColumns{
                                                             "FOREIGN KEY (" + COLUMN_MESSAGE_ID + ") REFERENCES " +
                                                             TABLE_MESSAGE + "(" + _ID + ")" +
                                                             " )";
+
+    public static final String SQL_CREATE_TABLE_SENT_HISTORY = "CREATE TABLE " + TABLE_SENT_HISTORY + " (" +
+                                                                _ID + " INTEGER PRIMARY KEY," +
+                                                                COLUMN_MESSAGE_ID + TEXT_TYPE + COMMA_SEP +
+                                                                COLUMN_STATUS + TEXT_TYPE + COMMA_SEP +
+                                                                COLUMN_ALARM_TIME + TEXT_TYPE + COMMA_SEP +
+                                                                "FOREIGN KEY (" + COLUMN_MESSAGE_ID + ") REFERENCES " +
+                                                                TABLE_MESSAGE + "(" + _ID + ")" +
+                                                                " )";
 
     public static final String SQL_JOIN_TABLES_BY_ID = "SELECT " + TABLE_MESSAGE + DOT_SEP + _ID +
                                                         COMMA_SEP + TABLE_MESSAGE + DOT_SEP + COLUMN_MESSAGE +

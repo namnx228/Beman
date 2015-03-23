@@ -15,8 +15,14 @@ import java.util.List;
  */
 public class BM_NodeListHandler {
 
-    List<SentenceNode> nodeList;
+    List<SentenceNode> nodeList, messageList;
     BM_ModelScheduler model;
+
+    public static final String VALUE_MORNING = "*morning*";
+    public static final String VALUE_NOON = "*noon*";
+    public static final String VALUE_AFTERNOON = "*afternoon*";
+    public static final String VALUE_EVENING = "*evening*";
+    public static final String VALUE_NIGHT = "*night*";
 
     public BM_NodeListHandler() {
         model = BM_ModelScheduler.getInstance();
@@ -25,6 +31,11 @@ public class BM_NodeListHandler {
 
     public List<SentenceNode> getNodeList() {
         return nodeList;
+    }
+
+    public List<SentenceNode> getMessageList(String label) {
+        messageList = model.getMessages(label);
+        return messageList;
     }
 
     public long getEarliestTimeInEpoch() {

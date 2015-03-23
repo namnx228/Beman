@@ -6,6 +6,8 @@ package com.uet.beman.object;
 public class SentenceNode extends Node{
     private String sendTime;
     private String sendTimeEpoch;
+    private String label;
+    private String language;
 
     public SentenceNode() {
     }
@@ -23,6 +25,14 @@ public class SentenceNode extends Node{
     public String getSendTimeEpoch() { return sendTimeEpoch; }
 
     public void setSendTimeEpoch(String sendTimeEpoch) { this.sendTimeEpoch = sendTimeEpoch; }
+
+    public String getLabel() { return label; }
+
+    public void setLabel(String label) { this.label = label; }
+
+    public String getLanguage() { return language; }
+
+    public void setLanguage(String language) { this.language = language; }
 
     public boolean isSentenceNode() { return true; }
 }

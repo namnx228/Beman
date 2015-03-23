@@ -1,9 +1,5 @@
 package com.uet.beman.object;
 
-/**
- * Created by PhanDuy on 3/23/2015.
- */
-
 import android.content.Context;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,12 +19,15 @@ import it.gmariotti.cardslib.library.internal.base.BaseCard;
 import it.gmariotti.cardslib.library.prototypes.CardWithList;
 import it.gmariotti.cardslib.library.prototypes.LinearListView;
 
-public class MessageCard extends CardWithList {
+/**
+ * Created by PhanDuy on 3/19/2015.
+ */
+public class ScheduleCard extends CardWithList {
 
     BM_NodeListHandler handler = new BM_NodeListHandler();
-    List<MessageObject> objs = new ArrayList<>();
+    List<ScheduleObject> objs = new ArrayList<>();
 
-    public MessageCard(Context context) {
+    public ScheduleCard(Context context) {
         super(context);
     }
 
@@ -38,7 +37,7 @@ public class MessageCard extends CardWithList {
 
         List<SentenceNode> sentenceNodes = handler.getNodeList();
         for(SentenceNode i : sentenceNodes) {
-            MessageObject tmp = new MessageObject(this, i);
+            ScheduleObject tmp = new ScheduleObject(this, i);
             objs.add(tmp);
         }
         getLinearListAdapter().addAll(objs);
@@ -52,12 +51,12 @@ public class MessageCard extends CardWithList {
     @Override
     public View setupChildView(int childPosition, ListObject object, View convertView, ViewGroup parent) {
 
-        TextView language = (TextView) convertView.findViewById(R.id.messagecard_dayName);
-//        TextView dayDate = (TextView) convertView.findViewById(R.id.messagecard_dayDate);
+        TextView dayName = (TextView) convertView.findViewById(R.id.messagecard_dayName);
+        TextView dayDate = (TextView) convertView.findViewById(R.id.messagecard_dayDate);
         TextView content = (TextView) convertView.findViewById(R.id.messagecard_content);
 
-        MessageObject obj = (MessageObject) object;
-        language.setText(obj.sentenceNode.getLanguage());
+        ScheduleObject obj = (ScheduleObject) object;
+        dayDate.setText(obj.sentenceNode.getSendTime());
         content.setText(obj.sentenceNode.getMessage());
 //        WeatherObject weatherObject= (WeatherObject)object;
 //        icon.setImageResource(weatherObject.weatherIcon);
@@ -98,7 +97,7 @@ public class MessageCard extends CardWithList {
 
     @Override
     protected void initCard() {
-//        setSwipeable(true);
+        setSwipeable(true);
         setOnSwipeListener(new Card.OnSwipeListener() {
             @Override
             public void onSwipe(Card card) {
@@ -121,11 +120,11 @@ public class MessageCard extends CardWithList {
         return null;
     }
 
-    public class MessageObject extends CardWithList.DefaultListObject {
+    public class ScheduleObject extends CardWithList.DefaultListObject {
 
         public SentenceNode sentenceNode;
 
-        public MessageObject(Card parentCard, SentenceNode node) {
+        public ScheduleObject(Card parentCard, SentenceNode node) {
             super(parentCard);
             sentenceNode = node;
             init();
@@ -141,4 +140,3 @@ public class MessageCard extends CardWithList {
         }
     }
 }
-
