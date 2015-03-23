@@ -29,11 +29,7 @@ import com.uet.beman.R;
 import com.uet.beman.common.BM_ActivitySetting;
 import com.uet.beman.common.SharedPreferencesHelper;
 import com.uet.beman.database.BM_ModelScheduler;
-import com.uet.beman.login.BM_BeMenMode;
-import com.uet.beman.login.BM_GirlMode;
 import com.uet.beman.object.SentenceNode;
-import com.uet.beman.support.BM_WrongPass;
-import com.uet.beman.support.PinWatcher;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

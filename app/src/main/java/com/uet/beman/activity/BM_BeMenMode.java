@@ -1,4 +1,4 @@
-package com.uet.beman.login;
+package com.uet.beman.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -8,19 +8,19 @@ import android.view.MenuItem;
 import com.uet.beman.R;
 
 
-public class BM_GirlMode extends ActionBarActivity {
+public class BM_BeMenMode extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bm__girl_mode);
+        setContentView(R.layout.activity_bm__be_men_mode);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_bm__girl_mode, menu);
+        getMenuInflater().inflate(R.menu.menu_bm__be_men_mode, menu);
         return true;
     }
 

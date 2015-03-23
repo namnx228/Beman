@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.uet.beman.R;
+import com.uet.beman.support.BM_GPStracker;
 
 public class BM_ActivitySetting extends ActionBarActivity {
 
@@ -123,5 +124,20 @@ public class BM_ActivitySetting extends ActionBarActivity {
                           SharedPreferencesHelper.getInstance().getUserFakePW();
         Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
 
+    }
+    public void testGPS(View view)
+    {
+        if(view.getId() == R.id.test_gps)
+        {
+            BM_GPStracker gps = new BM_GPStracker(this);
+            if (gps.canGetLocation())
+            {
+                Double latitude = gps.getLatitude(),
+                       longtitude = gps.getLongitude();
+                String mes = "your place is: Latutude = " + latitude.toString() + "\n Longtitude = " + longtitude.toString();
+                Toast.makeText(getBaseContext(), mes, Toast.LENGTH_LONG).show();
+
+            }
+        }
     }
 }

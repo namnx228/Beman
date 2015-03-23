@@ -1,7 +1,5 @@
-package com.uet.beman.login;
+package com.uet.beman.activity;
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -9,10 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.uet.beman.R;
-import com.uet.beman.activity.BM_ActivityMain;
 import com.uet.beman.common.SharedPreferencesHelper;
-
-import java.util.Objects;
 
 public class BM_ActivityAdvertisment extends ActionBarActivity {
 

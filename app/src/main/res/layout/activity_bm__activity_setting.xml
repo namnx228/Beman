@@ -75,4 +75,14 @@
         android:layout_weight="0.05"
         android:onClick="setPin"/>
 
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="testGPS"
+        android:id="@+id/test_gps"
+        android:layout_gravity="right"
+        android:onClick="testGPS"
+        android:layout_weight="0.05" />
+
 </LinearLayout>

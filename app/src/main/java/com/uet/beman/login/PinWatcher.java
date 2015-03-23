@@ -1,11 +1,10 @@
 package com.uet.beman.login;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 
-import com.uet.beman.activity.BM_ActivityMain;
+import com.uet.beman.activity.BM_ActivityLogin;
 import com.uet.beman.common.SharedPreferencesHelper;
 
 /**
