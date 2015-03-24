@@ -36,13 +36,13 @@ public class ScheduleDbHelper extends SQLiteOpenHelper{
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    public void createDB(SQLiteDatabase db) throws IOException {
+    public void createDB() throws IOException {
 
         this.getReadableDatabase();
         Log.i("Readable ends","end");
 
         try {
-            copyDB(db);
+            copyDB();
             Log.i("copy db ends","end");
 
         } catch (IOException e) {
@@ -102,7 +102,7 @@ public class ScheduleDbHelper extends SQLiteOpenHelper{
         return checkDB != null ? true : false;
     }
 
-    public void copyDB(SQLiteDatabase db) throws IOException{
+    public void copyDB() throws IOException{
         try {
             Log.i("inside copyDB","start");
 
@@ -125,10 +125,10 @@ public class ScheduleDbHelper extends SQLiteOpenHelper{
         }
     }
 
-    public void openDB(SQLiteDatabase db) throws SQLException {
+    public void openDB() throws SQLException {
 
         String myPath = DB_PATH + DB_NAME;
-        db = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
+        dbObj = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
         Log.i("open DB......", dbObj.toString());
     }
 
@@ -142,8 +142,13 @@ public class ScheduleDbHelper extends SQLiteOpenHelper{
     }
 
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(ScheduleEntry.SQL_CREATE_TABLE_MESSAGE);
-        db.execSQL(ScheduleEntry.SQL_CREATE_TABLE_MSG_TIME);
+        //db.execSQL(ScheduleEntry.SQL_CREATE_TABLE_MESSAGE);
+        try {
+            createDB();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+//        db.execSQL(ScheduleEntry.SQL_CREATE_TABLE_MSG_TIME);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

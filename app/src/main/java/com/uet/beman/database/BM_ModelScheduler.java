@@ -26,14 +26,20 @@ public class BM_ModelScheduler {
 
     public BM_ModelScheduler() {
         mDbHelper = ScheduleDbHelper.getInstance();
-//        try {
-//            mDbHelper.createDB();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            mDbHelper.createDB();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void openDb() {
+        try {
+            mDbHelper.createDB();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         db = mDbHelper.getReadableDatabase();
     }
 
@@ -93,6 +99,8 @@ public class BM_ModelScheduler {
             ContentValues values = new ContentValues();
 //            values.put(ScheduleEntry.COLUMN_MESSAGE_ID, node.getMessageId());
             values.put(ScheduleEntry.COLUMN_MESSAGE, node.getMessage());
+            values.put(ScheduleEntry.COLUMN_LANGUAGE, "VIE");
+            values.put("tag", "*morning*");
 
             long id = db.insert(ScheduleEntry.TABLE_MESSAGE, null, values);
             node.setMessageId(String.valueOf(id));

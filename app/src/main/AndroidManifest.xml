@@ -85,7 +85,7 @@
 
         <activity
             android:name=".activity.BM_ActivityScheduleList"
-            android:label="@string/title_activity_activity_message_list"
+            android:label="@string/title_activity_bm_activity_message_list"
             android:parentActivityName=".activity.BM_ActivityMain" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -93,7 +93,7 @@
         </activity>
         <activity
             android:name=".activity.BM_ActivityMessageList"
-            android:label="@string/title_activity_bm__activity_message_list"
+            android:label="@string/title_activity_bm_activity_message_list"
             android:parentActivityName=".activity.BM_ActivityMain" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
