@@ -23,5 +23,6 @@
     <string name="checkbox_login">Enable login</string>
     <string name="title_activity_advertisment">Advertisment</string>
     <string name="title_activity_bm__activity_login">BM_ActivityLogin</string>
+    <string name="title_activity_bm__activity_manage_wifi">Manage Wifi</string>
 
 </resources>
