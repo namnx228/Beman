@@ -56,6 +56,9 @@ public class BM_ActivityMain extends ActionBarActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bm_activity_main);
 
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.mipmap.ic_launcher);
+
         sendBtn = (Button) findViewById(R.id.sendBtn);
         txtMessage = (RadioGroup) findViewById(R.id.message);
         txtPhoneNo = (Button) findViewById(R.id.number);
