@@ -264,4 +264,9 @@ public class BM_ActivityMain extends ActionBarActivity implements View.OnClickLi
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void manageWifi(View view){
+        Intent intent = new Intent(this, BM_ActivityManageWifi.class);
+        startActivity(intent);
+    }
 }

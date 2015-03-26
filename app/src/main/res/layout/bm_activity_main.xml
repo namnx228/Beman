@@ -154,6 +154,12 @@
                 android:layout_gravity="center_horizontal"
                 android:text="Send SMS"/>
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Manage Wifi Save Points"
+                android:onClick="manageWifi"/>
             </LinearLayout>
     </ScrollView>
 </LinearLayout>
