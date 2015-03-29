@@ -1,33 +1,50 @@
 package com.uet.beman.activity;
 
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
-import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.uet.beman.R;
+import com.uet.beman.common.SharedPreferencesHelper;
+import com.uet.beman.object.ManageWifiDialogFragment;
+import com.uet.beman.util.Constant;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class BM_ActivityManageWifi extends ActionBarActivity {
 
     private Context ctx = this;
+    private ArrayList<String> configuredWifi;
+    private String currentKey = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bm_activity_manage_wifi);
+
+        configuredWifi = getConfiguredWifi();
     }
 
+    private ArrayList<String> getConfiguredWifi() {
+        ArrayList<String> res = new ArrayList<>();
+        WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        if (wifiManager != null) {
+            List<WifiConfiguration> wifiConfig = wifiManager.getConfiguredNetworks();
+            if (wifiConfig != null && !wifiConfig.isEmpty())
+                for (WifiConfiguration wc : wifiConfig)
+                    res.add(wc.SSID);
+        }
+        Collections.sort(res);
+        return res;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -51,72 +68,38 @@ public class BM_ActivityManageWifi extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void getCurrentWifiInfo(View view){
-        ConnectivityManager connectManager = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-
-        String s;
-        if (networkInfo.isConnected()){
-            WifiManager wifiManager = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
-            WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-            if (wifiInfo != null){
-//                s += "Wifi name: " + wifiInfo.getSSID() + "\n";
-//                s += "MAC address: " + wifiInfo.getMacAddress();
-                s = wifiInfo.getSSID() + "\n" + wifiInfo.getMacAddress();
-            }else{
-                s = "No Wifi Information";
-            }
-        }else{
-            s = "No connection";
-        }
-
-//        TextView textView = new TextView(ctx);
-//        textView.setTextSize(20);
-//        textView.setText(s);
-//        setContentView(textView);
-
-        Toast.makeText(ctx, s, Toast.LENGTH_LONG).show();
+    public void manageHomeWifi(View view) {
+        showWifiDialog(Constant.HOME_WIFI_KEY);
     }
 
-    public void getScanWifi(View view){
-//        Toast.makeText(ctx, "Scan Wifi", Toast.LENGTH_LONG).show();
-        ConnectivityManager connectManager = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-
-        String s = "";
-        if (networkInfo.isConnected()){
-            WifiManager wifiManager = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
-            List<ScanResult> scanResultList =  wifiManager.getScanResults();
-            if (scanResultList == null || scanResultList.isEmpty())
-                s = "No Wifi Information";
-            else
-                for (ScanResult sr: scanResultList)
-                    s += sr.SSID + " _ " + sr.BSSID + "\n";
-        }else{
-            s = "No connection";
-        }
-
-        Toast.makeText(ctx, s, Toast.LENGTH_LONG).show();
+    public void manageWorkWifi(View view) {
+        showWifiDialog(Constant.WORK_WIFI_KEY);
     }
 
-    public void getConfiguredWifi(View view){
-//        Toast.makeText(ctx, "Configured Wifi", Toast.LENGTH_LONG).show();
-        ConnectivityManager connectManager = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+    public void manageGirlHouseWifi(View view) {
+        showWifiDialog(Constant.GIRL_HOUSE_WIFI_KEY);
+    }
 
-        String s = "";
-        if (networkInfo.isConnected()){
-            WifiManager wifiManager = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
-            List<WifiConfiguration> wifiConfigurationList =  wifiManager.getConfiguredNetworks();
-            if (wifiConfigurationList == null || wifiConfigurationList.isEmpty())
-                s = "No Wifi Information";
-            else
-                for (WifiConfiguration wc: wifiConfigurationList)
-                    s += wc.SSID + " _ " + wc.BSSID + "\n";
-        }else{
-            s = "No connection";
+    private void showWifiDialog(String key) {
+        currentKey = key;
+        ArrayList<String> savedWifi = getSavedWifi(key);
+
+        ManageWifiDialogFragment frag = ManageWifiDialogFragment.getInstance(configuredWifi, savedWifi);
+        frag.show(getSupportFragmentManager(), "wifi dialog");
+    }
+
+    private ArrayList<String> getSavedWifi(String key) {
+        SharedPreferencesHelper spHelper = SharedPreferencesHelper.getInstance();
+        return spHelper.getWifiList(key);
+    }
+
+    public void saveWifiList(ArrayList<String> wifiList) {
+        if (currentKey != null) {
+            SharedPreferencesHelper spHelper = SharedPreferencesHelper.getInstance();
+            spHelper.setWifiList(currentKey, wifiList);
+            currentKey = null;
+        } else {
+            Toast.makeText(ctx, "Save fail!", Toast.LENGTH_SHORT).show();
         }
-
-        Toast.makeText(ctx, s, Toast.LENGTH_LONG).show();
     }
 }
