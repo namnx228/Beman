@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 
+import com.material.widget.FloatingEditText;
+import com.uet.beman.R;
 import com.uet.beman.activity.BM_ActivityLogin;
 import com.uet.beman.common.SharedPreferencesHelper;
 
@@ -43,11 +45,16 @@ public class PinWatcher implements TextWatcher
     private Intent pinComplete(String pin)
     {
         if ( pin.length() != textsize) return null;
-        if (pin.compareTo(PIN_BEMEN) == 0) return beMenMode;
-        if (pin.compareTo(PIN_GIRL) == 0) return girlMode;
-        return wrongPass;
+        else if (pin.compareTo(PIN_BEMEN) == 0) return beMenMode;
+        else if (pin.compareTo(PIN_GIRL) == 0) return girlMode;
+        else wrongPassAction();
+        return null;
     }
 
+    private void wrongPassAction() {
+        final FloatingEditText editText = (FloatingEditText) activity.findViewById(R.id.pin);
+        editText.setValidateResult(false, "Error validate result");
+    }
 
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {

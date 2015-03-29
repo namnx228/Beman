@@ -28,3 +28,4 @@ build/
 
 # Log Files
 *.log
+idea/

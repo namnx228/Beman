@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">BeMan</string>
 
+    <string name="line_activity_login">Pleasing your girlfriend is as easy as 1+2=3.</string>
+    <string name="logo_activity_login_description">BeMan</string>
+    <string name="hint_activity_login">Enter your pin</string>
+
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_bm__be_men_mode">BM_BeMenMode</string>
@@ -21,7 +25,7 @@
     <string name="time_night">Night</string>
     <string name="title_activity_bm__activity_setting">BM_ActivitySetting</string>
     <string name="checkbox_login">Enable login</string>
-    <string name="title_activity_advertisment">Advertisment</string>
+    <string name="title_activity_advertisment">Advertisement</string>
     <string name="title_activity_bm__activity_login">BM_ActivityLogin</string>
     <string name="title_activity_bm__activity_manage_wifi">Manage Wifi</string>
 
