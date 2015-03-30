@@ -1,26 +1,81 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:text="Home"
+        android:id="@+id/button_manage_home_wifi"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/editText_home_wifi"
+        android:layout_toStartOf="@+id/editText_home_wifi"
         android:onClick="manageHomeWifi" />
 
-    <Button
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Work"
-        android:onClick="manageWorkWifi" />
+        android:id="@+id/editText_home_wifi"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/button_manage_home_wifi"
+        android:layout_alignLeft="@+id/editText_work_wifi"
+        android:layout_alignStart="@+id/editText_work_wifi"
+        android:singleLine="true"
+        android:editable="false"
+        android:textSize="18dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Girl's house"
+        android:text="Work"
+        android:id="@+id/button_manage_work_wifi"
+        android:layout_below="@+id/button_manage_home_wifi"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/editText_work_wifi"
+        android:layout_toStartOf="@+id/editText_work_wifi"
+        android:onClick="manageWorkWifi" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText_work_wifi"
+        android:layout_alignTop="@+id/button_manage_work_wifi"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/button_manage_work_wifi"
+        android:layout_toRightOf="@+id/button_manage_girl_wifi"
+        android:layout_toEndOf="@+id/button_manage_girl_wifi"
+        android:singleLine="true"
+        android:editable="false"
+        android:textSize="18dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Girl&apos;s house"
+        android:id="@+id/button_manage_girl_wifi"
+        android:layout_below="@+id/button_manage_work_wifi"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:onClick="manageGirlHouseWifi" />
-</LinearLayout>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText_girl_wifi"
+        android:layout_alignTop="@+id/button_manage_girl_wifi"
+        android:layout_toRightOf="@+id/button_manage_girl_wifi"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/button_manage_girl_wifi"
+        android:singleLine="true"
+        android:editable="false"
+        android:textSize="18dp" />
+</RelativeLayout>
