@@ -1,15 +1,16 @@
 package com.uet.beman.activity;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.uet.beman.R;
 import com.uet.beman.common.SharedPreferencesHelper;
 
-public class BM_ActivityAdvertisment extends ActionBarActivity {
+public class BM_ActivitySplashScreen extends ActionBarActivity {
 
     private void next()
     {
@@ -29,6 +30,8 @@ public class BM_ActivityAdvertisment extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advertisment);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
         Thread adThread = new Thread() {
             @Override
             public void run()
@@ -36,7 +39,7 @@ public class BM_ActivityAdvertisment extends ActionBarActivity {
                 try
                 {
                     super.run();
-                    sleep(1000);
+                    sleep(1500);
                 }
                 catch (Exception e) {e.printStackTrace();}
                 finally

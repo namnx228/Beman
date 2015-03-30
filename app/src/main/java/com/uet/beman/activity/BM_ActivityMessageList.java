@@ -1,13 +1,14 @@
 package com.uet.beman.activity;
 
-import android.os.Message;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.uet.beman.R;
 import com.uet.beman.object.MessageCard;
+
+import it.gmariotti.cardslib.library.view.CardView;
 
 public class BM_ActivityMessageList extends ActionBarActivity {
 
@@ -16,8 +17,13 @@ public class BM_ActivityMessageList extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bm_activity_message_list);
 
-        MessageCard morningCard = new MessageCard(this);
-        morningCard.init();
+        MessageCard card = new MessageCard(this);
+        card.init();
+        card.updateItems();
+
+//        Set card in the cardView
+        CardView cardView = (CardView) this.findViewById(R.id.carddemo_weathercard);
+        cardView.setCard(card);
 
 
     }

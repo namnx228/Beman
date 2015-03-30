@@ -27,7 +27,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".activity.BM_ActivityAdvertisment"
+            android:name=".activity.BM_ActivitySplashScreen"
             android:label="BeMan" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

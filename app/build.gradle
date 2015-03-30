@@ -29,5 +29,8 @@ dependencies {
     compile 'com.github.gabrielemariotti.cards:cardslib-cards:2.0.1'
     //Option for RecyclerView
     compile 'com.github.gabrielemariotti.cards:cardslib-recyclerview:2.0.1'
+    //Compile MaterialWidget Library
     compile project(':MaterialWidget')
+    //Compile ViewPagerTransform Library
+    compile 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.1.0@aar'
 }
