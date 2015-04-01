@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BeMan.iml" filepath="$PROJECT_DIR$/BeMan.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MaterialWidget/MaterialWidget.iml" filepath="$PROJECT_DIR$/MaterialWidget/MaterialWidget.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

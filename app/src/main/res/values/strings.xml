@@ -3,8 +3,29 @@
 
     <string name="line_activity_login">Pleasing your girlfriend is as easy as 1+2=3.</string>
     <string name="line_activity_slogan">Your clever relationship wingman.</string>
+    <string name="line_fragment_welcome">is your clever relationship wingman.</string>
+    <string name="line_fragment_welcome2">The team has came to rescue busy Bros who usually forget texting their girl by automatically messaging your darling.</string>
+    <string name="line_fragment_welcome3">Swipe to get started</string>
+    <string name="line_fragment_info1">Guide us how to call you</string>
+    <string name="line_fragment_info2">Please guide us how to call you.</string>
+    <string name="line_fragment_info2C"> Your real name, nick name, alias is good choice. Leave the field empty if you still want to be called Bro</string>
+    <string name="line_fragment_number">Hey, who\'s your girlfriend?</string>
+    <string name="line_fragment_infoNumberC">We need your girlfriend\'s number to begin.</string>
+    <string name="line_fragment_number_button">Select the number</string>
+    <string name="line_fragment_info_result1">From now on, we\'ll call you </string>
+    <string name="line_fragment_wifi1">Bro, where abouts?</string>
+    <string name="line_fragment_wifi2">So we don\'t message your girlfriend inappropriately, what are your Work, Home and Girlfriend\'s Home Wifi access points?</string>
+    <string name="line_fragment_info_result2">We will send SMS messages to your girlfriends at </string>
     <string name="logo_activity_login_description">BeMan</string>
     <string name="hint_activity_login">Enter your pin</string>
+    <string name="hint_action_name">Enter your name</string>
+
+    <string name="wifi_work">Work</string>
+    <string name="wifi_home">Home</string>
+    <string name="wifi_girl_home">Girlfriend\'s Wifi</string>
+    <string name="wifi_custom">Custom</string>
+    <string name="wifi_select">Select</string>
+    <string name="wifi_none">None</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -29,5 +50,9 @@
     <string name="title_activity_advertisment">Advertisement</string>
     <string name="title_activity_bm__activity_login">BM_ActivityLogin</string>
     <string name="title_activity_bm__activity_manage_wifi">Manage Wifi</string>
+    <string name="title_activity_bm__activity_simple_setup">BM_ActivitySimpleSetup</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

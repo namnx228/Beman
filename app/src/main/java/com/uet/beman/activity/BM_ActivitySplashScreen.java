@@ -29,7 +29,7 @@ public class BM_ActivitySplashScreen extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_advertisment);
+        setContentView(R.layout.activity_splash_screen);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
         Thread adThread = new Thread() {

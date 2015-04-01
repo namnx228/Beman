@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.uet.beman">
+    package="com.uet.beman" >
 
     <uses-permission android:name="android.permission.SEND_SMS" />
 
@@ -23,9 +23,9 @@
         android:name=".common.BM_Application"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        tools:replace="android:icon"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon" >
         <activity
             android:name=".activity.BM_ActivitySplashScreen"
             android:label="BeMan" >
@@ -122,12 +122,21 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.uet.beman.activity.BM_ActivityMain" />
         </activity>
-        
-        <receiver android:name=".support.BM_WifiConnectionReceiver">
+
+        <receiver android:name=".support.BM_WifiConnectionReceiver" >
             <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name=".activity.BM_ActivitySimpleSetup"
+            android:label="@string/app_name"
+            android:parentActivityName=".activity.BM_ActivityMain" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.uet.beman.activity.BM_ActivityMain" />
+        </activity>
     </application>
 
 </manifest>

@@ -1,0 +1,93 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:widget="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/md_yellow_500"
+    android:layout_gravity="center_vertical|center_horizontal"
+    android:gravity="center_vertical|center_horizontal">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical|center_horizontal">
+
+        <LinearLayout
+            android:id="@+id/layout_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:weightSum="1"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:gravity="center_vertical"
+            android:layout_centerInParent="true"
+            android:paddingLeft="35dp"
+            android:paddingRight="35dp"
+            android:paddingBottom="35dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/abc_text_size_display_1_material"
+                android:text="@string/line_fragment_number"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/abc_text_size_body_2_material" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/line_fragment_infoNumberC"
+                android:textSize="@dimen/abc_text_size_body_2_material" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/abc_text_size_headline_material" />
+
+
+            <com.material.widget.PaperButton
+                android:layout_width="250dp"
+                android:layout_height="70dp"
+                widget:paper_text="@string/line_fragment_number_button"
+                widget:paper_text_color="@color/md_white_1000"
+                widget:paper_color="@color/md_green_600"
+                android:id="@+id/numberBtn"
+                android:layout_gravity="center_horizontal"
+
+                />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="35dp"
+            android:paddingRight="35dp"
+            android:paddingBottom="35dp"
+            android:layout_below="@id/layout_number">
+
+
+
+            <!--<com.material.widget.PaperButton-->
+            <!--android:id="@+id/nameBtn"-->
+            <!--android:layout_width="100dp"-->
+            <!--android:layout_height="54dp"-->
+            <!--widget:paper_text="OK"-->
+            <!--android:layout_toEndOf="@+id/user_name"-->
+            <!--android:layout_toRightOf="@+id/user_name"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_alignParentRight="true"/>-->
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/line_fragment_info_result2"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

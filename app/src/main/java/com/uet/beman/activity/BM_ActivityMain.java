@@ -263,6 +263,10 @@ public class BM_ActivityMain extends ActionBarActivity implements View.OnClickLi
                 intent = new Intent(this, BM_ActivitySetting.class);
                 startActivity(intent);
                 break;
+            case R.id.activity_setup:
+                intent = new Intent(this, BM_ActivitySimpleSetup.class);
+                startActivity(intent);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
