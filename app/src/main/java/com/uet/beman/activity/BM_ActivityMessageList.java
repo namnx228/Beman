@@ -15,7 +15,7 @@ public class BM_ActivityMessageList extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bm_activity_message_list);
+        setContentView(R.layout.activity_message_list);
 
         MessageCard card = new MessageCard(this);
         card.init();
