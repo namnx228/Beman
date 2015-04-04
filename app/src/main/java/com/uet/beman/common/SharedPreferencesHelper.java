@@ -65,13 +65,37 @@ public class SharedPreferencesHelper {
     public void setDestNumber(String destNumber) {
         SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
         SharedPreferences.Editor user = sharedPreferences.edit();
-        user.putString("PIN_REAL", destNumber);
+        user.putString("DEST_NUMBER", destNumber);
         user.apply();
     }
 
     public String getDestNumber() {
         SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
         return sharedPreferences.getString("DEST_NUMBER", "");
+    }
+
+    public void setDestName(String destName) {
+        SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor user = sharedPreferences.edit();
+        user.putString("DEST_NAME", destName);
+        user.apply();
+    }
+
+    public String getDestName() {
+        SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
+        return sharedPreferences.getString("DEST_NAME", "");
+    }
+
+    public void setUserName(String name) {
+        SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor user = sharedPreferences.edit();
+        user.putString("USER_NAME", name);
+        user.apply();
+    }
+
+    public String getUserName() {
+        SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
+        return sharedPreferences.getString("USER_NAME", "");
     }
 
     public void setWifiList(String key, ArrayList<String> wifiList) {

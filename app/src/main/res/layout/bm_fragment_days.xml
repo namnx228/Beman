@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/abc_text_size_display_1_material"
-                android:text="@string/line_fragment_number"/>
+                android:text="@string/line_fragment_days"/>
 
             <Space
                 android:layout_width="match_parent"
@@ -37,38 +37,26 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/line_fragment_infoNumberC"
+                android:text="@string/line_fragment_days1"
                 android:textSize="@dimen/abc_text_size_body_2_material" />
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/abc_text_size_headline_material" />
 
+            <GridView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/gridDays"
+                android:numColumns="6"
+                android:verticalSpacing="10dp"
+                android:horizontalSpacing="10dp"
+                android:stretchMode="columnWidth"
+                android:gravity="center">
 
-            <Button
-                android:layout_width="250dp"
-                android:layout_height="70dp"
-                android:text="@string/line_fragment_number_button"
-                android:textStyle="bold"
-                android:background="@color/md_green_600"
-                android:textColor="@color/md_white_1000"
-                android:shadowColor="@color/md_yellow_500"
-                android:id="@+id/numberBtn"
-                android:layout_gravity="center_horizontal"
-                android:textSize="@dimen/abc_text_size_body_2_material"
-                />
+            </GridView>
 
         </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="35dp"
-            android:paddingRight="35dp"
-            android:paddingBottom="35dp"
-            android:layout_below="@id/layout_number">
-
-        </RelativeLayout>
 
     </RelativeLayout>
 

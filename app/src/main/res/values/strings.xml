@@ -11,11 +11,15 @@
     <string name="line_fragment_info2C"> Your real name, nick name, alias is good choice. Leave the field empty if you still want to be called Bro</string>
     <string name="line_fragment_number">Hey, who\'s your girlfriend?</string>
     <string name="line_fragment_infoNumberC">We need your girlfriend\'s number to begin.</string>
-    <string name="line_fragment_number_button">Select the number</string>
+    <string name="line_fragment_number_button">My girlfriend\'s number is &#8230;</string>
     <string name="line_fragment_info_result1">From now on, we\'ll call you </string>
     <string name="line_fragment_wifi1">Bro, where abouts?</string>
     <string name="line_fragment_wifi2">So we don\'t message your girlfriend inappropriately, what are your Work, Home and Girlfriend\'s Home Wifi access points?</string>
     <string name="line_fragment_info_result2">We will send SMS messages to your girlfriends at </string>
+    <string name="line_fragment_days">Bro, which days?</string>
+    <string name="line_fragment_days1">BeMan will send message to your girlfriend on these times</string>
+    <string name="line_fragment_days_selected_all">Wow, ambitious! You\'ll be getting love every day of the week</string>
+    <string name="line_fragment_days_selected_not_all">We\'ll send messages every </string>
     <string name="logo_activity_login_description">BeMan</string>
     <string name="hint_activity_login">Enter your pin</string>
     <string name="hint_action_name">Enter your name</string>
@@ -26,6 +30,12 @@
     <string name="wifi_custom">Custom</string>
     <string name="wifi_select">Select</string>
     <string name="wifi_none">None</string>
+
+    <string name="day_morning">Morning</string>
+    <string name="day_noon">Noon</string>
+    <string name="day_afternoon">Afternoon</string>
+    <string name="day_evening">Evening</string>
+    <string name="day_night">Night</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>

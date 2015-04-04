@@ -22,7 +22,7 @@ public class BM_ActivitySplashScreen extends ActionBarActivity {
         }
         else
         {
-            Intent intent = new Intent(this, BM_ActivityMain.class);
+            Intent intent = new Intent(this, BM_ActivitySimpleSetup.class);
             startActivity(intent);
         }
     }

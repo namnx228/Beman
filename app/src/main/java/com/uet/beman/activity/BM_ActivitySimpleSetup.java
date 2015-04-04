@@ -3,10 +3,11 @@ package com.uet.beman.activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 
 import com.uet.beman.R;
+import com.uet.beman.common.BM_CustomViewPager;
+import com.uet.beman.fragment.BM_FragmentDays;
 import com.uet.beman.fragment.BM_FragmentInfo;
 import com.uet.beman.fragment.BM_FragmentPhoneNumber;
 import com.uet.beman.fragment.BM_FragmentWelcomeScreen;
@@ -15,13 +16,14 @@ import com.uet.beman.support.BM_ViewPagerAdapter;
 
 public class BM_ActivitySimpleSetup extends ActionBarActivity implements
         BM_FragmentWelcomeScreen.OnFragmentInteractionListener, BM_FragmentInfo.OnFragmentInteractionListener,
-        BM_FragmentPhoneNumber.OnFragmentInteractionListener, BM_FragmentWifi.OnFragmentInteractionListener {
+        BM_FragmentPhoneNumber.OnFragmentInteractionListener, BM_FragmentWifi.OnFragmentInteractionListener,
+        BM_FragmentDays.OnFragmentInteractionListener {
 
     /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous
      * and next wizard steps.
      */
-    private ViewPager mPager;
+    private BM_CustomViewPager mPager;
 
     /**
      * The pager adapter, which provides the pages to the view pager widget.
@@ -34,7 +36,7 @@ public class BM_ActivitySimpleSetup extends ActionBarActivity implements
         setContentView(R.layout.activity_bm_activity_simple_setup);
 
         // Instantiate a ViewPager and a PagerAdapter.
-        mPager = (ViewPager) findViewById(R.id.pager);
+        mPager = (BM_CustomViewPager) findViewById(R.id.pager);
         mPagerAdapter = new BM_ViewPagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
 //        mPager.setPageTransformer(true, new DepthPageTransformer());
@@ -60,6 +62,10 @@ public class BM_ActivitySimpleSetup extends ActionBarActivity implements
 
     public void onFragmentInteraction(Uri uri){
         //you can leave it empty
+    }
+
+    public void onFragmentInteraction(boolean status) {
+        mPager.setPagingEnabled(status);
     }
 }
 

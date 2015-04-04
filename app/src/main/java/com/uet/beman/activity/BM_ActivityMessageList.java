@@ -26,6 +26,7 @@ public class BM_ActivityMessageList extends ActionBarActivity {
         cardView.setCard(card);
 
 
+
     }
 
 
