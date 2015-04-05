@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +15,7 @@ import java.util.Set;
 public class SharedPreferencesHelper {
 
     private static SharedPreferencesHelper instance = null;
+    public static final int LENGTH_OF_PREFERENCES = 35;
 
     private SharedPreferencesHelper() {
 
@@ -126,5 +128,20 @@ public class SharedPreferencesHelper {
     public boolean getWifiState(String key) {
         SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("WifiInfo", Context.MODE_PRIVATE);
         return sharedPreferences.getBoolean(key, false);
+    }
+
+    public void setDaysPreferences(String value) {
+        SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor user = sharedPreferences.edit();
+        user.putString("DAYS", value);
+        user.apply();
+    }
+
+    public String getDaysPreferences() {
+        char[] charArray = new char[LENGTH_OF_PREFERENCES];
+        Arrays.fill(charArray, '0');
+        String str = new String(charArray);
+        SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
+        return sharedPreferences.getString("DAYS", str);
     }
 }

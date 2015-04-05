@@ -44,17 +44,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/abc_text_size_headline_material" />
 
-            <GridView
+            <GridLayout
+                android:id="@+id/grid_days"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/gridDays"
-                android:numColumns="6"
-                android:verticalSpacing="10dp"
-                android:horizontalSpacing="10dp"
-                android:stretchMode="columnWidth"
-                android:gravity="center">
+                android:layout_gravity="center_horizontal"
+                android:columnCount="5"
+                android:rowCount="7"
+                android:orientation="horizontal">
 
-            </GridView>
+
+            </GridLayout>
+
 
         </LinearLayout>
 
