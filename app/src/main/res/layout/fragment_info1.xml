@@ -71,7 +71,7 @@
                 android:layout_height="54dp"
                 android:hint="@string/hint_action_name" />
 
-            <com.material.widget.Button
+            <com.material.widget.PaperButton
                 android:id="@+id/nameBtn"
                 android:layout_width="100dp"
                 android:layout_height="54dp"

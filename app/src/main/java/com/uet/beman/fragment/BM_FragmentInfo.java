@@ -8,7 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.material.widget.FloatingEditText;
+import com.material.widget.PaperButton;
 import com.uet.beman.R;
+import com.uet.beman.common.SharedPreferencesHelper;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +32,9 @@ public class BM_FragmentInfo extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private SharedPreferencesHelper sharedPreferencesHelper;
+    private FloatingEditText floatingEditText;
+    private PaperButton paperButton;
 
     /**
      * Use this factory method to create a new instance of
@@ -59,13 +65,17 @@ public class BM_FragmentInfo extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        sharedPreferencesHelper = SharedPreferencesHelper.getInstance();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_info1, container, false);
+        floatingEditText = (FloatingEditText) view.findViewById(R.id.user_name);
+        paperButton = (PaperButton) view.findViewById(R.id.nameBtn);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_info1, container, false);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

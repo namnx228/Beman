@@ -95,7 +95,7 @@ public class SharedPreferencesHelper {
 
     public String getUserName() {
         SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
-        return sharedPreferences.getString("USER_NAME", "");
+        return sharedPreferences.getString("USER_NAME", "Bro");
     }
 
     public void setWifiList(String key, ArrayList<String> wifiList) {
