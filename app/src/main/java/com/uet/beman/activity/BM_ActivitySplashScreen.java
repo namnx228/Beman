@@ -12,20 +12,19 @@ import com.uet.beman.common.SharedPreferencesHelper;
 
 public class BM_ActivitySplashScreen extends ActionBarActivity {
 
-    private void next()
-    {
+    private void next() {
         boolean checkLogin = SharedPreferencesHelper.getInstance().getCheckLogin();
-        if (checkLogin)
-        {
-            Intent intent = new Intent(this,BM_ActivityLogin.class);
+        if (checkLogin) {
+            Intent intent = new Intent(this, BM_ActivityLogin.class);
             startActivity(intent);
-        }
-        else
-        {
+        } else {
             Intent intent = new Intent(this, BM_ActivitySimpleSetup.class);
             startActivity(intent);
         }
+        Intent intent2 = new Intent(this, BM_GirlMode.class);
+        startActivity(intent2);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,16 +33,13 @@ public class BM_ActivitySplashScreen extends ActionBarActivity {
         actionBar.hide();
         Thread adThread = new Thread() {
             @Override
-            public void run()
-            {
-                try
-                {
+            public void run() {
+                try {
                     super.run();
                     sleep(1500);
-                }
-                catch (Exception e) {e.printStackTrace();}
-                finally
-                {
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
                     next();
                     finish();
                 }

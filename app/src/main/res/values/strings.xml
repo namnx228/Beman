@@ -65,12 +65,14 @@
     <string name="time_night">Night</string>
     <string name="title_activity_bm__activity_setting">BM_ActivitySetting</string>
     <string name="checkbox_login">Enable login</string>
-    <string name="title_activity_advertisment">Advertisement</string>
+    <string name="title_activity_advertisement">Advertisement</string>
     <string name="title_activity_bm__activity_login">BM_ActivityLogin</string>
     <string name="title_activity_bm__activity_manage_wifi">Manage Wifi</string>
     <string name="title_activity_bm__activity_simple_setup">BM_ActivitySimpleSetup</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="girl_mode_title">Suggested Gift</string>
+    <string name="girl_mode_title2">for your Girl</string>
 
 </resources>
