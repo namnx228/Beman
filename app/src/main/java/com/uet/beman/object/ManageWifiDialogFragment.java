@@ -6,8 +6,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 
-import com.uet.beman.activity.BM_ActivityManageWifi;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -18,6 +16,9 @@ public class ManageWifiDialogFragment extends DialogFragment {
 
     private ArrayList<String> result;
 
+    private ManageWifiClickListener callback;
+    private int requestCode;
+
     public static ManageWifiDialogFragment getInstance(ArrayList<String> configuredWifi, ArrayList<String> savedWifi) {
         Bundle args = new Bundle();
         args.putStringArrayList(CONFIGURED_WIFI_KEY, configuredWifi);
@@ -27,6 +28,18 @@ public class ManageWifiDialogFragment extends DialogFragment {
         frag.setArguments(args);
 
         return frag;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        try {
+            callback = (ManageWifiClickListener) getTargetFragment();
+            requestCode = getTargetRequestCode();
+        } catch (ClassCastException e) {
+            throw new ClassCastException("Calling fragment must implement ManageWifiClickListener interface.");
+        }
     }
 
     @Override
@@ -61,7 +74,7 @@ public class ManageWifiDialogFragment extends DialogFragment {
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                ((BM_ActivityManageWifi) getActivity()).saveWifiList(result);
+                callback.saveWifiList(requestCode, result);
             }
         });
 
@@ -75,5 +88,9 @@ public class ManageWifiDialogFragment extends DialogFragment {
             if (savedWifi.contains(configuredWifi.get(i)))
                 selected[i] = true;
         return selected;
+    }
+
+    public interface ManageWifiClickListener {
+        public void saveWifiList(int requestCode, ArrayList<String> wifiList);
     }
 }

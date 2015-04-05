@@ -19,7 +19,9 @@ public class BM_WifiConnectionReceiver extends BroadcastReceiver {
     private String getCurrentWifi(Context ctx) {
         WifiManager wifiManager = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-        return wifiInfo.getSSID();
+        String s = wifiInfo.getSSID();
+        s = s.substring(1, s.length() - 1);
+        return s;
     }
 
     private boolean isWifiConnected(Context ctx) {
@@ -47,9 +49,9 @@ public class BM_WifiConnectionReceiver extends BroadcastReceiver {
         }
 
         String currWifi = getCurrentWifi(context);
-        ArrayList<String> homeWifiList = getSavedWifi(Constant.HOME_WIFI_KEY);
-        ArrayList<String> workWifiList = getSavedWifi(Constant.WORK_WIFI_KEY);
-        ArrayList<String> girlWifiList = getSavedWifi(Constant.GIRL_HOUSE_WIFI_KEY);
+        ArrayList<String> homeWifiList = getSavedWifi(Constant.HOME_WIFI_LIST);
+        ArrayList<String> workWifiList = getSavedWifi(Constant.WORK_WIFI_LIST);
+        ArrayList<String> girlWifiList = getSavedWifi(Constant.GIRL_WIFI_LIST);
 
         if (homeWifiList.contains(currWifi)) {
             // At home

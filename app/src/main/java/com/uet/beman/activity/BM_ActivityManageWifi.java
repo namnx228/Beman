@@ -35,17 +35,17 @@ public class BM_ActivityManageWifi extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bm_activity_manage_wifi);
 
-        editTextHomeWifi = (EditText) findViewById(R.id.editText_home_wifi);
-        editTextWorkWifi = (EditText) findViewById(R.id.editText_work_wifi);
-        editTextGirlWifi = (EditText) findViewById(R.id.editText_girl_wifi);
+        editTextHomeWifi = (EditText) findViewById(R.id.switch_home_wifi);
+        editTextWorkWifi = (EditText) findViewById(R.id.switch_work_wifi);
+        editTextGirlWifi = (EditText) findViewById(R.id.switch_girl_wifi);
 
         loadEditText();
     }
 
     private void loadEditText() {
-        showWifiPreview(editTextHomeWifi, getSavedWifi(Constant.HOME_WIFI_KEY));
-        showWifiPreview(editTextWorkWifi, getSavedWifi(Constant.WORK_WIFI_KEY));
-        showWifiPreview(editTextGirlWifi, getSavedWifi(Constant.GIRL_HOUSE_WIFI_KEY));
+        showWifiPreview(editTextHomeWifi, getSavedWifi(Constant.HOME_WIFI_LIST));
+        showWifiPreview(editTextWorkWifi, getSavedWifi(Constant.WORK_WIFI_LIST));
+        showWifiPreview(editTextGirlWifi, getSavedWifi(Constant.GIRL_WIFI_LIST));
     }
 
     private void showWifiPreview(EditText editText, ArrayList<String> wifiList) {
@@ -83,15 +83,15 @@ public class BM_ActivityManageWifi extends ActionBarActivity {
     }
 
     public void manageHomeWifi(View view) {
-        showWifiDialog(Constant.HOME_WIFI_KEY);
+        showWifiDialog(Constant.HOME_WIFI_LIST);
     }
 
     public void manageWorkWifi(View view) {
-        showWifiDialog(Constant.WORK_WIFI_KEY);
+        showWifiDialog(Constant.WORK_WIFI_LIST);
     }
 
     public void manageGirlHouseWifi(View view) {
-        showWifiDialog(Constant.GIRL_HOUSE_WIFI_KEY);
+        showWifiDialog(Constant.GIRL_WIFI_LIST);
     }
 
     private void showWifiDialog(String key) {

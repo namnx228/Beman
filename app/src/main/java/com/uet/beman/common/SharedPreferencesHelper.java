@@ -115,4 +115,16 @@ public class SharedPreferencesHelper {
         Collections.sort(wifiList);
         return wifiList;
     }
+
+    public void setWifiState(String key, boolean state) {
+        SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("WifiInfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor user = sharedPreferences.edit();
+        user.putBoolean(key, state);
+        user.apply();
+    }
+
+    public boolean getWifiState(String key) {
+        SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("WifiInfo", Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(key, false);
+    }
 }
