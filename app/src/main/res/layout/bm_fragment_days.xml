@@ -44,17 +44,160 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/abc_text_size_headline_material" />
 
-            <GridLayout
-                android:id="@+id/grid_days"
+            <LinearLayout
+                android:id="@+id/days_session"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:columnCount="5"
-                android:rowCount="7"
                 android:orientation="horizontal">
 
+                <Space
+                    android:layout_width="40dp"
+                    android:layout_height="40dp" />
 
-            </GridLayout>
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:contentDescription="@string/day_morning"
+                    android:src="@drawable/ic_morning"/>
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:contentDescription="@string/day_noon"
+                    android:src="@drawable/ic_noon"/>
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:contentDescription="@string/day_afternoon"
+                    android:src="@drawable/ic_afternoon"/>
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:contentDescription="@string/day_evening"
+                    android:src="@drawable/ic_night"/>
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:contentDescription="@string/day_night"
+                    android:src="@drawable/ic_evening"/>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/day_col"
+                    android:orientation="vertical"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/day_mon"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/abc_text_size_body_2_material"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/day_tue"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/abc_text_size_body_2_material"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/day_wed"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/abc_text_size_body_2_material"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/day_thu"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/abc_text_size_body_2_material"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/day_fri"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/abc_text_size_body_2_material"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/day_sat"
+                        android:textColor="@color/md_red_600"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/abc_text_size_body_2_material"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/day_sun"
+                        android:textColor="@color/md_red_600"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/abc_text_size_body_2_material"/>
+                </LinearLayout>
+
+                <GridLayout
+                    android:id="@+id/grid_days"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:columnCount="5"
+                    android:rowCount="7"
+                    android:layout_toRightOf="@id/day_col"
+                    android:layout_toEndOf="@id/day_col"
+                    android:orientation="horizontal">
+                </GridLayout>
+
+            </RelativeLayout>
+
+
 
 
         </LinearLayout>
