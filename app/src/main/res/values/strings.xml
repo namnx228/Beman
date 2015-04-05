@@ -15,7 +15,7 @@
     <string name="line_fragment_info_result1">From now on, we\'ll call you %1$s</string>
     <string name="line_fragment_wifi1">%1$s, where abouts?</string>
     <string name="line_fragment_wifi2">So we don\'t message your girlfriend inappropriately, what are your Work, Home and Girlfriend\'s Home Wifi access points?</string>
-    <string name="line_fragment_info_result2">We will send SMS messages to your girlfriends at </string>
+    <string name="line_fragment_info_result2">We will send SMS messages to %1$s at %2$s</string>
     <string name="line_fragment_days">%1$s, which days?</string>
     <string name="line_fragment_days1">BeMan will send message to your girlfriend on these times</string>
     <string name="line_fragment_days_selected_all">Wow, ambitious! You\'ll be getting love every day of the week</string>

@@ -69,6 +69,7 @@
                 android:id="@+id/user_name"
                 android:layout_width="200dp"
                 android:layout_height="54dp"
+                android:singleLine="true"
                 android:hint="@string/hint_action_name" />
 
             <com.material.widget.PaperButton
@@ -88,6 +89,7 @@
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/info_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/line_fragment_info_result1"

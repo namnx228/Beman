@@ -7,10 +7,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.material.widget.FloatingEditText;
 import com.material.widget.PaperButton;
 import com.uet.beman.R;
+import com.uet.beman.common.BM_Utils;
 import com.uet.beman.common.SharedPreferencesHelper;
 
 /**
@@ -21,7 +23,7 @@ import com.uet.beman.common.SharedPreferencesHelper;
  * Use the {@link BM_FragmentInfo#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BM_FragmentInfo extends Fragment {
+public class BM_FragmentInfo extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -35,6 +37,7 @@ public class BM_FragmentInfo extends Fragment {
     private SharedPreferencesHelper sharedPreferencesHelper;
     private FloatingEditText floatingEditText;
     private PaperButton paperButton;
+    private TextView result;
 
     /**
      * Use this factory method to create a new instance of
@@ -74,8 +77,22 @@ public class BM_FragmentInfo extends Fragment {
         View view = inflater.inflate(R.layout.fragment_info1, container, false);
         floatingEditText = (FloatingEditText) view.findViewById(R.id.user_name);
         paperButton = (PaperButton) view.findViewById(R.id.nameBtn);
+        result = (TextView) view.findViewById(R.id.info_result);
+        String res = sharedPreferencesHelper.getUserName();
+        floatingEditText.setText(res);
+        BM_Utils.updateNameReferences(result,getResources(),R.string.line_fragment_info_result1,res);
+        paperButton.setOnClickListener(this);
         // Inflate the layout for this fragment
         return view;
+    }
+
+    @Override
+    public void onClick(View v) {
+        String name = floatingEditText.getText().toString();
+        sharedPreferencesHelper.setUserName(name);
+        String res = sharedPreferencesHelper.getUserName();
+        BM_Utils.updateNameReferences(result,getResources(),R.string.line_fragment_info_result1,res);
+        BM_Utils.hideSoftKeyboard(getActivity());
     }
 
     // TODO: Rename method, update argument and hook method into UI event

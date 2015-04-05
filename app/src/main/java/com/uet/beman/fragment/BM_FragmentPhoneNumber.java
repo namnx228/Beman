@@ -12,8 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.uet.beman.R;
+import com.uet.beman.common.BM_Utils;
 import com.uet.beman.common.SharedPreferencesHelper;
 
 /**
@@ -29,6 +31,7 @@ public class BM_FragmentPhoneNumber extends Fragment implements View.OnClickList
     private OnFragmentInteractionListener mListener;
     SharedPreferencesHelper sharedPreferencesHelper;
     Button button;
+    TextView headline, result;
 
     /**
      * Use this factory method to create a new instance of
@@ -56,11 +59,16 @@ public class BM_FragmentPhoneNumber extends Fragment implements View.OnClickList
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_phone_number, container, false);
         button = (Button)view.findViewById(R.id.numberBtn);
+        headline = (TextView)view.findViewById(R.id.phone_number_headline);
+        result = (TextView)view.findViewById(R.id.phone_number_bottom);
         button.setOnClickListener(this);
+        String userName = sharedPreferencesHelper.getUserName();
         String name = sharedPreferencesHelper.getDestName();
         String no = sharedPreferencesHelper.getDestNumber();
+        BM_Utils.updateNameReferences(headline,getResources(),R.string.line_fragment_number,userName);
+        BM_Utils.updateNameReferences(result,getResources(),R.string.line_fragment_info_result2, name, no);
         if(name.isEmpty() && no.isEmpty()) {
-            onFragmentChange(false);
+//            onFragmentChange(false);
         } else {
             button.setText(name +"\n"+no);
         }
@@ -155,6 +163,7 @@ public class BM_FragmentPhoneNumber extends Fragment implements View.OnClickList
                         setGirlNumber(no);
                         String displayResult = name + "\n" + no;
                         button.setText(displayResult);
+                        BM_Utils.updateNameReferences(result,getResources(),R.string.line_fragment_info_result2, name, no);
                         onFragmentChange(true);
                     }
                     c.close();
