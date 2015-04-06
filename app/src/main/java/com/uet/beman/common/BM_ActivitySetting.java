@@ -112,17 +112,44 @@ public class BM_ActivitySetting extends ActionBarActivity {
             else disableLoginMode();
         }
     }
+
+    private boolean checkSymtax(String input)
+    {
+        if (input.length() == 4) return true;
+        return false;
+    }
+
+    private void notifySymtaxError(int type)
+    {
+        String message = null;
+        if (type == 0)  message ="your pin is not enough 4 numbers" ;
+        else message = "your fake pin is not enough 4 numbers" ;
+        Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
+    }
+
     public void setPin(View view)
     {
-        if (view.getId() == R.id.SetPin) {
-            SharedPreferencesHelper.getInstance().setUserRealPW(pinReal.getText().toString());
-            SharedPreferencesHelper.getInstance().setUserFakePW((pinFake.getText().toString()));
-        }
-        String message = "your pin is " +
-                          SharedPreferencesHelper.getInstance().getUserRealPW() +
-                          "\nyour fake pin is" +
-                          SharedPreferencesHelper.getInstance().getUserFakePW();
-        Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
+        int real = 0, fake = 1;
+        boolean     pinSuccess = checkSymtax(pinReal.getText().toString())
+                ,   fakeSuccess = checkSymtax(pinFake.getText().toString());
+        //if (view.getId() == R.id.SetPin) {
+            if (pinSuccess)
+                SharedPreferencesHelper.getInstance().setUserRealPW(pinReal.getText().toString());
+            else notifySymtaxError(real);
+            if (fakeSuccess)
+                SharedPreferencesHelper.getInstance().setUserFakePW((pinFake.getText().toString()));
+            else notifySymtaxError(fake);
+
+
+            if (pinSuccess && fakeSuccess ) {
+                String message = "your pin is " +
+                        SharedPreferencesHelper.getInstance().getUserRealPW() +
+                        "\nyour fake pin is " +
+                        SharedPreferencesHelper.getInstance().getUserFakePW();
+
+                Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
+            }
+        //}
 
     }
     public void testGPS(View view)

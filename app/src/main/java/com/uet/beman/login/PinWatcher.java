@@ -35,10 +35,10 @@ public class PinWatcher implements TextWatcher
         girlMode = intent;
     }
 
-    public void setWrongPass(Intent intent)
-    {
+    //public void setWrongPass(Intent intent)
+    /*{
         wrongPass = intent;
-    }
+    }*/
 
     public void setActivity(BM_ActivityLogin activity){ this.activity = activity; }
 

@@ -26,7 +26,7 @@ public class BM_ActivityLogin extends ActionBarActivity {
         PinWatcher pinWatcher = new PinWatcher();
         pinWatcher.setBeMenMode(new Intent(this, BM_ActivityMain.class));
         pinWatcher.setGirlMode(new Intent(this, BM_GirlMode.class));
-        pinWatcher.setWrongPass(new Intent(this, BM_WrongPass.class));
+       // pinWatcher.setWrongPass(new Intent(this, BM_WrongPass.class));
         pinWatcher.setActivity(this);
         pin.addTextChangedListener(pinWatcher);
     }
