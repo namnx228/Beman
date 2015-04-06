@@ -208,7 +208,14 @@ public class BM_ModelScheduler {
         openDb();
         List<SentenceNode> result = new ArrayList<>();
 
-        String selection = "SELECT * FROM " + ScheduleEntry.TABLE_MESSAGE + " WHERE " + ScheduleEntry.COLUMN_LABEL + " = " + label;
+        String selection = "SELECT "  + ScheduleEntry.TABLE_MSG_TIME + ".*, "
+                            + ScheduleEntry.TABLE_MESSAGE + "."
+                            + ScheduleEntry.COLUMN_LABEL + " FROM " +  ScheduleEntry.TABLE_MESSAGE
+                            + " INNER JOIN " + ScheduleEntry.TABLE_MSG_TIME
+                            + " ON " + ScheduleEntry.TABLE_MESSAGE + "." + ScheduleEntry._ID
+                            + "=" + ScheduleEntry.TABLE_MSG_TIME + "." + ScheduleEntry._ID
+                            + " WHERE "  + ScheduleEntry.TABLE_MESSAGE + "."
+                            + ScheduleEntry.COLUMN_LABEL + " = " + label;
 
         Cursor cursor = db.rawQuery(selection, null);
         if(cursor.getCount() > 0) {
