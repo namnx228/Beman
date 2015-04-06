@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.uet.beman.fragment.BM_FragmentDays;
 import com.uet.beman.fragment.BM_FragmentInfo;
+import com.uet.beman.fragment.BM_FragmentMessageList;
 import com.uet.beman.fragment.BM_FragmentPhoneNumber;
 import com.uet.beman.fragment.BM_FragmentWelcomeScreen;
 import com.uet.beman.fragment.BM_FragmentWifi;
@@ -19,13 +20,14 @@ public class BM_ViewPagerAdapter extends FragmentPagerAdapter {
     /**
      * The number of pages (wizard steps) to show in this demo.
      */
-    private static final int NUM_PAGES = 5;
+    private static final int NUM_PAGES = 6;
 
     BM_FragmentWelcomeScreen BMFragmentWelcomeScreen;
     BM_FragmentInfo BMFragmentInfo;
     BM_FragmentPhoneNumber BMFragmentPhoneNumber;
     BM_FragmentWifi BMFragmentWifi;
     BM_FragmentDays BMFragmentDays;
+    BM_FragmentMessageList BMFragmentMessageList;
 
     public BM_ViewPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -47,6 +49,9 @@ public class BM_ViewPagerAdapter extends FragmentPagerAdapter {
                 if(this.BMFragmentWifi == null) this.BMFragmentWifi = new BM_FragmentWifi();
                 return this.BMFragmentWifi;
             case 4:
+                if(this.BMFragmentMessageList == null) this.BMFragmentMessageList = new BM_FragmentMessageList();
+                return this.BMFragmentMessageList;
+            case 5:
                 if(this.BMFragmentDays == null) this.BMFragmentDays = new BM_FragmentDays();
                 return this.BMFragmentDays;
         }

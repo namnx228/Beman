@@ -23,4 +23,9 @@
 
     </style>
 
+    <!-- Other Button in Header for CardView-->
+    <style name="card.header_button_base.other">
+        <item name="android:background">@drawable/card_menu_button_other_add</item>
+    </style>
+
 </resources>

@@ -9,6 +9,7 @@ import com.uet.beman.R;
 import com.uet.beman.common.BM_CustomViewPager;
 import com.uet.beman.fragment.BM_FragmentDays;
 import com.uet.beman.fragment.BM_FragmentInfo;
+import com.uet.beman.fragment.BM_FragmentMessageList;
 import com.uet.beman.fragment.BM_FragmentPhoneNumber;
 import com.uet.beman.fragment.BM_FragmentWelcomeScreen;
 import com.uet.beman.fragment.BM_FragmentWifi;
@@ -17,7 +18,7 @@ import com.uet.beman.support.BM_ViewPagerAdapter;
 public class BM_ActivitySimpleSetup extends ActionBarActivity implements
         BM_FragmentWelcomeScreen.OnFragmentInteractionListener, BM_FragmentInfo.OnFragmentInteractionListener,
         BM_FragmentPhoneNumber.OnFragmentInteractionListener, BM_FragmentWifi.OnFragmentInteractionListener,
-        BM_FragmentDays.OnFragmentInteractionListener {
+        BM_FragmentDays.OnFragmentInteractionListener, BM_FragmentMessageList.OnFragmentInteractionListener {
 
     /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous

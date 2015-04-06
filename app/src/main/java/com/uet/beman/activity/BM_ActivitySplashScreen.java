@@ -21,8 +21,6 @@ public class BM_ActivitySplashScreen extends ActionBarActivity {
             Intent intent = new Intent(this, BM_ActivitySimpleSetup.class);
             startActivity(intent);
         }
-        Intent intent2 = new Intent(this, BM_GirlMode.class);
-        startActivity(intent2);
     }
 
     @Override

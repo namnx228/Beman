@@ -20,6 +20,8 @@
     <string name="line_fragment_days1">BeMan will send message to your girlfriend on these times</string>
     <string name="line_fragment_days_selected_all">Wow, ambitious! You\'ll be getting love every day of the week</string>
     <string name="line_fragment_days_selected_not_all">We\'ll send messages every </string>
+    <string name="line_fragment_message_list">%1$s, select and edit messages</string>
+    <string name="line_fragment_message_list1">Tap a message to edit. Tap + to write your own.</string>
     <string name="logo_activity_login_description">BeMan</string>
     <string name="hint_activity_login">Enter your pin</string>
     <string name="hint_action_name">Enter your name</string>
