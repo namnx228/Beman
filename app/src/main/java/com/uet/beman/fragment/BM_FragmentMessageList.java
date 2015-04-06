@@ -90,7 +90,8 @@ public class BM_FragmentMessageList extends Fragment {
 //            }
 //        });
 //        card.addCardHeader(header);
-        card.updateItems();
+        card.updateMessageItems("|morning|");
+        //card.updateScheduleItems();
 
 //        Set card in the cardView
         CardView cardView = (CardView) view.findViewById(R.id.card_morning);

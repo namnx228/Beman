@@ -32,11 +32,26 @@ public class MessageCard extends CardWithList {
         super(context);
     }
 
-    public void updateItems() {
+    public void updateScheduleItems() {
 
         //Update the array inside the card
 
-        List<SentenceNode> sentenceNodes = handler.getNodeList();
+        List<SentenceNode> sentenceNodes = handler.getScheduleList();
+        for(SentenceNode i : sentenceNodes) {
+            MessageObject tmp = new MessageObject(this, i);
+            objs.add(tmp);
+        }
+        getLinearListAdapter().addAll(objs);
+
+        //use this line if your are using the progress bar
+        //updateProgressBar(true,true);
+    }
+
+    public void updateMessageItems(String tag) {
+        //Update the array inside the card
+
+        tag = "\"" + tag + "\"";
+        List<SentenceNode> sentenceNodes = handler.getMessageList(tag);
         for(SentenceNode i : sentenceNodes) {
             MessageObject tmp = new MessageObject(this, i);
             objs.add(tmp);
@@ -115,9 +130,9 @@ public class MessageCard extends CardWithList {
     @Override
     protected List<ListObject> initChildren() {
 
-        BM_NodeListHandler handler = new BM_NodeListHandler();
-        List<SentenceNode> res = new ArrayList<>();
-        res = handler.getNodeList();
+//        BM_NodeListHandler handler = new BM_NodeListHandler();
+//        List<SentenceNode> res = new ArrayList<>();
+//        res = handler.getScheduleList();
         return null;
     }
 

@@ -35,7 +35,7 @@ public class ScheduleCard extends CardWithList {
 
         //Update the array inside the card
 
-        List<SentenceNode> sentenceNodes = handler.getNodeList();
+        List<SentenceNode> sentenceNodes = handler.getScheduleList();
         for(SentenceNode i : sentenceNodes) {
             ScheduleObject tmp = new ScheduleObject(this, i);
             objs.add(tmp);
@@ -116,7 +116,7 @@ public class ScheduleCard extends CardWithList {
 
         BM_NodeListHandler handler = new BM_NodeListHandler();
         List<SentenceNode> res = new ArrayList<>();
-        res = handler.getNodeList();
+        res = handler.getScheduleList();
         return null;
     }
 

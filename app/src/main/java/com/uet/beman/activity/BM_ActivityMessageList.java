@@ -19,7 +19,7 @@ public class BM_ActivityMessageList extends ActionBarActivity {
 
         MessageCard card = new MessageCard(this);
         card.init();
-        card.updateItems();
+        card.updateScheduleItems();
 
 //        Set card in the cardView
         CardView cardView = (CardView) this.findViewById(R.id.carddemo_weathercard);

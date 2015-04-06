@@ -26,11 +26,10 @@ public class BM_NodeListHandler {
 
     public BM_NodeListHandler() {
         model = BM_ModelScheduler.getInstance();
-        nodeList = model.getAllNodes();
     }
 
-    public List<SentenceNode> getNodeList() {
-        return nodeList;
+    public List<SentenceNode> getScheduleList() {
+        return model.getAllNodes();
     }
 
     public List<SentenceNode> getMessageList(String label) {
