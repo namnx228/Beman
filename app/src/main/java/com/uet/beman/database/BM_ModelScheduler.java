@@ -100,7 +100,7 @@ public class BM_ModelScheduler {
 //            values.put(ScheduleEntry.COLUMN_MESSAGE_ID, node.getMessageId());
             values.put(ScheduleEntry.COLUMN_MESSAGE, node.getMessage());
             values.put(ScheduleEntry.COLUMN_LANGUAGE, "VIE");
-            values.put("tag", "*morning*");
+            values.put("label", "*morning*");
 
             long id = db.insert(ScheduleEntry.TABLE_MESSAGE, null, values);
             node.setMessageId(String.valueOf(id));
