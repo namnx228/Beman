@@ -15,7 +15,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/girl_mode_title"
         android:id="@+id/textView"
-        android:layout_below="@+id/girl_mode_space"
+        android:layout_below="@id/girl_mode_space"
         android:layout_centerHorizontal="true"
         android:textStyle="bold"
         android:textSize="@dimen/abc_text_size_display_1_material" />
@@ -26,103 +26,321 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/girl_mode_title2"
         android:id="@+id/textView2"
-        android:layout_below="@+id/textView"
+        android:layout_below="@id/textView"
         android:layout_centerHorizontal="true" />
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="5pt"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@id/textView2"
         android:id="@+id/girl_mode_space2" />
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/girl_mode_space2"
-        android:scrollbars="vertical">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/girl_mode_space2"
+        android:layout_marginLeft="15dp"
+        android:fillViewport="false"
+        android:layout_marginRight="15dp">
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/girl_mode_gift_layout_height"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:id="@+id/girl_mode_gift_layout_1">
-
-            <ImageView
-                android:layout_width="@dimen/girl_mode_gift_layout_height"
-                android:layout_height="fill_parent"
-                android:id="@+id/imageView"
-                android:src="@drawable/flower_icon" />
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="15pt"
-                    android:text="Flower"
-                    android:textStyle="bold"
-                    android:textSize="12pt"
-                    android:id="@+id/girl_mode_gift_title_1" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="bla bla"
-                    android:id="@+id/girl_mode_gift_desc_1" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <Space
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="3pt"
-            android:layout_below="@+id/girl_mode_gift_layout_1"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:id="@+id/girl_mode_gift_space1" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/girl_mode_gift_layout_height"
-            android:layout_below="@+id/girl_mode_gift_space1"
-            android:id="@+id/girl_mode_gift_layout_2">
-
-            <ImageView
-                android:layout_width="@dimen/girl_mode_gift_layout_height"
-                android:layout_height="match_parent"
-                android:id="@+id/imageView2"
-                android:src="@drawable/song_icon" />
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical">
 
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/girl_mode_gift_layout_height"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/girl_mode_gift_layout_1"
+                android:onClick="gotoWebPage">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="15pt"
-                    android:text="Song"
-                    android:textStyle="bold"
-                    android:textSize="12pt"
-                    android:id="@+id/girl_mode_gift_title_2" />
+                <ImageView
+                    android:layout_width="@dimen/girl_mode_gift_layout_height"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/imageView"
+                    android:src="@drawable/flower_icon" />
 
-                <TextView
+                <Space
+                    android:layout_width="5pt"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="bla bla bla"
-                    android:id="@+id/girl_mode_gift_desc_2" />
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="15pt"
+                        android:text="@string/girl_mode_gift_title_1"
+                        android:textStyle="bold"
+                        android:textSize="12pt"
+                        android:id="@+id/girl_mode_gift_title_1" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/girl_mode_gift_desc_1"
+                        android:id="@+id/girl_mode_gift_desc_1" />
+
+                </LinearLayout>
 
             </LinearLayout>
-        </LinearLayout>
 
-    </RelativeLayout>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="4pt"
+                android:layout_below="@id/girl_mode_gift_layout_1"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/girl_mode_gift_space_1a" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/girl_mode_gift_space_1a"
+                android:background="@color/md_brown_300"
+                android:id="@+id/girl_mode_gift_separation_1" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="4pt"
+                android:layout_below="@id/girl_mode_gift_separation_1"
+                android:id="@+id/girl_mode_gift_space_1b" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/girl_mode_gift_layout_height"
+                android:layout_below="@id/girl_mode_gift_space_1b"
+                android:id="@+id/girl_mode_gift_layout_2"
+                android:onClick="gotoWebPage">
+
+                <ImageView
+                    android:layout_width="@dimen/girl_mode_gift_layout_height"
+                    android:layout_height="match_parent"
+                    android:id="@+id/imageView2"
+                    android:src="@drawable/movie_icon" />
+
+                <Space
+                    android:layout_width="5pt"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="15pt"
+                        android:text="@string/girl_mode_gift_title_2"
+                        android:textStyle="bold"
+                        android:textSize="12pt"
+                        android:id="@+id/girl_mode_gift_title_2" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/girl_mode_gift_desc_2"
+                        android:id="@+id/girl_mode_gift_desc_2" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="4pt"
+                android:layout_below="@id/girl_mode_gift_layout_2"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/girl_mode_gift_space_2a" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/girl_mode_gift_space_2a"
+                android:background="@color/md_brown_300"
+                android:id="@+id/girl_mode_gift_separation_2" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="4pt"
+                android:layout_below="@id/girl_mode_gift_separation_2"
+                android:id="@+id/girl_mode_gift_space_2b" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/girl_mode_gift_layout_height"
+                android:layout_below="@id/girl_mode_gift_space_2b"
+                android:id="@+id/girl_mode_gift_layout_3"
+                android:onClick="gotoWebPage">
+
+                <ImageView
+                    android:layout_width="@dimen/girl_mode_gift_layout_height"
+                    android:layout_height="match_parent"
+                    android:id="@+id/imageView3"
+                    android:src="@drawable/jewelry_icon" />
+
+                <Space
+                    android:layout_width="5pt"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="15pt"
+                        android:text="@string/girl_mode_gift_title_3"
+                        android:textStyle="bold"
+                        android:textSize="12pt"
+                        android:id="@+id/girl_mode_gift_title_3" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/girl_mode_gift_desc_3"
+                        android:id="@+id/girl_mode_gift_desc_3" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="4pt"
+                android:layout_below="@id/girl_mode_gift_layout_3"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/girl_mode_gift_space_3a" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/girl_mode_gift_space_3a"
+                android:background="@color/md_brown_300"
+                android:id="@+id/girl_mode_gift_separation_3" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="4pt"
+                android:layout_below="@id/girl_mode_gift_separation_3"
+                android:id="@+id/girl_mode_gift_space_3b" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/girl_mode_gift_layout_height"
+                android:layout_below="@id/girl_mode_gift_space_3b"
+                android:id="@+id/girl_mode_gift_layout_4"
+                android:onClick="gotoWebPage">
+
+                <ImageView
+                    android:layout_width="@dimen/girl_mode_gift_layout_height"
+                    android:layout_height="match_parent"
+                    android:id="@+id/imageView4"
+                    android:src="@drawable/cake_icon" />
+
+                <Space
+                    android:layout_width="5pt"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="15pt"
+                        android:text="@string/girl_mode_gift_title_4"
+                        android:textStyle="bold"
+                        android:textSize="12pt"
+                        android:id="@+id/girl_mode_gift_title_4" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/girl_mode_gift_desc_4"
+                        android:id="@+id/girl_mode_gift_desc_4" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="4pt"
+                android:layout_below="@id/girl_mode_gift_layout_4"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/girl_mode_gift_space_4a" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/girl_mode_gift_space_4a"
+                android:background="@color/md_brown_300"
+                android:id="@+id/girl_mode_gift_separation_4" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="4pt"
+                android:layout_below="@id/girl_mode_gift_separation_4"
+                android:id="@+id/girl_mode_gift_space_4b" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/girl_mode_gift_layout_height"
+                android:layout_below="@id/girl_mode_gift_space_4b"
+                android:id="@+id/girl_mode_gift_layout_5"
+                android:onClick="gotoWebPage">
+
+                <ImageView
+                    android:layout_width="@dimen/girl_mode_gift_layout_height"
+                    android:layout_height="match_parent"
+                    android:id="@+id/imageView5"
+                    android:src="@drawable/picnic_icon" />
+
+                <Space
+                    android:layout_width="5pt"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="15pt"
+                        android:text="@string/girl_mode_gift_title_5"
+                        android:textStyle="bold"
+                        android:textSize="12pt"
+                        android:id="@+id/girl_mode_gift_title_5" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/girl_mode_gift_desc_5"
+                        android:id="@+id/girl_mode_gift_desc_5" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10pt"
+                android:layout_below="@id/girl_mode_gift_layout_5" />
+
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

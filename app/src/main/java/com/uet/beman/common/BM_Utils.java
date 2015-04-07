@@ -2,6 +2,7 @@ package com.uet.beman.common;
 
 import android.app.Activity;
 import android.content.res.Resources;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
@@ -21,7 +22,11 @@ public class BM_Utils {
 
     public static void hideSoftKeyboard(Activity activity) {
         InputMethodManager inputMethodManager = (InputMethodManager)  activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+        View view = activity.getCurrentFocus();
+        if (view != null) {
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+
     }
 
     public static void updateNameReferences(TextView textView, Resources resources, int id, String text) {

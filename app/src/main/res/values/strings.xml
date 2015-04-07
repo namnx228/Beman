@@ -28,7 +28,7 @@
 
     <string name="wifi_work">Work</string>
     <string name="wifi_home">Home</string>
-    <string name="wifi_girl_home">Girlfriend\'s Wifi</string>
+    <string name="wifi_girl_home">Girl\'s House</string>
     <string name="wifi_custom">Custom</string>
     <string name="wifi_select">Select</string>
     <string name="wifi_none">None</string>
@@ -76,5 +76,15 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="girl_mode_title">Suggested Gift</string>
     <string name="girl_mode_title2">for your Girl</string>
+    <string name="girl_mode_gift_title_1">Flower</string>
+    <string name="girl_mode_gift_desc_1">Rose</string>
+    <string name="girl_mode_gift_title_2">Movie</string>
+    <string name="girl_mode_gift_desc_2">Gravity Falls</string>
+    <string name="girl_mode_gift_title_3">Jewelry</string>
+    <string name="girl_mode_gift_desc_3">Ring</string>
+    <string name="girl_mode_gift_title_4">Cake</string>
+    <string name="girl_mode_gift_desc_4">Banh mi trung</string>
+    <string name="girl_mode_gift_title_5">Picnic</string>
+    <string name="girl_mode_gift_desc_5">Hoan Kiem Lake</string>
 
 </resources>
