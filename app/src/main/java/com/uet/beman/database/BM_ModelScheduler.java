@@ -69,6 +69,19 @@ public class BM_ModelScheduler {
         return node;
     }
 
+    private Node cursorToMessageList(Cursor cursor)
+    {
+        SentenceNode node = new SentenceNode();
+//        node.setMessageId(cursor.getInt(cursor.getColumnIndex(ScheduleEntry.COLUMN_MESSAGE_ID)));
+        node.setMessage(cursor.getString(cursor.getColumnIndex(ScheduleEntry.COLUMN_MESSAGE)));
+//        node.setParentId(cursor.getInt(cursor.getColumnIndex(ScheduleEntry)));
+     //        node.setSendTimeEpoch(cursor.getString(cursor.getColumnIndex(ScheduleEntry.COLUMN_ALARM_TIME)));
+        node.setId(cursor.getString(cursor.getColumnIndex(ScheduleEntry._ID)));
+        node.setLabel(cursor.getString(cursor.getColumnIndex(ScheduleEntry.COLUMN_LABEL)));
+        node.setLanguage(cursor.getString(cursor.getColumnIndex(ScheduleEntry.COLUMN_LANGUAGE)));
+        return node;
+    }
+
     public void addSentence(Node node) {
         openDb();
         String[] allColumn = { ScheduleEntry.COLUMN_MESSAGE_ID, ScheduleEntry.COLUMN_MESSAGE };
@@ -204,14 +217,14 @@ public class BM_ModelScheduler {
         closeDb();
     }
 
-    public List<SentenceNode> getMessages(String label) {
+    public List<SentenceNode> getMessagesOnSchedule(String label) {
         openDb();
         List<SentenceNode> result = new ArrayList<>();
 
-        String selection = "SELECT "  + ScheduleEntry.TABLE_MSG_TIME + ".*, "
-                            + ScheduleEntry.TABLE_MESSAGE + "."
-                            + ScheduleEntry.COLUMN_LABEL + " FROM " +  ScheduleEntry.TABLE_MESSAGE
-                            + " INNER JOIN " + ScheduleEntry.TABLE_MSG_TIME
+        String selection = "SELECT "  + ScheduleEntry.TABLE_MESSAGE + ".*, "
+                            + ScheduleEntry.TABLE_MSG_TIME + "."
+                            + ScheduleEntry.COLUMN_ALARM_TIME + " FROM " +  ScheduleEntry.TABLE_MESSAGE
+                            + " JOIN " + ScheduleEntry.TABLE_MSG_TIME
                             + " ON " + ScheduleEntry.TABLE_MESSAGE + "." + ScheduleEntry._ID
                             + "=" + ScheduleEntry.TABLE_MSG_TIME + "." + ScheduleEntry._ID
                             + " WHERE "  + ScheduleEntry.TABLE_MESSAGE + "."
@@ -222,6 +235,29 @@ public class BM_ModelScheduler {
             cursor.moveToFirst();
             while(!cursor.isAfterLast()) {
                 SentenceNode tmp = (SentenceNode) cursorToSchedule(cursor);
+                result.add(tmp);
+                cursor.moveToNext();
+            }
+        }
+        cursor.close();
+        closeDb();
+        return result;
+    }
+
+    public List<SentenceNode> getMessages(String label) {
+        openDb();
+        List<SentenceNode> result = new ArrayList<>();
+
+        String selection = "SELECT "  + ScheduleEntry.TABLE_MESSAGE + ".* "
+                + " FROM " +  ScheduleEntry.TABLE_MESSAGE
+                + " WHERE "  + ScheduleEntry.TABLE_MESSAGE + "."
+                + ScheduleEntry.COLUMN_LABEL + " = " + label;
+
+        Cursor cursor = db.rawQuery(selection, null);
+        if(cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()) {
+                SentenceNode tmp = (SentenceNode) cursorToMessageList(cursor);
                 result.add(tmp);
                 cursor.moveToNext();
             }
