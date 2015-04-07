@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.uet.beman.R;
@@ -34,7 +36,7 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class BM_FragmentWifi extends Fragment implements CompoundButton.OnCheckedChangeListener,
-        ManageWifiDialogFragment.ManageWifiClickListener {
+        ManageWifiDialogFragment.ManageWifiClickListener, View.OnClickListener {
 
     private OnFragmentInteractionListener mListener;
 
@@ -43,6 +45,14 @@ public class BM_FragmentWifi extends Fragment implements CompoundButton.OnChecke
     private SwitchCompat homeSwitch;
     private SwitchCompat workSwitch;
     private SwitchCompat girlSwitch;
+
+    private ImageView homeAddButton;
+    private ImageView workAddButton;
+    private ImageView girlAddButton;
+
+    private TextView homeTextView;
+    private TextView workTextView;
+    private TextView girlTextView;
 
     private static boolean onCreateViewRunning;
 
@@ -70,20 +80,54 @@ public class BM_FragmentWifi extends Fragment implements CompoundButton.OnChecke
 
         View view = inflater.inflate(R.layout.fragment_wifi, container, false);
 
-        homeSwitch = (SwitchCompat) view.findViewById(R.id.switch_home_wifi);
+        // Initialize wifi switches
+        homeSwitch = (SwitchCompat) view.findViewById(R.id.fragment_wifi_switch_home);
         homeSwitch.setOnCheckedChangeListener(this);
         homeSwitch.setChecked(spHelper.getWifiState(Constant.HOME_WIFI_STATE));
 
-        workSwitch = (SwitchCompat) view.findViewById(R.id.switch_work_wifi);
+        workSwitch = (SwitchCompat) view.findViewById(R.id.fragment_wifi_switch_work);
         workSwitch.setOnCheckedChangeListener(this);
         workSwitch.setChecked(spHelper.getWifiState(Constant.WORK_WIFI_STATE));
 
-        girlSwitch = (SwitchCompat) view.findViewById(R.id.switch_girl_wifi);
+        girlSwitch = (SwitchCompat) view.findViewById(R.id.fragment_wifi_switch_girl);
         girlSwitch.setOnCheckedChangeListener(this);
         girlSwitch.setChecked(spHelper.getWifiState(Constant.GIRL_WIFI_STATE));
 
+        // Initialize add buttons
+        homeAddButton = (ImageView) view.findViewById(R.id.fragment_wifi_add_button_home);
+        homeAddButton.setOnClickListener(this);
+
+        workAddButton = (ImageView) view.findViewById(R.id.fragment_wifi_add_button_work);
+        workAddButton.setOnClickListener(this);
+
+        girlAddButton = (ImageView) view.findViewById(R.id.fragment_wifi_add_button_girl);
+        girlAddButton.setOnClickListener(this);
+
+        // Initialize wifi detail text views
+        homeTextView = (TextView) view.findViewById(R.id.fragment_wifi_text_view_detail_home);
+        workTextView = (TextView) view.findViewById(R.id.fragment_wifi_text_view_detail_work);
+        girlTextView = (TextView) view.findViewById(R.id.fragment_wifi_text_view_detail_girl);
+        loadWifiDetail();
+
         onCreateViewRunning = false;
         return view;
+    }
+
+    private void loadWifiDetail() {
+        TextView tv[] = {homeTextView, workTextView, girlTextView};
+        String key[] = {Constant.HOME_WIFI_LIST, Constant.WORK_WIFI_LIST, Constant.GIRL_WIFI_LIST};
+        for (int i = 0; i < tv.length; i++) {
+            ArrayList<String> wifiList = spHelper.getWifiList(key[i]);
+            if (wifiList.isEmpty()) {
+                tv[i].setText("");
+                continue;
+            }
+            String text = "";
+            for (String s : wifiList)
+                text += s + " ; ";
+            text = text.substring(0, text.length() - 3);
+            tv[i].setText(text);
+        }
     }
 
     @Override
@@ -109,32 +153,36 @@ public class BM_FragmentWifi extends Fragment implements CompoundButton.OnChecke
             return;
 
         switch (buttonView.getId()) {
-            case R.id.switch_home_wifi:
+            case R.id.fragment_wifi_switch_home:
                 spHelper.setWifiState(Constant.HOME_WIFI_STATE, isChecked);
-                if (isChecked)
-                    if (!showWifiDialog(Constant.HOME_WIFI_LIST))
-                        homeSwitch.setChecked(false);
                 break;
-            case R.id.switch_work_wifi:
+            case R.id.fragment_wifi_switch_work:
                 spHelper.setWifiState(Constant.WORK_WIFI_STATE, isChecked);
-                if (isChecked)
-                    if (!showWifiDialog(Constant.WORK_WIFI_LIST))
-                        workSwitch.setChecked(false);
                 break;
-            case R.id.switch_girl_wifi:
+            case R.id.fragment_wifi_switch_girl:
                 spHelper.setWifiState(Constant.GIRL_WIFI_STATE, isChecked);
-                if (isChecked)
-                    if (!showWifiDialog(Constant.GIRL_WIFI_LIST))
-                        girlSwitch.setChecked(false);
                 break;
         }
     }
 
-    private boolean showWifiDialog(String key) {
-        if (!checkEnableWifi()) {
-            Toast.makeText(getActivity(), "Please enable Wifi", Toast.LENGTH_SHORT).show();
-            return false;
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.fragment_wifi_add_button_home:
+                showWifiDialog(Constant.HOME_WIFI_LIST);
+                break;
+            case R.id.fragment_wifi_add_button_work:
+                showWifiDialog(Constant.WORK_WIFI_LIST);
+                break;
+            case R.id.fragment_wifi_add_button_girl:
+                showWifiDialog(Constant.GIRL_WIFI_LIST);
+                break;
         }
+    }
+
+    private void showWifiDialog(String key) {
+        if (!checkEnableWifi())
+            Toast.makeText(getActivity(), "Please enable Wifi", Toast.LENGTH_SHORT).show();
 
         ArrayList<String> savedWifi = getSavedWifi(key);
         ArrayList<String> configuredWifi = getConfiguredWifi();
@@ -155,8 +203,6 @@ public class BM_FragmentWifi extends Fragment implements CompoundButton.OnChecke
         ManageWifiDialogFragment frag = ManageWifiDialogFragment.getInstance(configuredWifi, savedWifi);
         frag.setTargetFragment(this, requestCode);
         frag.show(getFragmentManager(), "wifi dialog");
-
-        return true;
     }
 
     private boolean checkEnableWifi() {
@@ -192,10 +238,6 @@ public class BM_FragmentWifi extends Fragment implements CompoundButton.OnChecke
         return new ArrayList<>(set);
     }
 
-    public interface OnFragmentInteractionListener {
-        public void onFragmentInteraction(Uri uri);
-    }
-
     public void saveWifiList(int requestCode, ArrayList<String> wifiList) {
         String key = null;
         switch (requestCode) {
@@ -212,8 +254,13 @@ public class BM_FragmentWifi extends Fragment implements CompoundButton.OnChecke
 
         if (key != null) {
             spHelper.setWifiList(key, wifiList);
+            loadWifiDetail();
         } else {
             Toast.makeText(getActivity(), "Save fail!", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public interface OnFragmentInteractionListener {
+        public void onFragmentInteraction(Uri uri);
     }
 }

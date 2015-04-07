@@ -21,7 +21,9 @@
             android:gravity="center_vertical"
             android:layout_centerInParent="true"
             android:paddingLeft="35dp"
-            android:paddingRight="20dp">
+            android:paddingStart="35dp"
+            android:paddingRight="20dp"
+            android:paddingEnd="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -60,21 +62,47 @@
                 android:textSize="@dimen/abc_text_size_medium_material"
                 android:textStyle="bold"
                 android:textAllCaps="true"
-                android:id="@+id/text_view_home_wifi"
+                android:id="@+id/fragment_wifi_text_view_title_home"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_toLeftOf="@+id/switch_home_wifi"
-                android:layout_toStartOf="@+id/switch_home_wifi" />
+                android:layout_toLeftOf="@+id/fragment_wifi_switch_home"
+                android:layout_toStartOf="@+id/fragment_wifi_switch_home" />
 
             <android.support.v7.widget.SwitchCompat
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/switch_home_wifi"
+                android:id="@+id/fragment_wifi_switch_home"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:layout_alignBottom="@+id/text_view_home_wifi" />
+                android:layout_alignBottom="@+id/fragment_wifi_text_view_title_home" />
+
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fragment_wifi_detail_layout_height"
+                android:layout_below="@+id/fragment_wifi_text_view_title_home"
+                android:id="@+id/fragment_wifi_layout_detail_home">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:textSize="@dimen/fragment_wifi_detail_text_size"
+                    android:layout_toLeftOf="@+id/fragment_wifi_add_button_home"
+                    android:layout_toStartOf="@+id/fragment_wifi_add_button_home"
+                    android:singleLine="true"
+                    android:id="@+id/fragment_wifi_text_view_detail_home" />
+
+                <ImageView
+                    android:layout_width="@dimen/fragment_wifi_detail_layout_height"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/ic_action_add"
+                    android:id="@+id/fragment_wifi_add_button_home" />
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -83,22 +111,48 @@
                 android:textSize="@dimen/abc_text_size_medium_material"
                 android:textStyle="bold"
                 android:textAllCaps="true"
-                android:id="@+id/text_view_work_wifi"
-                android:layout_below="@id/text_view_home_wifi"
+                android:id="@+id/fragment_wifi_text_view_title_work"
+                android:layout_below="@+id/fragment_wifi_layout_detail_home"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_toLeftOf="@+id/switch_work_wifi"
-                android:layout_toStartOf="@+id/switch_work_wifi" />
+                android:layout_toLeftOf="@+id/fragment_wifi_switch_work"
+                android:layout_toStartOf="@+id/fragment_wifi_switch_work" />
 
             <android.support.v7.widget.SwitchCompat
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/switch_work_wifi"
-                android:layout_alignTop="@+id/text_view_work_wifi"
+                android:id="@+id/fragment_wifi_switch_work"
+                android:layout_alignTop="@+id/fragment_wifi_text_view_title_work"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:layout_alignBottom="@+id/text_view_work_wifi"
+                android:layout_alignBottom="@+id/fragment_wifi_text_view_title_work"
                 android:singleLine="true" />
+
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fragment_wifi_detail_layout_height"
+                android:layout_below="@+id/fragment_wifi_text_view_title_work"
+                android:id="@+id/fragment_wifi_layout_detail_work">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:textSize="@dimen/fragment_wifi_detail_text_size"
+                    android:layout_toLeftOf="@+id/fragment_wifi_add_button_work"
+                    android:layout_toStartOf="@+id/fragment_wifi_add_button_work"
+                    android:singleLine="true"
+                    android:id="@+id/fragment_wifi_text_view_detail_work" />
+
+                <ImageView
+                    android:layout_width="@dimen/fragment_wifi_detail_layout_height"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/ic_action_add"
+                    android:id="@+id/fragment_wifi_add_button_work" />
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -107,20 +161,48 @@
                 android:textSize="@dimen/abc_text_size_medium_material"
                 android:textStyle="bold"
                 android:textAllCaps="true"
-                android:id="@+id/text_view_girl_wifi"
-                android:layout_below="@+id/text_view_work_wifi"
+                android:id="@+id/fragment_wifi_text_view_title_girl"
+                android:layout_below="@+id/fragment_wifi_layout_detail_work"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:layout_toLeftOf="@+id/fragment_wifi_switch_girl"
+                android:layout_toStartOf="@+id/fragment_wifi_switch_girl" />
 
             <android.support.v7.widget.SwitchCompat
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/switch_girl_wifi"
-                android:layout_alignTop="@+id/text_view_girl_wifi"
+                android:id="@+id/fragment_wifi_switch_girl"
+                android:layout_alignTop="@+id/fragment_wifi_text_view_title_girl"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:layout_alignBottom="@+id/text_view_girl_wifi"
+                android:layout_alignBottom="@+id/fragment_wifi_text_view_title_girl"
                 android:singleLine="true" />
+
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fragment_wifi_detail_layout_height"
+                android:layout_below="@+id/fragment_wifi_text_view_title_girl"
+                android:id="@+id/fragment_wifi_layout_detail_girl">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:textSize="@dimen/fragment_wifi_detail_text_size"
+                    android:layout_toLeftOf="@+id/fragment_wifi_add_button_girl"
+                    android:layout_toStartOf="@+id/fragment_wifi_add_button_girl"
+                    android:singleLine="true"
+                    android:id="@+id/fragment_wifi_text_view_detail_girl" />
+
+                <ImageView
+                    android:layout_width="@dimen/fragment_wifi_detail_layout_height"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/ic_action_add"
+                    android:id="@+id/fragment_wifi_add_button_girl" />
+            </RelativeLayout>
 
         </RelativeLayout>
 

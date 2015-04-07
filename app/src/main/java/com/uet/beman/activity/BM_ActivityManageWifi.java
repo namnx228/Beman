@@ -35,9 +35,9 @@ public class BM_ActivityManageWifi extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bm_activity_manage_wifi);
 
-        editTextHomeWifi = (EditText) findViewById(R.id.switch_home_wifi);
-        editTextWorkWifi = (EditText) findViewById(R.id.switch_work_wifi);
-        editTextGirlWifi = (EditText) findViewById(R.id.switch_girl_wifi);
+        editTextHomeWifi = (EditText) findViewById(R.id.fragment_wifi_switch_home);
+        editTextWorkWifi = (EditText) findViewById(R.id.fragment_wifi_switch_work);
+        editTextGirlWifi = (EditText) findViewById(R.id.fragment_wifi_switch_girl);
 
         loadEditText();
     }

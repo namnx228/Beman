@@ -3,4 +3,6 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="girl_mode_gift_layout_height">50pt</dimen>
+    <dimen name="fragment_wifi_detail_layout_height">12pt</dimen>
+    <dimen name="fragment_wifi_detail_text_size">8pt</dimen>
 </resources>
