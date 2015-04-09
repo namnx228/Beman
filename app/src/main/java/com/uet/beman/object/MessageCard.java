@@ -8,6 +8,7 @@ import android.content.Context;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +24,7 @@ import it.gmariotti.cardslib.library.internal.base.BaseCard;
 import it.gmariotti.cardslib.library.prototypes.CardWithList;
 import it.gmariotti.cardslib.library.prototypes.LinearListView;
 
-public class MessageCard extends CardWithList {
+public class MessageCard extends CardWithList implements View.OnClickListener{
 
     BM_NodeListHandler handler = new BM_NodeListHandler();
     List<MessageObject> objs = new ArrayList<>();
@@ -67,12 +68,17 @@ public class MessageCard extends CardWithList {
     @Override
     public View setupChildView(int childPosition, ListObject object, View convertView, ViewGroup parent) {
 
-        TextView language = (TextView) convertView.findViewById(R.id.messagecard_dayName);
+//        TextView language = (TextView) convertView.findViewById(R.id.messagecard_dayName);
 //        TextView dayDate = (TextView) convertView.findViewById(R.id.messagecard_dayDate);
-        TextView content = (TextView) convertView.findViewById(R.id.messagecard_content);
+        ImageView checkmark = (ImageView) convertView.findViewById(R.id.checkmark_message);
+        checkmark.setOnClickListener(this);
+        TextView content = (TextView) convertView.findViewById(R.id.messagecard_dayDate);
 
         MessageObject obj = (MessageObject) object;
-        language.setText(obj.sentenceNode.getLanguage());
+//        checkmark.
+//        if(obj.sentenceNode.getCheckStatus() != null) {
+//            checkmark.requestFocus();
+//        }
         content.setText(obj.sentenceNode.getMessage());
 //        WeatherObject weatherObject= (WeatherObject)object;
 //        icon.setImageResource(weatherObject.weatherIcon);
@@ -152,8 +158,16 @@ public class MessageCard extends CardWithList {
                 public void onItemClick(LinearListView linearListView, View view, int i, CardWithList.ListObject listObject) {
                     Toast.makeText(getContext(), "Click on " + sentenceNode.getMessage(), Toast.LENGTH_SHORT).show();
                 }
+
             });
         }
     }
+
+    @Override
+    public void onClick(View view) {
+        ImageView checkmark = (ImageView) view.findViewById(view.getId());
+        checkmark.setImageResource(R.drawable.ic_check_circle_black);
+    }
+
 }
 

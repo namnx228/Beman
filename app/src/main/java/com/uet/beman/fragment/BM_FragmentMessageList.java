@@ -7,8 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.uet.beman.R;
+import com.uet.beman.common.BM_Utils;
+import com.uet.beman.common.SharedPreferencesHelper;
 import com.uet.beman.object.MessageCard;
 
 import it.gmariotti.cardslib.library.view.CardView;
@@ -68,6 +71,11 @@ public class BM_FragmentMessageList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_message_list, container, false);
+
+        // Update name reference
+        TextView headline = (TextView) view.findViewById(R.id.fragment_messagelist_headline);
+        String name = SharedPreferencesHelper.getInstance().getUserName();
+        BM_Utils.updateNameReferences(headline, getResources(), R.string.line_fragment_message_list, name);
 
         MessageCard card = new MessageCard(getActivity());
         card.init();

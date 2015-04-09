@@ -20,10 +20,11 @@
             android:layout_gravity="center_vertical|center_horizontal"
             android:gravity="center_vertical"
             android:layout_centerInParent="true"
-            android:paddingLeft="35dp"
+            android:paddingLeft="20dp"
             android:paddingRight="20dp">
 
             <TextView
+                android:id="@+id/fragment_messagelist_headline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/abc_text_size_display_1_material"

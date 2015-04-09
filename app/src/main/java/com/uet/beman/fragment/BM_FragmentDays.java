@@ -10,9 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.uet.beman.R;
+import com.uet.beman.common.BM_Utils;
 import com.uet.beman.common.SharedPreferencesHelper;
 
 /**
@@ -78,6 +80,11 @@ public class BM_FragmentDays extends Fragment implements View.OnClickListener{
         View view = inflater.inflate(R.layout.bm_fragment_days, container, false);
         gridDays = (GridLayout) view.findViewById(R.id.grid_days);
         createButtons(SharedPreferencesHelper.LENGTH_OF_PREFERENCES);
+
+        // Update name reference
+        TextView headline = (TextView) view.findViewById(R.id.fragment_days_headline);
+        String name = SharedPreferencesHelper.getInstance().getUserName();
+        BM_Utils.updateNameReferences(headline, getResources(), R.string.line_fragment_days, name);
 
         // Inflate the layout for this fragment
         return view;

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,13 +52,16 @@ public class ScheduleCard extends CardWithList {
     @Override
     public View setupChildView(int childPosition, ListObject object, View convertView, ViewGroup parent) {
 
-        TextView dayName = (TextView) convertView.findViewById(R.id.messagecard_dayName);
+//        TextView dayName = (TextView) convertView.findViewById(R.id.messagecard_dayName);
+//        TextView dayDate = (TextView) convertView.findViewById(R.id.messagecard_dayDate);
+//        TextView content = (TextView) convertView.findViewById(R.id.messagecard_content);
+
+        ImageButton checkmark = (ImageButton) convertView.findViewById(R.id.checkmark_message);
         TextView dayDate = (TextView) convertView.findViewById(R.id.messagecard_dayDate);
-        TextView content = (TextView) convertView.findViewById(R.id.messagecard_content);
 
         ScheduleObject obj = (ScheduleObject) object;
         dayDate.setText(obj.sentenceNode.getSendTime());
-        content.setText(obj.sentenceNode.getMessage());
+//        content.setText(obj.sentenceNode.getMessage());
 //        WeatherObject weatherObject= (WeatherObject)object;
 //        icon.setImageResource(weatherObject.weatherIcon);
 //        city.setText(weatherObject.city);

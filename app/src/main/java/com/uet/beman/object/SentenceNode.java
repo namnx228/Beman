@@ -8,6 +8,7 @@ public class SentenceNode extends Node{
     private String sendTimeEpoch;
     private String label;
     private String language;
+    private Boolean checkStatus;
 
     public SentenceNode() {
     }
@@ -15,8 +16,19 @@ public class SentenceNode extends Node{
     public SentenceNode(String message, String sendTime) {
         super(message);
         setSendTime(sendTime);
+        checkStatus = false;
         // setSendTimeEpoch(sendTimeEpoch);
     }
+
+    public SentenceNode(String message, String sendTime, Boolean checkStatus) {
+        super(message);
+        setSendTime(sendTime);
+        setCheckStatus(checkStatus);
+    }
+
+    public Boolean getCheckStatus() { return checkStatus; }
+
+    public void setCheckStatus(Boolean checkStatus) { this.checkStatus = checkStatus; }
 
     public String getSendTime() { return sendTime; }
 

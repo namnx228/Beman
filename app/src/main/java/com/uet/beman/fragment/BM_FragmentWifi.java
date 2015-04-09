@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.uet.beman.R;
+import com.uet.beman.common.BM_Utils;
 import com.uet.beman.common.SharedPreferencesHelper;
 import com.uet.beman.object.ManageWifiDialogFragment;
 import com.uet.beman.util.Constant;
@@ -79,6 +80,11 @@ public class BM_FragmentWifi extends Fragment implements CompoundButton.OnChecke
         onCreateViewRunning = true;
 
         View view = inflater.inflate(R.layout.fragment_wifi, container, false);
+
+        // Update name reference
+        TextView headline = (TextView) view.findViewById(R.id.fragment_wifi_headline);
+        String name = SharedPreferencesHelper.getInstance().getUserName();
+        BM_Utils.updateNameReferences(headline, getResources(), R.string.line_fragment_wifi1, name);
 
         // Initialize wifi switches
         homeSwitch = (SwitchCompat) view.findViewById(R.id.fragment_wifi_switch_home);
