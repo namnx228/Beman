@@ -4,7 +4,9 @@ package com.uet.beman.object;
  * Created by PhanDuy on 3/23/2015.
  */
 
+import android.app.Activity;
 import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.uet.beman.R;
+import com.uet.beman.fragment.BM_FragmentMessageList;
 import com.uet.beman.support.BM_NodeListHandler;
 
 import java.util.ArrayList;
@@ -28,9 +31,16 @@ public class MessageCard extends CardWithList implements View.OnClickListener{
 
     BM_NodeListHandler handler = new BM_NodeListHandler();
     List<MessageObject> objs = new ArrayList<>();
+    Activity activity;
+    BM_FragmentMessageList fragment;
 
     public MessageCard(Context context) {
         super(context);
+        activity = (Activity) context;
+    }
+
+    public void setFragment(Fragment fragment) {
+        this.fragment = (BM_FragmentMessageList) fragment;
     }
 
     public void updateScheduleItems() {
@@ -157,6 +167,7 @@ public class MessageCard extends CardWithList implements View.OnClickListener{
                 @Override
                 public void onItemClick(LinearListView linearListView, View view, int i, CardWithList.ListObject listObject) {
                     Toast.makeText(getContext(), "Click on " + sentenceNode.getMessage(), Toast.LENGTH_SHORT).show();
+                    fragment.createMessageDialog();
                 }
 
             });

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dip">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_message"
+        android:textStyle="bold"
+        android:textSize="@dimen/abc_text_size_medium_material"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/abc_button_padding_horizontal_material" />
+
+    <EditText
+        android:id="@+id/dialog_message_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="3"
+        android:lines="3"
+        android:gravity="top"
+        android:hint="Your message"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/abc_button_padding_horizontal_material" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_choose_days"
+        android:textStyle="bold"
+        android:textSize="@dimen/abc_text_size_medium_material"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="10dp">
+
+        <Button
+            android:id="@+id/dialog_monBtn"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:background="@drawable/circle_day_button"
+            android:text="@string/day_mon"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:layout_margin="8dp"
+            />
+
+        <Button
+            android:id="@+id/dialog_tueBtn"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:background="@drawable/circle_day_button"
+            android:text="@string/day_tue"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:layout_margin="8dp"
+            />
+
+        <Button
+            android:id="@+id/dialog_wedBtn"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:background="@drawable/circle_day_button"
+            android:text="@string/day_wed"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:layout_margin="8dp"
+            />
+
+        <Button
+            android:id="@+id/dialog_thuBtn"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:background="@drawable/circle_day_button"
+            android:text="@string/day_thu"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:layout_margin="8dp"
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal" >
+
+        <Button
+            android:id="@+id/dialog_friBtn"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:background="@drawable/circle_day_button"
+            android:text="@string/day_fri"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:layout_margin="8dp"
+            />
+
+        <Button
+            android:id="@+id/dialog_satBtn"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:background="@drawable/circle_day_button"
+            android:text="@string/day_sat"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:layout_margin="8dp"
+            android:textColor="@color/md_red_600"
+            />
+
+        <Button
+            android:id="@+id/dialog_sunBtn"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:background="@drawable/circle_day_button"
+            android:text="@string/day_sun"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:layout_margin="8dp"
+            android:textColor="@color/md_red_600"
+            />
+    </LinearLayout>
+
+</LinearLayout>

@@ -187,8 +187,10 @@ public class BM_FragmentWifi extends Fragment implements CompoundButton.OnChecke
     }
 
     private void showWifiDialog(String key) {
-        if (!checkEnableWifi())
+        if (!checkEnableWifi()) {
             Toast.makeText(getActivity(), "Please enable Wifi", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         ArrayList<String> savedWifi = getSavedWifi(key);
         ArrayList<String> configuredWifi = getConfiguredWifi();

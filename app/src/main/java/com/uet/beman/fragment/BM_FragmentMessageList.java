@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,6 +80,7 @@ public class BM_FragmentMessageList extends Fragment {
 
         MessageCard card = new MessageCard(getActivity());
         card.init();
+        card.setFragment(this);
 //        //Create a CardHeader
 //        CustomHeaderColor header = new CustomHeaderColor(getActivity());
 //        //Set the header title
@@ -157,6 +159,14 @@ public class BM_FragmentMessageList extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
+    }
+
+    public void createMessageDialog() {
+        BM_FragmentMessageDialog dialog = new BM_FragmentMessageDialog();
+
+        FragmentManager fm = getFragmentManager();
+        dialog.setTargetFragment(this, 0);
+        dialog.show(fm, "ABC");
     }
 
 }

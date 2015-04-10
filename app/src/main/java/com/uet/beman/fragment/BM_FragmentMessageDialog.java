@@ -1,29 +1,28 @@
 package com.uet.beman.fragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.material.widget.FloatingEditText;
-import com.material.widget.PaperButton;
 import com.uet.beman.R;
-import com.uet.beman.common.BM_Utils;
-import com.uet.beman.common.SharedPreferencesHelper;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link BM_FragmentInfo.OnFragmentInteractionListener} interface
+ * {@link BM_FragmentMessageDialog.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link BM_FragmentInfo#newInstance} factory method to
+ * Use the {@link BM_FragmentMessageDialog#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BM_FragmentInfo extends Fragment implements View.OnClickListener{
+public class BM_FragmentMessageDialog extends DialogFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -33,11 +32,7 @@ public class BM_FragmentInfo extends Fragment implements View.OnClickListener{
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
-    private SharedPreferencesHelper sharedPreferencesHelper;
-    private FloatingEditText floatingEditText;
-    private PaperButton paperButton;
-    private TextView result;
+    MessageDialogListener mListener;
 
     /**
      * Use this factory method to create a new instance of
@@ -45,11 +40,11 @@ public class BM_FragmentInfo extends Fragment implements View.OnClickListener{
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment BM_FragmentInfo.
+     * @return A new instance of fragment BM_FragmentMessageDialog.
      */
     // TODO: Rename and change types and number of parameters
-    public static BM_FragmentInfo newInstance(String param1, String param2) {
-        BM_FragmentInfo fragment = new BM_FragmentInfo();
+    public static BM_FragmentMessageDialog newInstance(String param1, String param2) {
+        BM_FragmentMessageDialog fragment = new BM_FragmentMessageDialog();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -57,7 +52,7 @@ public class BM_FragmentInfo extends Fragment implements View.OnClickListener{
         return fragment;
     }
 
-    public BM_FragmentInfo() {
+    public BM_FragmentMessageDialog() {
         // Required empty public constructor
     }
 
@@ -68,50 +63,55 @@ public class BM_FragmentInfo extends Fragment implements View.OnClickListener{
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        sharedPreferencesHelper = SharedPreferencesHelper.getInstance();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_info1, container, false);
-        floatingEditText = (FloatingEditText) view.findViewById(R.id.user_name);
-        paperButton = (PaperButton) view.findViewById(R.id.nameBtn);
-        result = (TextView) view.findViewById(R.id.info_result);
-        String res = sharedPreferencesHelper.getUserName();
-        floatingEditText.setText(res);
-        BM_Utils.updateNameReferences(result,getResources(),R.string.line_fragment_info_result1,res);
-        paperButton.setOnClickListener(this);
-        // Inflate the layout for this fragment
-        return view;
+
+        return null;
     }
 
     @Override
-    public void onClick(View v) {
-        String name = floatingEditText.getText().toString();
-        sharedPreferencesHelper.setUserName(name);
-        String res = sharedPreferencesHelper.getUserName();
-        BM_Utils.updateNameReferences(result,getResources(),R.string.line_fragment_info_result1,res);
-        BM_Utils.hideSoftKeyboard(getActivity());
-
-
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+//        getActivity().requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        getActivity().setContentView(R.layout.dialog_message_info_title);
+        // Build the dialog and set up the button click handlers
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        builder.setCustomTitle(inflater.inflate(R.layout.dialog_message_info_title, null));
+        builder.setView(inflater.inflate(R.layout.dialog_message_info_content, null));
+        builder.setPositiveButton(R.string.dialog_action_save, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // Send the positive button event back to the host activity
+                mListener.onDialogPositiveClick(BM_FragmentMessageDialog.this);
+            }
+        })
+                .setNegativeButton(R.string.dialog_action_cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Send the negative button event back to the host activity
+                        mListener.onDialogNegativeClick(BM_FragmentMessageDialog.this);
+                    }
+                });
+        return builder.create();
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+    /* The activity that creates an instance of this dialog fragment must
+     * implement this interface in order to receive event callbacks.
+     * Each method passes the DialogFragment in case the host needs to query it. */
+    public interface MessageDialogListener {
+        public void onDialogPositiveClick(DialogFragment dialog);
+        public void onDialogNegativeClick(DialogFragment dialog);
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (OnFragmentInteractionListener) activity;
+            mListener = (MessageDialogListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement MessageDialogListener");
         }
     }
 
