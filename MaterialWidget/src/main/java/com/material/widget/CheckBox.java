@@ -77,6 +77,7 @@ public class CheckBox extends CompoundButton {
         mMarkLeftRightPadding = getResources().getDimensionPixelSize(R.dimen.checkbox_mark_left_right_padding);
         mMarkTopPadding = getResources().getDimensionPixelSize(R.dimen.checkbox_mark_top_padding);
         mMarkBottomPadding = getResources().getDimensionPixelSize(R.dimen.checkbox_mark_bottom_padding);
+
     }
 
     @Override

@@ -30,13 +30,16 @@ import com.uet.beman.common.BM_ActivitySetting;
 import com.uet.beman.common.SharedPreferencesHelper;
 import com.uet.beman.database.BM_ModelScheduler;
 import com.uet.beman.object.SentenceNode;
+import com.uet.beman.support.Setting;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 
-public class BM_ActivityMain extends ActionBarActivity implements View.OnClickListener {
+public class BM_ActivityMain extends BM_BaseActivity implements View.OnClickListener {
 
     Button sendBtn;
     RadioGroup txtMessage;
@@ -242,8 +245,8 @@ public class BM_ActivityMain extends ActionBarActivity implements View.OnClickLi
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_bm_activity_main, menu);
-        return true;
+       // getMenuInflater().inflate(R.menu.menu_bm_activity_main, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -251,23 +254,11 @@ public class BM_ActivityMain extends ActionBarActivity implements View.OnClickLi
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        Intent intent = null;
-        //noinspection SimplifiableIfStatement
-        switch (id) {
-            case R.id.activity_message_list:
-                intent = new Intent(this, BM_ActivityMessageList.class);
-                startActivity(intent);
-                break;
-            case R.id.action_settings:
-                intent = new Intent(this, BM_ActivitySetting.class);
-                startActivity(intent);
-                break;
-            case R.id.activity_setup:
-                intent = new Intent(this, BM_ActivitySimpleSetup.class);
-                startActivity(intent);
-                break;
-        }
+
+        //Setting setting = new Setting(R.id.activity_message_list, R.id.action_settings, R.id.activity_setup);
+        //setting.setMenu(this,item);
+
+
 
         return super.onOptionsItemSelected(item);
     }

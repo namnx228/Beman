@@ -92,5 +92,6 @@
     <string name="girl_mode_gift_desc_4">Banh mi trung</string>
     <string name="girl_mode_gift_title_5">Picnic</string>
     <string name="girl_mode_gift_desc_5">Hoan Kiem Lake</string>
+    <string name="title_activity_bm__base">BM_BaseActivity</string>
 
 </resources>

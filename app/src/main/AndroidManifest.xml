@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.uet.beman" >
-    <uses-sdk android:minSdkVersion="11"/>
+
+    <uses-sdk android:minSdkVersion="11" />
+
     <uses-permission android:name="android.permission.SEND_SMS" />
 
     <!-- To access Google+ APIs: -->
@@ -18,6 +20,14 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <android:uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <android:uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
 
     <application
         android:name=".common.BM_Application"
@@ -136,6 +146,10 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.uet.beman.activity.BM_ActivityMain" />
+        </activity>
+        <activity
+            android:name=".activity.BM_BaseActivity"
+            android:label="@string/title_activity_bm__base" >
         </activity>
     </application>
 

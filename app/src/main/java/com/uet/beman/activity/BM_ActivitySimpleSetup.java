@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.uet.beman.R;
 import com.uet.beman.common.BM_CustomViewPager;
@@ -17,7 +19,7 @@ import com.uet.beman.fragment.BM_FragmentWelcomeScreen;
 import com.uet.beman.fragment.BM_FragmentWifi;
 import com.uet.beman.support.BM_ViewPagerAdapter;
 
-public class BM_ActivitySimpleSetup extends ActionBarActivity implements
+public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
         BM_FragmentWelcomeScreen.OnFragmentInteractionListener, BM_FragmentInfo.OnFragmentInteractionListener,
         BM_FragmentPhoneNumber.OnFragmentInteractionListener, BM_FragmentWifi.OnFragmentInteractionListener,
         BM_FragmentDays.OnFragmentInteractionListener, BM_FragmentMessageList.OnFragmentInteractionListener,
@@ -50,6 +52,17 @@ public class BM_ActivitySimpleSetup extends ActionBarActivity implements
 //                //invalidateOptionsMenu();
 //            }
 //        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+           return super.onOptionsItemSelected(item);
     }
 
     @Override
