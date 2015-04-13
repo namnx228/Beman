@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.uet.beman.R;
 
@@ -27,6 +28,7 @@ public class BM_FragmentMessageDialog extends DialogFragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private String msg;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -56,6 +58,10 @@ public class BM_FragmentMessageDialog extends DialogFragment {
         // Required empty public constructor
     }
 
+    public void setMessage(String msg) {
+        this.msg = msg;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +74,6 @@ public class BM_FragmentMessageDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         return null;
     }
 
@@ -79,8 +84,12 @@ public class BM_FragmentMessageDialog extends DialogFragment {
         // Build the dialog and set up the button click handlers
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
+        View content = inflater.inflate(R.layout.dialog_message_info_content, null);
+        EditText message = (EditText) content.findViewById(R.id.dialog_message_content);
+        message.setText(msg);
+
         builder.setCustomTitle(inflater.inflate(R.layout.dialog_message_info_title, null));
-        builder.setView(inflater.inflate(R.layout.dialog_message_info_content, null));
+        builder.setView(content);
         builder.setPositiveButton(R.string.dialog_action_save, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // Send the positive button event back to the host activity

@@ -81,25 +81,6 @@ public class BM_FragmentMessageList extends Fragment {
         MessageCard card = new MessageCard(getActivity());
         card.init();
         card.setFragment(this);
-//        //Create a CardHeader
-//        CustomHeaderColor header = new CustomHeaderColor(getActivity());
-//        //Set the header title
-//        header.setTitle("DEMO");
-//
-//        header.setOtherButtonVisible(true);
-//        header.setOtherButtonClickListener(new CardHeader.OnClickCardHeaderOtherButtonListener() {
-//            @Override
-//            public void onButtonItemClick(Card card, View view) {
-//                //Example to change dinamically the button resources
-//                if (Build.VERSION.SDK_INT >= Constants.API_L) {
-//                    card.getCardHeader().setOtherButtonDrawable(R.drawable.ic_action_add);
-//                } else {
-//                    card.getCardHeader().setOtherButtonDrawable(R.drawable.card_menu_button_other_add);
-//                }
-//                card.getCardView().refreshCard(card);
-//            }
-//        });
-//        card.addCardHeader(header);
         card.updateMessageItems("|morning|");
         //card.updateScheduleItems();
 
@@ -161,8 +142,9 @@ public class BM_FragmentMessageList extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
-    public void createMessageDialog() {
+    public void createMessageDialog(String msg) {
         BM_FragmentMessageDialog dialog = new BM_FragmentMessageDialog();
+        dialog.setMessage(msg);
 
         FragmentManager fm = getFragmentManager();
         dialog.setTargetFragment(this, 0);

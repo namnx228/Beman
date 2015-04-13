@@ -27,12 +27,13 @@ import it.gmariotti.cardslib.library.internal.base.BaseCard;
 import it.gmariotti.cardslib.library.prototypes.CardWithList;
 import it.gmariotti.cardslib.library.prototypes.LinearListView;
 
-public class MessageCard extends CardWithList implements View.OnClickListener{
+public class MessageCard extends CardWithList {
 
     BM_NodeListHandler handler = new BM_NodeListHandler();
     List<MessageObject> objs = new ArrayList<>();
     Activity activity;
     BM_FragmentMessageList fragment;
+//    MessageObject obj;
 
     public MessageCard(Context context) {
         super(context);
@@ -80,16 +81,32 @@ public class MessageCard extends CardWithList implements View.OnClickListener{
 
 //        TextView language = (TextView) convertView.findViewById(R.id.messagecard_dayName);
 //        TextView dayDate = (TextView) convertView.findViewById(R.id.messagecard_dayDate);
-        ImageView checkmark = (ImageView) convertView.findViewById(R.id.checkmark_message);
-        checkmark.setOnClickListener(this);
+        final ImageView checkmark = (ImageView) convertView.findViewById(R.id.checkmark_message);
         TextView content = (TextView) convertView.findViewById(R.id.messagecard_dayDate);
 
-        MessageObject obj = (MessageObject) object;
+        final MessageObject obj = (MessageObject) object;
 //        checkmark.
 //        if(obj.sentenceNode.getCheckStatus() != null) {
 //            checkmark.requestFocus();
 //        }
         content.setText(obj.sentenceNode.getMessage());
+
+        checkmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String enabled = obj.sentenceNode.getEnabled();
+//                checkmark = (ImageView) view.findViewById(view.getId());
+                if(enabled.compareTo("0") == 0) {
+                    obj.sentenceNode.setEnabled("1");
+                    Toast.makeText(activity, "YES", Toast.LENGTH_LONG).show();
+                    checkmark.setImageResource(R.drawable.ic_check_circle_black);
+                } else if(enabled.compareTo("1") == 0) {
+                    Toast.makeText(activity, "NO", Toast.LENGTH_LONG).show();
+                    obj.sentenceNode.setEnabled("0");
+                    checkmark.setImageResource(R.drawable.ic_panorama_fisheye_black);
+                }
+            }
+        });
 //        WeatherObject weatherObject= (WeatherObject)object;
 //        icon.setImageResource(weatherObject.weatherIcon);
 //        city.setText(weatherObject.city);
@@ -104,6 +121,25 @@ public class MessageCard extends CardWithList implements View.OnClickListener{
 
     @Override
     protected CardHeader initCardHeader() {
+//        //Create a CardHeader
+//        CustomHeaderColor header = new CustomHeaderColor(getActivity());
+//        //Set the header title
+//        header.setTitle("DEMO");
+//
+//        header.setOtherButtonVisible(true);
+//        header.setOtherButtonClickListener(new CardHeader.OnClickCardHeaderOtherButtonListener() {
+//            @Override
+//            public void onButtonItemClick(Card card, View view) {
+//                //Example to change dinamically the button resources
+//                if (Build.VERSION.SDK_INT >= Constants.API_L) {
+//                    card.getCardHeader().setOtherButtonDrawable(R.drawable.ic_action_add);
+//                } else {
+//                    card.getCardHeader().setOtherButtonDrawable(R.drawable.card_menu_button_other_add);
+//                }
+//                card.getCardView().refreshCard(card);
+//            }
+//        });
+//        card.addCardHeader(header);
 
         //Add Header
         CardHeader header = new CardHeader(getContext());
@@ -115,10 +151,10 @@ public class MessageCard extends CardWithList implements View.OnClickListener{
 
                 switch (item.getItemId()){
                     case R.id.action_add_item:
-                        Toast.makeText(getContext(), "Add item", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getContext(), "Add item", Toast.LENGTH_LONG).show();
                         break;
                     case R.id.action_settings:
-                        Toast.makeText(getContext(), "Setting", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getContext(), "Setting", Toast.LENGTH_LONG).show();
                         break;
                 }
             }
@@ -166,19 +202,19 @@ public class MessageCard extends CardWithList implements View.OnClickListener{
             setOnItemClickListener(new CardWithList.OnItemClickListener() {
                 @Override
                 public void onItemClick(LinearListView linearListView, View view, int i, CardWithList.ListObject listObject) {
-                    Toast.makeText(getContext(), "Click on " + sentenceNode.getMessage(), Toast.LENGTH_SHORT).show();
-                    fragment.createMessageDialog();
+//                    Toast.makeText(getContext(), "Click on " + sentenceNode.getMessage(), Toast.LENGTH_SHORT).show();
+                    fragment.createMessageDialog(sentenceNode.getMessage());
                 }
 
             });
         }
     }
-
-    @Override
-    public void onClick(View view) {
-        ImageView checkmark = (ImageView) view.findViewById(view.getId());
-        checkmark.setImageResource(R.drawable.ic_check_circle_black);
-    }
+//
+//    @Override
+//    public void onClick(View view) {
+//        ImageView checkmark = (ImageView) view.findViewById(view.getId());
+//        checkmark.setImageResource(R.drawable.ic_check_circle_black);
+//    }
 
 }
 

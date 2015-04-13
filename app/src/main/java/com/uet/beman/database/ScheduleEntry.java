@@ -17,6 +17,8 @@ public abstract class ScheduleEntry implements BaseColumns{
     public static final String COLUMN_STATUS = "state";
     public static final String COLUMN_LABEL = "label";
     public static final String COLUMN_LANGUAGE = "lang";
+    public static final String COLUMN_ENABLED = "enable";
+    public static final String COLUMN_DAYS = "days";
 
     public static final String TABLE_MESSAGE = "Message";
     public static final String TABLE_MSG_TIME = "Schedule";

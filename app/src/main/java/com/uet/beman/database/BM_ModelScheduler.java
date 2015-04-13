@@ -76,15 +76,17 @@ public class BM_ModelScheduler {
         node.setMessage(cursor.getString(cursor.getColumnIndex(ScheduleEntry.COLUMN_MESSAGE)));
 //        node.setParentId(cursor.getInt(cursor.getColumnIndex(ScheduleEntry)));
      //        node.setSendTimeEpoch(cursor.getString(cursor.getColumnIndex(ScheduleEntry.COLUMN_ALARM_TIME)));
+        node.setEnabled(cursor.getString(cursor.getColumnIndex(ScheduleEntry.COLUMN_ENABLED)));
+        node.setDays(cursor.getString(cursor.getColumnIndex(ScheduleEntry.COLUMN_DAYS)));
         node.setId(cursor.getString(cursor.getColumnIndex(ScheduleEntry._ID)));
         node.setLabel(cursor.getString(cursor.getColumnIndex(ScheduleEntry.COLUMN_LABEL)));
         node.setLanguage(cursor.getString(cursor.getColumnIndex(ScheduleEntry.COLUMN_LANGUAGE)));
         return node;
     }
 
-    public void addSentence(Node node) {
+    public void addSentence(SentenceNode node) {
         openDb();
-        String[] allColumn = { ScheduleEntry.COLUMN_MESSAGE_ID, ScheduleEntry.COLUMN_MESSAGE };
+        String[] allColumn = { ScheduleEntry.COLUMN_MESSAGE_ID, ScheduleEntry.COLUMN_MESSAGE, ScheduleEntry.COLUMN_ENABLED, ScheduleEntry.COLUMN_DAYS };
 
         String selection = ScheduleEntry.COLUMN_MESSAGE_ID + " = " + node.getMessageId();
 
@@ -94,6 +96,8 @@ public class BM_ModelScheduler {
             ContentValues values = new ContentValues();
             values.put(ScheduleEntry.COLUMN_MESSAGE_ID, node.getMessageId());
             values.put(ScheduleEntry.COLUMN_MESSAGE, node.getMessage());
+            values.put(ScheduleEntry.COLUMN_ENABLED, node.getEnabled());
+            values.put(ScheduleEntry.COLUMN_DAYS, node.getDays());
 
             db.insert(ScheduleEntry.TABLE_MESSAGE, null, values);
         }

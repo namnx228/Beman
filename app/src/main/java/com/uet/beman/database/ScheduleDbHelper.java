@@ -63,8 +63,8 @@ public class ScheduleDbHelper extends SQLiteOpenHelper{
             Log.i("myPath ......",path);
             if (checkDB != null)
             {
-                Cursor c= checkDB.rawQuery("SELECT * FROM bank", null);
-                Log.i("Cursor.......",c.getString(0));
+                Cursor c= checkDB.rawQuery("SELECT * FROM Messages", null);
+                //Log.i("Cursor.......",c.getString(0));
                 c.moveToFirst();
                 String contents[]=new String[80];
                 int flag=0;
@@ -79,7 +79,7 @@ public class ScheduleDbHelper extends SQLiteOpenHelper{
                     contents[flag]=temp;
                     flag=flag+1;
 
-                    Log.i("DB values.........",temp);
+                    //Log.i("DB values.........",temp);
                     c.moveToNext();
 
                 }
@@ -104,17 +104,17 @@ public class ScheduleDbHelper extends SQLiteOpenHelper{
 
     public void copyDB() throws IOException{
         try {
-            Log.i("inside copyDB","start");
+            //Log.i("inside copyDB","start");
 
             InputStream ip =  BM_Application.getInstance().getAssets().open(DB_NAME+".db");
-            Log.i("Input Stream....",ip+"");
+            //Log.i("Input Stream....",ip+"");
             String op=  DB_PATH  +  DATABASE_NAME ;
             OutputStream output = new FileOutputStream( op);
             byte[] buffer = new byte[1024];
             int length;
             while ((length = ip.read(buffer))>0){
                 output.write(buffer, 0, length);
-                Log.i("Content.... ",length+"");
+                //Log.i("Content.... ",length+"");
             }
             output.flush();
             output.close();
@@ -129,7 +129,7 @@ public class ScheduleDbHelper extends SQLiteOpenHelper{
 
         String myPath = DB_PATH + DB_NAME;
         dbObj = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
-        Log.i("open DB......", dbObj.toString());
+        //Log.i("open DB......", dbObj.toString());
     }
 
     @Override
