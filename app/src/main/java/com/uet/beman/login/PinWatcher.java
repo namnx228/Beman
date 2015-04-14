@@ -1,6 +1,7 @@
 package com.uet.beman.login;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.text.Editable;
 import android.text.TextWatcher;
 
@@ -45,9 +46,17 @@ public class PinWatcher implements TextWatcher
     private Intent pinComplete(String pin)
     {
         if ( pin.length() != textsize) return null;
-        else if (pin.compareTo(PIN_BEMEN) == 0) return beMenMode;
-        else if (pin.compareTo(PIN_GIRL) == 0) return girlMode;
-        else wrongPassAction();
+        else if (pin.compareTo(PIN_BEMEN) == 0)
+        {
+
+            return beMenMode;
+        }
+        else
+        {
+            SharedPreferencesHelper.getInstance().setCheckInstrusion(true);
+            if (pin.compareTo(PIN_GIRL) == 0) return girlMode;
+            else wrongPassAction();
+        }
         return null;
     }
 

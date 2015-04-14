@@ -1,15 +1,20 @@
 package com.uet.beman.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.PagerAdapter;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.uet.beman.R;
 import com.uet.beman.common.BM_CustomViewPager;
+import com.uet.beman.common.SharedPreferencesHelper;
 import com.uet.beman.fragment.BM_FragmentDays;
 import com.uet.beman.fragment.BM_FragmentInfo;
 import com.uet.beman.fragment.BM_FragmentMessageDialog;
@@ -36,15 +41,57 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
      */
     private PagerAdapter mPagerAdapter;
 
+    private void setDialog()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Có người xâm nhập");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) { /*cancel dialog */}
+        }).show();
+    }
+    // for set color for dialog
+    public  static void colorAlertDialogTitle(AlertDialog dialog, int color) {
+        int dividerId = dialog.getContext().getResources().getIdentifier("android:id/titleDivider", null, null);
+        if (dividerId != 0) {
+            View divider = dialog.findViewById(dividerId);
+            divider.setBackgroundColor(color);
+        }
+
+        int textViewId = dialog.getContext().getResources().getIdentifier("android:id/alertTitle", null, null);
+        if (textViewId != 0) {
+            TextView tv = (TextView) dialog.findViewById(textViewId);
+            tv.setTextColor(color);
+        }
+
+        int iconId = dialog.getContext().getResources().getIdentifier("android:id/icon", null, null);
+        if (iconId != 0) {
+            ImageView icon = (ImageView) dialog.findViewById(iconId);
+            icon.setColorFilter(color);
+        }
+    }
+
+
+    private void checkInstrusion()
+    {
+        if (SharedPreferencesHelper.getInstance().getCheckInstrusion() == true) setDialog();
+        SharedPreferencesHelper.getInstance().setCheckInstrusion(false);
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bm_activity_simple_setup);
 
         // Instantiate a ViewPager and a PagerAdapter.
+        checkInstrusion();
         mPager = (BM_CustomViewPager) findViewById(R.id.pager);
         mPagerAdapter = new BM_ViewPagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
+
+
+
 //        mPager.setPageTransformer(true, new DepthPageTransformer());
 //        mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 //            @Override

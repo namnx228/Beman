@@ -24,7 +24,7 @@ public class BM_ActivityLogin extends ActionBarActivity {
         pin.getBackground().setColorFilter(getResources().getColor(R.color.md_blue_800), PorterDuff.Mode.SRC_ATOP);
 
         PinWatcher pinWatcher = new PinWatcher();
-        pinWatcher.setBeMenMode(new Intent(this, BM_ActivityMain.class));
+        pinWatcher.setBeMenMode(new Intent(this, BM_ActivitySimpleSetup.class));
         pinWatcher.setGirlMode(new Intent(this, BM_GirlMode.class));
        // pinWatcher.setWrongPass(new Intent(this, BM_WrongPass.class));
         pinWatcher.setActivity(this);

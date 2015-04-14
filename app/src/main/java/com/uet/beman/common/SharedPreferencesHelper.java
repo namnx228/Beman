@@ -40,6 +40,19 @@ public class SharedPreferencesHelper {
         user.apply();
     }
 
+    public boolean getCheckInstrusion() {
+        SharedPreferences preferences = BM_Application.getInstance().getSharedPreferences("CHECK_INSTRUSION", Context.MODE_PRIVATE);
+        return preferences.getBoolean("CHECK_INSTRUSION", false);
+    }
+
+    public void setCheckInstrusion(boolean checkInstrusion)
+    {
+        SharedPreferences preferences = BM_Application.getInstance().getSharedPreferences("CHECK_INSTRUSION", Context.MODE_PRIVATE);
+        SharedPreferences.Editor user = preferences.edit();
+        user.putBoolean("CHECK_INSTRUSION",checkInstrusion);
+        user.apply();
+    }
+
     public String getUserRealPW() {
         SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
         return sharedPreferences.getString("PIN_REAL", "");

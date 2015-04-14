@@ -12,7 +12,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.v7.app.ActionBarActivity;
 import android.telephony.SmsManager;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,16 +25,12 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.uet.beman.R;
-import com.uet.beman.common.BM_ActivitySetting;
 import com.uet.beman.common.SharedPreferencesHelper;
 import com.uet.beman.database.BM_ModelScheduler;
 import com.uet.beman.object.SentenceNode;
-import com.uet.beman.support.Setting;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 
