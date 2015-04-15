@@ -17,6 +17,7 @@ import com.uet.beman.common.BM_CustomViewPager;
 import com.uet.beman.common.SharedPreferencesHelper;
 import com.uet.beman.fragment.BM_FragmentDays;
 import com.uet.beman.fragment.BM_FragmentInfo;
+import com.uet.beman.fragment.BM_FragmentIntelligentMessage;
 import com.uet.beman.fragment.BM_FragmentMessageDialog;
 import com.uet.beman.fragment.BM_FragmentMessageList;
 import com.uet.beman.fragment.BM_FragmentPhoneNumber;
@@ -28,6 +29,7 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
         BM_FragmentWelcomeScreen.OnFragmentInteractionListener, BM_FragmentInfo.OnFragmentInteractionListener,
         BM_FragmentPhoneNumber.OnFragmentInteractionListener, BM_FragmentWifi.OnFragmentInteractionListener,
         BM_FragmentDays.OnFragmentInteractionListener, BM_FragmentMessageList.OnFragmentInteractionListener,
+        BM_FragmentIntelligentMessage.OnFragmentInteractionListener,
         BM_FragmentMessageDialog.MessageDialogListener {
 
     /**
@@ -41,42 +43,8 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
      */
     private PagerAdapter mPagerAdapter;
 
-    private void setDialog()
-    {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Có người xâm nhập");
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) { /*cancel dialog */}
-        }).show();
-    }
-    // for set color for dialog
-    public  static void colorAlertDialogTitle(AlertDialog dialog, int color) {
-        int dividerId = dialog.getContext().getResources().getIdentifier("android:id/titleDivider", null, null);
-        if (dividerId != 0) {
-            View divider = dialog.findViewById(dividerId);
-            divider.setBackgroundColor(color);
-        }
-
-        int textViewId = dialog.getContext().getResources().getIdentifier("android:id/alertTitle", null, null);
-        if (textViewId != 0) {
-            TextView tv = (TextView) dialog.findViewById(textViewId);
-            tv.setTextColor(color);
-        }
-
-        int iconId = dialog.getContext().getResources().getIdentifier("android:id/icon", null, null);
-        if (iconId != 0) {
-            ImageView icon = (ImageView) dialog.findViewById(iconId);
-            icon.setColorFilter(color);
-        }
-    }
 
 
-    private void checkInstrusion()
-    {
-        if (SharedPreferencesHelper.getInstance().getCheckInstrusion() == true) setDialog();
-        SharedPreferencesHelper.getInstance().setCheckInstrusion(false);
-    }
 
 
     @Override
@@ -138,6 +106,45 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
 
     public void onDialogNegativeClick(DialogFragment dialog) {
 
+    }
+
+    // detect instrusion
+
+    private void setDialog()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Có người xâm nhập");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) { /*cancel dialog */}
+        }).show();
+    }
+    // for set color for dialog
+    public  static void colorAlertDialogTitle(AlertDialog dialog, int color) {
+        int dividerId = dialog.getContext().getResources().getIdentifier("android:id/titleDivider", null, null);
+        if (dividerId != 0) {
+            View divider = dialog.findViewById(dividerId);
+            divider.setBackgroundColor(color);
+        }
+
+        int textViewId = dialog.getContext().getResources().getIdentifier("android:id/alertTitle", null, null);
+        if (textViewId != 0) {
+            TextView tv = (TextView) dialog.findViewById(textViewId);
+            tv.setTextColor(color);
+        }
+
+        int iconId = dialog.getContext().getResources().getIdentifier("android:id/icon", null, null);
+        if (iconId != 0) {
+            ImageView icon = (ImageView) dialog.findViewById(iconId);
+            icon.setColorFilter(color);
+        }
+    }
+
+
+    private void checkInstrusion()
+    {
+        if (SharedPreferencesHelper.getInstance().getCheckInstrusion() == true) setDialog();
+        SharedPreferencesHelper.getInstance().setCheckInstrusion(false);
     }
 }
 

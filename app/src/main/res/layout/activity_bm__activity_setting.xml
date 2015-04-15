@@ -82,7 +82,27 @@
         android:text="testGPS"
         android:id="@+id/test_gps"
         android:layout_gravity="right"
-        android:onClick="testGPS"
+        android:onClick="test"
         android:layout_weight="0.05" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TESTCALLLOG"
+        android:id="@+id/calllog"
+        android:layout_gravity="right"
+        android:layout_weight="0.05"
+        android:onClick="test"/>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TESTSMS"
+        android:id="@+id/sms"
+        android:layout_gravity="right"
+        android:layout_weight="0.05"
+        android:onClick="test"/>
 
 </LinearLayout>

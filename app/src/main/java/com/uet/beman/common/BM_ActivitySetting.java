@@ -13,7 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.uet.beman.R;
+import com.uet.beman.support.BM_CallLog;
 import com.uet.beman.support.BM_GPStracker;
+import com.uet.beman.support.BM_SMS;
 
 public class BM_ActivitySetting extends ActionBarActivity {
 
@@ -152,19 +154,48 @@ public class BM_ActivitySetting extends ActionBarActivity {
         //}
 
     }
-    public void testGPS(View view)
-    {
-        if(view.getId() == R.id.test_gps)
-        {
+    public void test(View view) {
+        if (view.getId() == R.id.test_gps) {
             BM_GPStracker gps = new BM_GPStracker(this);
-            if (gps.canGetLocation())
-            {
+            if (gps.canGetLocation()) {
                 Double latitude = gps.getLatitude(),
-                       longtitude = gps.getLongitude();
+                        longtitude = gps.getLongitude();
                 String mes = "your place is: Latutude = " + latitude.toString() + "\n Longtitude = " + longtitude.toString();
                 Toast.makeText(getBaseContext(), mes, Toast.LENGTH_LONG).show();
 
             }
         }
+        if (view.getId() == R.id.calllog)
+        {
+            BM_CallLog callog = new BM_CallLog();
+            if (callog.checkCall(getBaseContext(), "xịt"))
+            {
+                String mes = "OK";
+                Toast.makeText(getBaseContext(), mes, Toast.LENGTH_LONG).show();
+            }
+            else
+            {
+                String mes = "khong co";
+                Toast.makeText(getBaseContext(), mes, Toast.LENGTH_LONG).show();
+            }
+
+        }
+
+        if (view.getId() == R.id.sms)
+        {
+            BM_SMS sms = new BM_SMS();
+            if (sms.checkSmsHistory(this, "01649993291"))
+            {
+                String mes = "OK";
+                Toast.makeText(getBaseContext(), mes, Toast.LENGTH_LONG).show();
+            }
+            else
+            {
+                String mes = "khong co";
+                Toast.makeText(getBaseContext(), mes, Toast.LENGTH_LONG).show();
+            }
+
+        }
     }
+
 }
