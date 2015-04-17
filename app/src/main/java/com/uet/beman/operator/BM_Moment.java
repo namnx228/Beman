@@ -31,27 +31,20 @@ public class BM_Moment
         return day;
     }
 
-    GregorianCalendar checkIfNewBeforeNow(GregorianCalendar newTime, Calendar now)
+    private BM_ExtractTime getExtractTime()
     {
-        if (newTime.before(now)) newTime.add(Calendar.WEEK_OF_MONTH, 1);
-        return newTime;
+        BM_ExtractTime extractTime = new BM_ExtractTime();
+        extractTime.setId(id);
+        extractTime.setListDay(listDay);
+        extractTime.setRepeat(true);
+        return  extractTime;
     }
 
     Long getTime(int day, int moment)
     {
-        Calendar now = Calendar.getInstance();
         Pair<Integer,Integer> hourAndMinute = getTime(moment);
-        GregorianCalendar newTime = new GregorianCalendar();
-        newTime.set(Calendar.YEAR,now.get(Calendar.YEAR));
-        newTime.set(Calendar.MONTH, now.get(Calendar.MONTH));
-        newTime.set(Calendar.WEEK_OF_MONTH, now.get(Calendar.WEEK_OF_MONTH));
-        newTime.set(Calendar.DAY_OF_WEEK, getDay(day));
-        newTime.set(Calendar.HOUR_OF_DAY, hourAndMinute.first);
-        newTime.set(Calendar.MINUTE, hourAndMinute.second);
-        newTime = checkIfNewBeforeNow(newTime, now);
-
-
-        return newTime.getTime().getTime();
+        BM_ExtractTime extractTime = getExtractTime();
+        return extractTime.getTime(day,hourAndMinute.first, hourAndMinute.second);
     }
 
     Pair<Integer,Integer> getTime(int moment)
@@ -82,6 +75,7 @@ public class BM_Moment
 
     public void setRecord()
     {
+
         for(int day: listDay)
             for(int moment:listMoment)
             {
