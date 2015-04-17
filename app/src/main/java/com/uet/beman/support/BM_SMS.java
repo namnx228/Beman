@@ -24,6 +24,7 @@ public class BM_SMS {
     {
         Time now = new Time();
         now.setToNow();
+
         return now.second - date.getTime() < ONE_DAY ;
     }
     public boolean checkSmsHistory(Context context, String girlPhone) {

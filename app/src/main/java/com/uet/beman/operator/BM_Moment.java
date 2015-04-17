@@ -1,61 +1,100 @@
 package com.uet.beman.operator;
 
+import android.provider.ContactsContract;
+import android.text.format.Time;
+import android.util.Pair;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Random;
+
 /**
  * Created by nam on 14/04/2015.
  */
 public class BM_Moment
 {
-    public BM_Moment()
-    {
-
-    }
     private int id;
-    //private List<Day> days
-    //private List<moment>
-
-    /*daytime getTime(Day day)
+    private ArrayList<Integer> listMoment;
+    private ArrayList<Integer> listDay;
+    public BM_Moment(int id, ArrayList<Integer> moment, ArrayList<Integer> list)
     {
-        daytime = getTimeThisWeek(day);
-        now.setToNow();
-        if (daytime < now) daytime = daytime + daytimeaWeek();
-        return daytime;
-    }*/
+        this.id = id;
+        this.listMoment = moment;
+        this.listDay = list;
+    }
 
-    /*hourtime getTime(Moment moment)
+
+    int getDay(int day)
     {
-        Time time;
+        return day;
+    }
+
+    GregorianCalendar checkIfNewBeforeNow(GregorianCalendar newTime, Calendar now)
+    {
+        if (newTime.before(now)) newTime.add(Calendar.WEEK_OF_MONTH, 1);
+        return newTime;
+    }
+
+    Long getTime(int day, int moment)
+    {
+        Calendar now = Calendar.getInstance();
+        Pair<Integer,Integer> hourAndMinute = getTime(moment);
+        GregorianCalendar newTime = new GregorianCalendar();
+        newTime.set(Calendar.YEAR,now.get(Calendar.YEAR));
+        newTime.set(Calendar.MONTH, now.get(Calendar.MONTH));
+        newTime.set(Calendar.WEEK_OF_MONTH, now.get(Calendar.WEEK_OF_MONTH));
+        newTime.set(Calendar.DAY_OF_WEEK, getDay(day));
+        newTime.set(Calendar.HOUR_OF_DAY, hourAndMinute.first);
+        newTime.set(Calendar.MINUTE, hourAndMinute.second);
+        newTime = checkIfNewBeforeNow(newTime, now);
+
+
+        return newTime.getTime().getTime();
+    }
+
+    Pair<Integer,Integer> getTime(int moment)
+    {
+        Random rand = new Random();
+        int hour = 0,minute = rand.nextInt(60);
         switch(moment)
         {
             case MORNING:
-                time = random(Time(6),Time(9));
+                hour = rand.nextInt(4) + 6; // 6-9
                 break;
             case NOON:
-                time = random(Time(11),Time(13));
+                hour = rand.nextInt(3) + 11; // 11-13
                 break;
             case AFTERNOON:
-                time = random(Time(14),Time(18));
+                hour = rand.nextInt(5) + 14; // 14-18
                 break;
             case EVENING:
-                time = random(Time(19),Time(21));
+                hour = rand.nextInt(3) + 19; // 19-21
                 break;
             case NIGHT:
-                time = random(Time(22),Time(0));
+                hour = rand.nextInt(3) + 22; // 22-24
                 break;
         }
-        if (time<now) time = time + getTimeAWeek();
-        return time;
-    }*/
+
+        return Pair.create(hour,minute);
+    }
 
     public void setRecord()
     {
-        /*for(Day day: days)
-            for(Monent moment:monents)
+        for(int day: listDay)
+            for(int moment:listMoment)
             {
-                daytime = getTime(day);
-                hourtime = getTime(moment);
-                time = Time(daytime,hourtime);
-                setMessage(id,time);
-            }*/
+                long time = getTime(day,moment);
+                //setMessage(id,time);
+            }
 
     }
+
+    private final int MORNING = 0;
+    private final int NOON = 1;
+    private final int AFTERNOON = 2;
+    private final int EVENING = 3;
+    private final int NIGHT = 4;
+
 }
