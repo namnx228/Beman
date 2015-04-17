@@ -24,12 +24,12 @@ public class BM_ExtractTime {
 
     public void setRepeat(boolean repeat) { this.repeat = repeat;}
 
-    int getDay(int day)
+    private int getDay(int day)
     {
         return day;
     }
 
-    GregorianCalendar checkIfNewBeforeNow(GregorianCalendar newTime, Calendar now, boolean repeat)
+    private GregorianCalendar checkIfNewBeforeNow(GregorianCalendar newTime, Calendar now, boolean repeat)
     {
         if (newTime.before(now))
         {
@@ -56,7 +56,7 @@ public class BM_ExtractTime {
         return newTime.getTime().getTime();
     }
 
-    long getTime(int day)
+     long getTime(int day)
     {
         return getTime(day,hour,minute);
     }

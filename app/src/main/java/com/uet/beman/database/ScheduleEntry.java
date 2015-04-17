@@ -19,10 +19,12 @@ public abstract class ScheduleEntry implements BaseColumns{
     public static final String COLUMN_LANGUAGE = "lang";
     public static final String COLUMN_ENABLED = "enable";
     public static final String COLUMN_DAYS = "days";
+    public static final String COLUMN_PLACES = "places";
 
     public static final String TABLE_MESSAGE = "Message";
     public static final String TABLE_MSG_TIME = "Schedule";
     public static final String TABLE_SENT_HISTORY = "History";
+    public static final String TABLE_MSG_PLACE = "place";
 
     public static final String _ID = "cid";
 
@@ -53,6 +55,14 @@ public abstract class ScheduleEntry implements BaseColumns{
                                                                 "FOREIGN KEY (" + COLUMN_MESSAGE_ID + ") REFERENCES " +
                                                                 TABLE_MESSAGE + "(" + _ID + ")" +
                                                                 " )";
+
+    public static final String SQL_CREATE_TABLE_MSG_PLACE = "CREATE TABLE " + TABLE_MSG_PLACE + " (" +
+                                                            _ID + " INTEGER PRIMARY KEY," +
+                                                            COLUMN_MESSAGE_ID + TEXT_TYPE + COMMA_SEP +
+                                                            COLUMN_PLACES + TEXT_TYPE + COMMA_SEP +
+                                                            "FOREIGN KEY (" + COLUMN_MESSAGE_ID + ") REFERENCES " +
+                                                            TABLE_MESSAGE + "(" + _ID + ")" +
+                                                            " )";
 
     public static final String SQL_JOIN_TABLES_BY_ID = "SELECT " + TABLE_MESSAGE + DOT_SEP + _ID +
                                                         COMMA_SEP + TABLE_MESSAGE + DOT_SEP + COLUMN_MESSAGE +

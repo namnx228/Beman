@@ -53,6 +53,7 @@ public class BM_ModelScheduler {
         db.execSQL(ScheduleEntry.SQL_DELETE_TABLE_MSG_TIME);
         db.execSQL(ScheduleEntry.SQL_CREATE_TABLE_MESSAGE);
         db.execSQL(ScheduleEntry.SQL_CREATE_TABLE_MSG_TIME);
+        db.execSQL(ScheduleEntry.SQL_CREATE_TABLE_MSG_PLACE);
         closeDb();
     }
 
@@ -146,6 +147,51 @@ public class BM_ModelScheduler {
         cursor2.close();
         closeDb();
     }
+
+    public  void addPlaceMessage(int id, String place)
+    {
+        openDb();
+        String[] allColumn = { ScheduleEntry.COLUMN_MESSAGE_ID, ScheduleEntry.COLUMN_PLACES };
+
+        String selection = ScheduleEntry.COLUMN_MESSAGE_ID + " = " + id + " AND "
+                            + ScheduleEntry.COLUMN_PLACES + " = " + place;
+
+        Cursor cursor = db.query(ScheduleEntry.TABLE_MSG_PLACE, allColumn, selection, null, null, null, null);
+
+        if(cursor.getCount() == 0) {
+            ContentValues values = new ContentValues();
+            values.put(ScheduleEntry.COLUMN_MESSAGE_ID, id);
+            values.put(ScheduleEntry.COLUMN_PLACES, place);
+            db.insert(ScheduleEntry.TABLE_MSG_PLACE, null, values);
+        }
+        closeDb();
+    }
+
+    public List<Integer> getIdMessageByPlace(String place)
+    {
+        openDb();
+        List<Integer> result = new ArrayList<>();
+//        String[] tableMessageColumn = { ScheduleEntry.COLUMN_MESSAGE_ID, ScheduleEntry.COLUMN_MESSAGE };
+//        String[] tableScheduleColumn = { ScheduleEntry.COLUMN_MESSAGE_ID, ScheduleEntry.COLUMN_ALARM_TIME };
+        String[] allColumn = { ScheduleEntry.COLUMN_MESSAGE_ID };
+        String selection = ScheduleEntry.COLUMN_PLACES + " = " + place;
+
+        Cursor cursor = db.query(ScheduleEntry.TABLE_MSG_PLACE, allColumn, selection, null, null, null, null);
+
+
+        if(cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()) {
+                int tmp = cursor.getInt(cursor.getColumnIndex(ScheduleEntry.COLUMN_MESSAGE_ID));
+                result.add(tmp);
+                cursor.moveToNext();
+            }
+        }
+        cursor.close();
+        closeDb();
+        return result;
+    }
+
 
     public List<SentenceNode> getSentenceNodeByMessage(int id) {
         openDb();
