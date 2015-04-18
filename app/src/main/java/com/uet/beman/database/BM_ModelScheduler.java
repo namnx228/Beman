@@ -297,8 +297,6 @@ public class BM_ModelScheduler {
         return result;
     }
 
-
-
     public List<SentenceNode> getMessages(String label) {
         openDb();
         List<SentenceNode> result = new ArrayList<>();

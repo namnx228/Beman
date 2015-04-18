@@ -28,4 +28,10 @@
         <item name="android:background">@drawable/card_menu_button_other_add</item>
     </style>
 
+    <style name="days_button" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/circle_day_button</item>
+        <item name="android:textColor">@color/color_text_days_button</item> <!-- How to specify different color for different state? -->
+        <!-- more stuff -->
+    </style>
+
 </resources>

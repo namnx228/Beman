@@ -203,7 +203,7 @@ public class MessageCard extends CardWithList {
                 @Override
                 public void onItemClick(LinearListView linearListView, View view, int i, CardWithList.ListObject listObject) {
 //                    Toast.makeText(getContext(), "Click on " + sentenceNode.getMessage(), Toast.LENGTH_SHORT).show();
-                    fragment.createMessageDialog(sentenceNode.getMessage());
+                    fragment.createMessageDialog(sentenceNode);
                 }
 
             });

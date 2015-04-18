@@ -42,48 +42,56 @@
         android:gravity="center_horizontal"
         android:layout_marginTop="10dp">
 
-        <Button
+        <ToggleButton
             android:id="@+id/dialog_monBtn"
             android:layout_width="50dip"
             android:layout_height="50dip"
             android:background="@drawable/circle_day_button"
-            android:text="@string/day_mon"
+            android:textOff="@string/day_mon"
+            android:textOn="@string/day_mon"
             android:textAllCaps="true"
             android:textStyle="bold"
             android:layout_margin="8dp"
+            style="@style/days_button"
             />
 
-        <Button
+        <ToggleButton
             android:id="@+id/dialog_tueBtn"
             android:layout_width="50dip"
             android:layout_height="50dip"
             android:background="@drawable/circle_day_button"
-            android:text="@string/day_tue"
+            android:textOff="@string/day_tue"
+            android:textOn="@string/day_tue"
             android:textAllCaps="true"
             android:textStyle="bold"
             android:layout_margin="8dp"
+            style="@style/days_button"
             />
 
-        <Button
+        <ToggleButton
             android:id="@+id/dialog_wedBtn"
             android:layout_width="50dip"
             android:layout_height="50dip"
             android:background="@drawable/circle_day_button"
-            android:text="@string/day_wed"
+            android:textOff="@string/day_wed"
+            android:textOn="@string/day_wed"
             android:textAllCaps="true"
             android:textStyle="bold"
             android:layout_margin="8dp"
+            style="@style/days_button"
             />
 
-        <Button
+        <ToggleButton
             android:id="@+id/dialog_thuBtn"
             android:layout_width="50dip"
             android:layout_height="50dip"
             android:background="@drawable/circle_day_button"
-            android:text="@string/day_thu"
+            android:textOff="@string/day_thu"
+            android:textOn="@string/day_thu"
             android:textAllCaps="true"
             android:textStyle="bold"
             android:layout_margin="8dp"
+            style="@style/days_button"
             />
     </LinearLayout>
 
@@ -94,39 +102,43 @@
         android:orientation="horizontal"
         android:gravity="center_horizontal" >
 
-        <Button
+        <ToggleButton
             android:id="@+id/dialog_friBtn"
             android:layout_width="50dip"
             android:layout_height="50dip"
             android:background="@drawable/circle_day_button"
-            android:text="@string/day_fri"
+            android:textOff="@string/day_fri"
+            android:textOn="@string/day_fri"
             android:textAllCaps="true"
             android:textStyle="bold"
             android:layout_margin="8dp"
+            style="@style/days_button"
             />
 
-        <Button
+        <ToggleButton
             android:id="@+id/dialog_satBtn"
             android:layout_width="50dip"
             android:layout_height="50dip"
             android:background="@drawable/circle_day_button"
-            android:text="@string/day_sat"
+            android:textOff="@string/day_sat"
+            android:textOn="@string/day_sat"
             android:textAllCaps="true"
             android:textStyle="bold"
             android:layout_margin="8dp"
-            android:textColor="@color/md_red_600"
+            style="@style/days_button"
             />
 
-        <Button
+        <ToggleButton
             android:id="@+id/dialog_sunBtn"
             android:layout_width="50dip"
             android:layout_height="50dip"
             android:background="@drawable/circle_day_button"
-            android:text="@string/day_sun"
+            android:textOff="@string/day_sun"
+            android:textOn="@string/day_sun"
             android:textAllCaps="true"
             android:textStyle="bold"
             android:layout_margin="8dp"
-            android:textColor="@color/md_red_600"
+            style="@style/days_button"
             />
     </LinearLayout>
 

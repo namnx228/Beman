@@ -11,9 +11,17 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.uet.beman.R;
+import com.uet.beman.object.SentenceNode;
+
+import java.util.Arrays;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,12 +31,19 @@ import com.uet.beman.R;
  * Use the {@link BM_FragmentMessageDialog#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BM_FragmentMessageDialog extends DialogFragment {
+public class BM_FragmentMessageDialog extends DialogFragment implements CompoundButton.OnCheckedChangeListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private String msg;
+    private String id;
+    private char[] charArray = new char[7];
+    Boolean activate = false;
+    View content, title;
+
+    ToggleButton monBtn, tueBtn, wedBtn, thuBtn, friBtn, satBtn, sunBtn;
+    Switch enabled;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -58,8 +73,10 @@ public class BM_FragmentMessageDialog extends DialogFragment {
         // Required empty public constructor
     }
 
-    public void setMessage(String msg) {
-        this.msg = msg;
+    public void setNode(SentenceNode sentenceNode)
+    {
+        msg = sentenceNode.getMessage();
+        id = sentenceNode.getId();
     }
 
     @Override
@@ -69,6 +86,7 @@ public class BM_FragmentMessageDialog extends DialogFragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        Arrays.fill(charArray, '0');
     }
 
     @Override
@@ -84,12 +102,17 @@ public class BM_FragmentMessageDialog extends DialogFragment {
         // Build the dialog and set up the button click handlers
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View content = inflater.inflate(R.layout.dialog_message_info_content, null);
+        content = inflater.inflate(R.layout.dialog_message_info_content, null);
+        title = inflater.inflate(R.layout.dialog_message_info_title, null);
         EditText message = (EditText) content.findViewById(R.id.dialog_message_content);
         message.setText(msg);
 
-        builder.setCustomTitle(inflater.inflate(R.layout.dialog_message_info_title, null));
+        builder.setCustomTitle(title);
         builder.setView(content);
+
+        setButtonDaysListener(content);
+        setSwitchListener(title);
+
         builder.setPositiveButton(R.string.dialog_action_save, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // Send the positive button event back to the host activity
@@ -128,6 +151,107 @@ public class BM_FragmentMessageDialog extends DialogFragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    private void setSwitchListener(View view) {
+        enabled = (Switch) view.findViewById(R.id.dialog_message_switch);
+        enabled.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast.makeText(getActivity(), "The Switch is " + (isChecked ? "on" : "off"),
+                        Toast.LENGTH_SHORT).show();
+                if(isChecked) {
+                    //do stuff when Switch is ON
+                    enableDisableView(content, true);
+
+                } else {
+                    //do stuff when Switch if OFF
+                    enableDisableView(content, false);
+
+                }
+            }
+        });
+    }
+
+    private void enableDisableView(View view, boolean enabled) {
+        view.setEnabled(enabled);
+        activate = enabled;
+
+        if ( view instanceof ViewGroup ) {
+            ViewGroup group = (ViewGroup)view;
+
+            for ( int idx = 0 ; idx < group.getChildCount() ; idx++ ) {
+                View child = group.getChildAt(idx);
+                if ( child instanceof Button) {
+                    Button button = (Button)child;
+                    button.setEnabled(enabled);
+                }
+                enableDisableView(child, enabled);
+            }
+        }
+    }
+
+    private void setButtonDaysListener(View view) {
+        monBtn = (ToggleButton) view.findViewById(R.id.dialog_monBtn);
+        tueBtn = (ToggleButton) view.findViewById(R.id.dialog_tueBtn);
+        wedBtn = (ToggleButton) view.findViewById(R.id.dialog_wedBtn);
+        thuBtn = (ToggleButton) view.findViewById(R.id.dialog_thuBtn);
+        friBtn = (ToggleButton) view.findViewById(R.id.dialog_friBtn);
+        satBtn = (ToggleButton) view.findViewById(R.id.dialog_satBtn);
+        sunBtn = (ToggleButton) view.findViewById(R.id.dialog_sunBtn);
+
+        monBtn.setOnCheckedChangeListener(this);
+        tueBtn.setOnCheckedChangeListener(this);
+        wedBtn.setOnCheckedChangeListener(this);
+        thuBtn.setOnCheckedChangeListener(this);
+        friBtn.setOnCheckedChangeListener(this);
+        satBtn.setOnCheckedChangeListener(this);
+        sunBtn.setOnCheckedChangeListener(this);
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//        Button btn = (Button) view.findViewById(view.getId());
+
+        switch(buttonView.getId()) {
+            case R.id.dialog_monBtn:
+                customValue(buttonView, 0, isChecked);
+                break;
+            case R.id.dialog_tueBtn:
+                customValue(buttonView, 1, isChecked);
+                break;
+            case R.id.dialog_wedBtn:
+                customValue(buttonView, 2, isChecked);
+                break;
+            case R.id.dialog_thuBtn:
+                customValue(buttonView, 3, isChecked);
+                break;
+            case R.id.dialog_friBtn:
+                customValue(buttonView, 4, isChecked);
+                break;
+            case R.id.dialog_satBtn:
+                customValue(buttonView, 5, isChecked);
+                break;
+            case R.id.dialog_sunBtn:
+                customValue(buttonView, 6, isChecked);
+                break;
+        }
+    }
+
+    private void customValue(CompoundButton btn, int index, boolean isChecked) {
+        if(isChecked) {
+            charArray[index] = '1';
+//            btn.setTextColor(getResources().getColor(R.color.md_white_1000));
+//            btn.getBackground().setColorFilter(getResources().getColor(R.color.md_green_600), PorterDuff.Mode.SRC_ATOP);
+            Toast.makeText(getActivity(), btn.getText() + " " + String.valueOf(index) + " Green", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            charArray[index] = '0';
+//            btn.setTextColor(getResources().getColor(R.color.md_black_1000));
+//            btn.getBackground().clearColorFilter();
+            Toast.makeText(getActivity(), btn.getText() + " " + String.valueOf(index) + " Normal", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     /**

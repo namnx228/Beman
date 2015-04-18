@@ -14,6 +14,7 @@ import com.uet.beman.R;
 import com.uet.beman.common.BM_Utils;
 import com.uet.beman.common.SharedPreferencesHelper;
 import com.uet.beman.object.MessageCard;
+import com.uet.beman.object.SentenceNode;
 
 import it.gmariotti.cardslib.library.view.CardView;
 
@@ -88,14 +89,26 @@ public class BM_FragmentMessageList extends Fragment {
         CardView cardView = (CardView) view.findViewById(R.id.card_morning);
         cardView.setCard(card);
 
+        MessageCard card1 = new MessageCard(getActivity());
+        card1.init();
+        card1.setFragment(this);
+        card1.updateMessageItems("|night|");
         CardView cardView1 = (CardView) view.findViewById(R.id.card_noon);
-        cardView1.setCard(card);
+        cardView1.setCard(card1);
 
+        MessageCard card2 = new MessageCard(getActivity());
+        card2.init();
+        card2.setFragment(this);
+        card2.updateMessageItems("|miss|");
         CardView cardView2 = (CardView) view.findViewById(R.id.card_afternoon);
-        cardView2.setCard(card);
+        cardView2.setCard(card2);
 
+        MessageCard card3 = new MessageCard(getActivity());
+        card3.init();
+        card3.setFragment(this);
+        card3.updateMessageItems("|eat|");
         CardView cardView3 = (CardView) view.findViewById(R.id.card_evening);
-        cardView3.setCard(card);
+        cardView3.setCard(card3);
 
         CardView cardView4 = (CardView) view.findViewById(R.id.card_night);
         cardView4.setCard(card);
@@ -142,9 +155,9 @@ public class BM_FragmentMessageList extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
-    public void createMessageDialog(String msg) {
+    public void createMessageDialog(SentenceNode sentenceNode) {
         BM_FragmentMessageDialog dialog = new BM_FragmentMessageDialog();
-        dialog.setMessage(msg);
+        dialog.setNode(sentenceNode);
 
         FragmentManager fm = getFragmentManager();
         dialog.setTargetFragment(this, 0);
