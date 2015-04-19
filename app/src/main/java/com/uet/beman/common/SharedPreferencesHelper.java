@@ -40,12 +40,12 @@ public class SharedPreferencesHelper {
         user.apply();
     }
 
-    public boolean getCheckInstrusion() {
+    public boolean getCheckIntrusion() {
         SharedPreferences preferences = BM_Application.getInstance().getSharedPreferences("CHECK_INSTRUSION", Context.MODE_PRIVATE);
         return preferences.getBoolean("CHECK_INSTRUSION", false);
     }
 
-    public void setCheckInstrusion(boolean checkInstrusion)
+    public void setCheckIntrusion(boolean checkInstrusion)
     {
         SharedPreferences preferences = BM_Application.getInstance().getSharedPreferences("CHECK_INSTRUSION", Context.MODE_PRIVATE);
         SharedPreferences.Editor user = preferences.edit();

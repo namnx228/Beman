@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -36,6 +37,7 @@ public class BM_FragmentMessageDialog extends DialogFragment implements Compound
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private SentenceNode currentNode;
     private String msg;
     private String id;
     private char[] charArray = new char[7];
@@ -75,6 +77,7 @@ public class BM_FragmentMessageDialog extends DialogFragment implements Compound
 
     public void setNode(SentenceNode sentenceNode)
     {
+        currentNode = sentenceNode;
         msg = sentenceNode.getMessage();
         id = sentenceNode.getId();
     }
@@ -104,9 +107,10 @@ public class BM_FragmentMessageDialog extends DialogFragment implements Compound
         LayoutInflater inflater = getActivity().getLayoutInflater();
         content = inflater.inflate(R.layout.dialog_message_info_content, null);
         title = inflater.inflate(R.layout.dialog_message_info_title, null);
-        EditText message = (EditText) content.findViewById(R.id.dialog_message_content);
+        final EditText message = (EditText) content.findViewById(R.id.dialog_message_content);
         message.setText(msg);
 
+        // Set title and content layout for dialog, as well as set up listener
         builder.setCustomTitle(title);
         builder.setView(content);
 
@@ -116,7 +120,10 @@ public class BM_FragmentMessageDialog extends DialogFragment implements Compound
         builder.setPositiveButton(R.string.dialog_action_save, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // Send the positive button event back to the host activity
-                mListener.onDialogPositiveClick(BM_FragmentMessageDialog.this);
+                currentNode.setEnabled(String.valueOf(activate));
+                currentNode.setMessage(msg);
+                currentNode.setDays(String.valueOf(charArray));
+                mListener.onDialogPositiveClick(BM_FragmentMessageDialog.this, currentNode);
             }
         })
                 .setNegativeButton(R.string.dialog_action_cancel, new DialogInterface.OnClickListener() {
@@ -132,7 +139,7 @@ public class BM_FragmentMessageDialog extends DialogFragment implements Compound
      * implement this interface in order to receive event callbacks.
      * Each method passes the DialogFragment in case the host needs to query it. */
     public interface MessageDialogListener {
-        public void onDialogPositiveClick(DialogFragment dialog);
+        public void onDialogPositiveClick(DialogFragment dialog, SentenceNode currentNode);
         public void onDialogNegativeClick(DialogFragment dialog);
     }
 
@@ -163,20 +170,26 @@ public class BM_FragmentMessageDialog extends DialogFragment implements Compound
                 if(isChecked) {
                     //do stuff when Switch is ON
                     enableDisableView(content, true);
+                    enableDisableView(title, true);
 
                 } else {
                     //do stuff when Switch if OFF
                     enableDisableView(content, false);
-
+                    enableDisableView(title, false);
                 }
             }
         });
     }
 
     private void enableDisableView(View view, boolean enabled) {
-        view.setEnabled(enabled);
+        if(view == title) {
+            TextView textView = (TextView) view.findViewById(R.id.dialog_message_title_text);
+            textView.setEnabled(enabled);
+            return;
+        } else {
+            view.setEnabled(enabled);
+        }
         activate = enabled;
-
         if ( view instanceof ViewGroup ) {
             ViewGroup group = (ViewGroup)view;
 
@@ -241,15 +254,9 @@ public class BM_FragmentMessageDialog extends DialogFragment implements Compound
     private void customValue(CompoundButton btn, int index, boolean isChecked) {
         if(isChecked) {
             charArray[index] = '1';
-//            btn.setTextColor(getResources().getColor(R.color.md_white_1000));
-//            btn.getBackground().setColorFilter(getResources().getColor(R.color.md_green_600), PorterDuff.Mode.SRC_ATOP);
-            Toast.makeText(getActivity(), btn.getText() + " " + String.valueOf(index) + " Green", Toast.LENGTH_SHORT).show();
         }
         else {
             charArray[index] = '0';
-//            btn.setTextColor(getResources().getColor(R.color.md_black_1000));
-//            btn.getBackground().clearColorFilter();
-            Toast.makeText(getActivity(), btn.getText() + " " + String.valueOf(index) + " Normal", Toast.LENGTH_SHORT).show();
         }
 
     }

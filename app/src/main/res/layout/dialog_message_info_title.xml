@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    android:background="@color/md_white_1000">
+    android:background="@color/md_white_1000"
+    android:id="@+id/dialog_message_title">
 
     <TextView
         android:id="@+id/dialog_message_title_text"
@@ -17,6 +18,7 @@
         android:layout_toStartOf="@+id/dialog_message_switch"
         android:textStyle="bold"
         android:textSize="@dimen/abc_text_size_medium_material"
+        style="@style/text_dialog"
         />
 
     <Switch

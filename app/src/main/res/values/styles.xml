@@ -34,4 +34,8 @@
         <!-- more stuff -->
     </style>
 
+    <style name="text_dialog" parent="@android:style/Widget.TextView">
+        <item name="android:textColor">@color/color_text_message_dialog</item>
+    </style>
+
 </resources>

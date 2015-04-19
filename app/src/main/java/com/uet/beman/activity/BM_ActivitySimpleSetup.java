@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.uet.beman.R;
 import com.uet.beman.common.BM_CustomViewPager;
 import com.uet.beman.common.SharedPreferencesHelper;
+import com.uet.beman.database.BM_ModelScheduler;
 import com.uet.beman.fragment.BM_FragmentDays;
 import com.uet.beman.fragment.BM_FragmentInfo;
 import com.uet.beman.fragment.BM_FragmentIntelligentMessage;
@@ -23,6 +24,7 @@ import com.uet.beman.fragment.BM_FragmentMessageList;
 import com.uet.beman.fragment.BM_FragmentPhoneNumber;
 import com.uet.beman.fragment.BM_FragmentWelcomeScreen;
 import com.uet.beman.fragment.BM_FragmentWifi;
+import com.uet.beman.object.SentenceNode;
 import com.uet.beman.support.BM_ViewPagerAdapter;
 
 public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
@@ -42,7 +44,7 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
      * The pager adapter, which provides the pages to the view pager widget.
      */
     private PagerAdapter mPagerAdapter;
-
+    private BM_ModelScheduler model;
 
 
 
@@ -53,10 +55,11 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
         setContentView(R.layout.activity_bm_activity_simple_setup);
 
         // Instantiate a ViewPager and a PagerAdapter.
-        checkInstrusion();
+        checkIntrusion();
         mPager = (BM_CustomViewPager) findViewById(R.id.pager);
         mPagerAdapter = new BM_ViewPagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
+        model = BM_ModelScheduler.getInstance();
 
 
 
@@ -100,12 +103,12 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
         mPager.setPagingEnabled(status);
     }
 
-    public void onDialogPositiveClick(DialogFragment dialog) {
-
+    public void onDialogPositiveClick(DialogFragment dialog, SentenceNode currentNode) {
+        model.updateDialog(currentNode);
     }
 
     public void onDialogNegativeClick(DialogFragment dialog) {
-
+        // do nothing
     }
 
     // detect instrusion
@@ -141,10 +144,10 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
     }
 
 
-    private void checkInstrusion()
+    private void checkIntrusion()
     {
-        if (SharedPreferencesHelper.getInstance().getCheckInstrusion() == true) setDialog();
-        SharedPreferencesHelper.getInstance().setCheckInstrusion(false);
+        if (SharedPreferencesHelper.getInstance().getCheckIntrusion()) setDialog();
+        SharedPreferencesHelper.getInstance().setCheckIntrusion(false);
     }
 }
 

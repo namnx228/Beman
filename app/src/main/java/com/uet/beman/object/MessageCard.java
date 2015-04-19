@@ -209,12 +209,6 @@ public class MessageCard extends CardWithList {
             });
         }
     }
-//
-//    @Override
-//    public void onClick(View view) {
-//        ImageView checkmark = (ImageView) view.findViewById(view.getId());
-//        checkmark.setImageResource(R.drawable.ic_check_circle_black);
-//    }
 
 }
 

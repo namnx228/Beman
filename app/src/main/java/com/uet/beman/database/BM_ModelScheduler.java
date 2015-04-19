@@ -78,7 +78,7 @@ public class BM_ModelScheduler {
         node.setMessage(cursor.getString(cursor.getColumnIndex(ScheduleEntry.COLUMN_MESSAGE)));
 //        node.setParentId(cursor.getInt(cursor.getColumnIndex(ScheduleEntry)));
      //        node.setSendTimeEpoch(cursor.getString(cursor.getColumnIndex(ScheduleEntry.COLUMN_ALARM_TIME)));
-//        node.setEnabled(cursor.getString(cursor.getColumnIndex(ScheduleEntry.COLUMN_ENABLED)));
+        node.setEnabled(cursor.getString(cursor.getColumnIndex(ScheduleEntry.COLUMN_ENABLED)));
         node.setDays(cursor.getString(cursor.getColumnIndex(ScheduleEntry.COLUMN_DAYS)));
         node.setId(cursor.getString(cursor.getColumnIndex(ScheduleEntry._ID)));
         node.setLabel(cursor.getString(cursor.getColumnIndex(ScheduleEntry.COLUMN_LABEL)));
@@ -318,6 +318,10 @@ public class BM_ModelScheduler {
         cursor.close();
         closeDb();
         return result;
+    }
+
+    public void updateDialog(SentenceNode currentNode) {
+
     }
 
 }
