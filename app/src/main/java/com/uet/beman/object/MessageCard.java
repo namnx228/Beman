@@ -126,11 +126,9 @@ public class MessageCard extends CardWithList {
 
     @Override
     protected CardHeader initCardHeader() {
-//        //Create a CardHeader
-//        CustomHeaderColor header = new CustomHeaderColor(getActivity());
-//        //Set the header title
-//        header.setTitle("DEMO");
-//
+        //Create a CardHeader
+//        CustomHeaderColor header = new CustomHeaderColor(getContext());
+
 //        header.setOtherButtonVisible(true);
 //        header.setOtherButtonClickListener(new CardHeader.OnClickCardHeaderOtherButtonListener() {
 //            @Override
@@ -144,7 +142,6 @@ public class MessageCard extends CardWithList {
 //                card.getCardView().refreshCard(card);
 //            }
 //        });
-//        card.addCardHeader(header);
 
         //Add Header
         CardHeader header = new CardHeader(getContext());
@@ -171,12 +168,12 @@ public class MessageCard extends CardWithList {
     @Override
     protected void initCard() {
 //        setSwipeable(true);
-        setOnSwipeListener(new Card.OnSwipeListener() {
-            @Override
-            public void onSwipe(Card card) {
-                Toast.makeText(getContext(), "Swipe on " + card.getCardHeader().getTitle(), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        setOnSwipeListener(new Card.OnSwipeListener() {
+//            @Override
+//            public void onSwipe(Card card) {
+//                Toast.makeText(getContext(), "Swipe on " + card.getCardHeader().getTitle(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         //Provide a custom view for the ViewStud EmptyView
         setEmptyViewViewStubLayoutId(R.layout.carddemo_extras_base_withlist_empty);

@@ -89,6 +89,7 @@ public class BM_FragmentMessageList extends Fragment {
         CardView cardView = (CardView) view.findViewById(R.id.card_morning);
         cardView.setCard(card);
 
+
         MessageCard card1 = new MessageCard(getActivity(), "Night");
         card1.init();
         card1.setFragment(this);

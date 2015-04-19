@@ -16,11 +16,11 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.uet.beman.R;
 import com.uet.beman.object.SentenceNode;
+import com.uet.beman.support.BM_StorageHandler;
 
 import java.util.Arrays;
 
@@ -41,6 +41,7 @@ public class BM_FragmentMessageDialog extends DialogFragment implements Compound
     private String msg;
     private String id;
     private char[] charArray = new char[7];
+    private BM_StorageHandler storageHandler;
     Boolean activate = false;
     View content, title;
 
@@ -90,6 +91,7 @@ public class BM_FragmentMessageDialog extends DialogFragment implements Compound
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         Arrays.fill(charArray, '0');
+        storageHandler = BM_StorageHandler.getInstance();
     }
 
     @Override
@@ -120,9 +122,11 @@ public class BM_FragmentMessageDialog extends DialogFragment implements Compound
         builder.setPositiveButton(R.string.dialog_action_save, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // Send the positive button event back to the host activity
-                currentNode.setEnabled(String.valueOf(activate));
+                msg = message.getText().toString();
+                currentNode.setEnabled(activate ? "1" : "0");
                 currentNode.setMessage(msg);
                 currentNode.setDays(String.valueOf(charArray));
+                storageHandler.updateItemInMessageSet(currentNode.getLabel(), currentNode);
                 mListener.onDialogPositiveClick(BM_FragmentMessageDialog.this, currentNode);
             }
         })
@@ -165,18 +169,16 @@ public class BM_FragmentMessageDialog extends DialogFragment implements Compound
         enabled.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Toast.makeText(getActivity(), "The Switch is " + (isChecked ? "on" : "off"),
-                        Toast.LENGTH_SHORT).show();
-                if(isChecked) {
-                    //do stuff when Switch is ON
-                    enableDisableView(content, true);
-                    enableDisableView(title, true);
+            if(isChecked) {
+                //do stuff when Switch is ON
+                enableDisableView(content, true);
+                enableDisableView(title, true);
 
-                } else {
-                    //do stuff when Switch if OFF
-                    enableDisableView(content, false);
-                    enableDisableView(title, false);
-                }
+            } else {
+                //do stuff when Switch if OFF
+                enableDisableView(content, false);
+                enableDisableView(title, false);
+            }
             }
         });
     }

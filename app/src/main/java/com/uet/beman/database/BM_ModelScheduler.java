@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.uet.beman.common.BM_Utils;
 import com.uet.beman.object.Node;
 import com.uet.beman.object.SentenceNode;
 
@@ -16,6 +17,7 @@ import java.util.List;
 public class BM_ModelScheduler {
     private ScheduleDbHelper mDbHelper;
     private SQLiteDatabase db;
+    private BM_Utils utils;
 
     private static BM_ModelScheduler instance = null;
 
@@ -26,6 +28,7 @@ public class BM_ModelScheduler {
 
     public BM_ModelScheduler() {
         mDbHelper = ScheduleDbHelper.getInstance();
+        utils = BM_Utils.getInstance();
         try {
             mDbHelper.createDB();
         } catch (Exception e) {
@@ -322,7 +325,14 @@ public class BM_ModelScheduler {
     }
 
     public void updateDialog(SentenceNode currentNode) {
-
+        openDb();
+        String update = "UPDATE " + ScheduleEntry.TABLE_MESSAGE + " SET " + ScheduleEntry.COLUMN_MESSAGE + " = " +
+                        BM_Utils.standardlizeValueDB(currentNode.getMessage()) + ScheduleEntry.COMMA_SEP + ScheduleEntry.COLUMN_ENABLED + " = " +
+                        BM_Utils.standardlizeValueDB(currentNode.getEnabled()) + ScheduleEntry.COMMA_SEP + ScheduleEntry.COLUMN_DAYS + " = " +
+                        BM_Utils.standardlizeValueDB(currentNode.getDays()) + " WHERE " + ScheduleEntry._ID + " = " +
+                        currentNode.getId();
+        db.execSQL(update);
+        closeDb();
     }
 
 }
