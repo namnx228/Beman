@@ -79,7 +79,7 @@ public class BM_FragmentMessageList extends Fragment {
         String name = SharedPreferencesHelper.getInstance().getUserName();
         BM_Utils.updateNameReferences(headline, getResources(), R.string.line_fragment_message_list, name);
 
-        MessageCard card = new MessageCard(getActivity());
+        MessageCard card = new MessageCard(getActivity(), "Morning");
         card.init();
         card.setFragment(this);
         card.updateMessageItems("|morning|");
@@ -89,21 +89,21 @@ public class BM_FragmentMessageList extends Fragment {
         CardView cardView = (CardView) view.findViewById(R.id.card_morning);
         cardView.setCard(card);
 
-        MessageCard card1 = new MessageCard(getActivity());
+        MessageCard card1 = new MessageCard(getActivity(), "Night");
         card1.init();
         card1.setFragment(this);
         card1.updateMessageItems("|night|");
         CardView cardView1 = (CardView) view.findViewById(R.id.card_noon);
         cardView1.setCard(card1);
 
-        MessageCard card2 = new MessageCard(getActivity());
+        MessageCard card2 = new MessageCard(getActivity(), "Miss");
         card2.init();
         card2.setFragment(this);
         card2.updateMessageItems("|miss|");
         CardView cardView2 = (CardView) view.findViewById(R.id.card_afternoon);
         cardView2.setCard(card2);
 
-        MessageCard card3 = new MessageCard(getActivity());
+        MessageCard card3 = new MessageCard(getActivity(), "Eat");
         card3.init();
         card3.setFragment(this);
         card3.updateMessageItems("|eat|");

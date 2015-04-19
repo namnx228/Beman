@@ -311,7 +311,8 @@ public class BM_ModelScheduler {
             cursor.moveToFirst();
             while(!cursor.isAfterLast()) {
                 SentenceNode tmp = (SentenceNode) cursorToMessageList(cursor);
-                result.add(tmp);
+                int idx = Integer.parseInt(tmp.getId());
+                result.add(idx, tmp);
                 cursor.moveToNext();
             }
         }

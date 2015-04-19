@@ -33,11 +33,13 @@ public class MessageCard extends CardWithList {
     List<MessageObject> objs = new ArrayList<>();
     Activity activity;
     BM_FragmentMessageList fragment;
+    String header;
 //    MessageObject obj;
 
-    public MessageCard(Context context) {
+    public MessageCard(Context context, String header) {
         super(context);
         activity = (Activity) context;
+        this.header = header;
     }
 
     public void setFragment(Fragment fragment) {
@@ -159,7 +161,7 @@ public class MessageCard extends CardWithList {
                 }
             }
         });
-        header.setTitle("Morning"); //should use R.string.
+        header.setTitle(this.header); //should use R.string.
         return header;
     }
 

@@ -16,7 +16,7 @@ public class BM_ActivityLogin extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_bm__activity_login);
+        setContentView(R.layout.activity_bm_activity_login);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
         setTitle(R.string.app_name);
