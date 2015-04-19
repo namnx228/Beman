@@ -13,7 +13,7 @@ public class BM_BeMenMode extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bm__be_men_mode);
+        setContentView(R.layout.activity_bm_be_men_mode);
     }
 
 

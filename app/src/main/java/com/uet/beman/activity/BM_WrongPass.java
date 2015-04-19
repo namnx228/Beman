@@ -13,7 +13,7 @@ public class BM_WrongPass extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bm__wrong_pass);
+        setContentView(R.layout.activity_bm_wrong_pass);
     }
 
 

@@ -1,8 +1,7 @@
 package com.uet.beman.common;
 
-import android.content.Context;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -69,7 +68,7 @@ public class BM_ActivitySetting extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bm__activity_setting);
+        setContentView(R.layout.activity_bm_activity_setting);
         pinReal = (EditText)findViewById(R.id.pin_real);
         pinFake = (EditText)findViewById((R.id.pin_fake));
         set_pin = (Button)findViewById(R.id.SetPin);
