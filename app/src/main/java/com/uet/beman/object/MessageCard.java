@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.uet.beman.R;
 import com.uet.beman.fragment.BM_FragmentMessageList;
 import com.uet.beman.support.BM_NodeListHandler;
+import com.uet.beman.support.BM_StorageHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,12 +35,14 @@ public class MessageCard extends CardWithList {
     Activity activity;
     BM_FragmentMessageList fragment;
     String header;
+    private BM_StorageHandler storageHandler;
 //    MessageObject obj;
 
     public MessageCard(Context context, String header) {
         super(context);
         activity = (Activity) context;
         this.header = header;
+        storageHandler = BM_StorageHandler.getInstance();
     }
 
     public void setFragment(Fragment fragment) {
@@ -65,7 +68,7 @@ public class MessageCard extends CardWithList {
         //Update the array inside the card
 
         tag = "\"" + tag + "\"";
-        List<SentenceNode> sentenceNodes = handler.getMessageList(tag);
+        List<SentenceNode> sentenceNodes = storageHandler.getListInMessageSet(tag);
         for(SentenceNode i : sentenceNodes) {
             MessageObject tmp = new MessageObject(this, i);
             objs.add(tmp);

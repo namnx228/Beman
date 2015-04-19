@@ -23,7 +23,7 @@ public class BM_StorageHandler {
         return instance;
     }
 
-    public void setListInMessageSet(String label) {
+    public void initListInMessageSet(String label) {
         List<SentenceNode> nodeList = handler.getMessageList(label);
         messageSet.put(label, nodeList);
     }

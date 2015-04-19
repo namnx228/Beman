@@ -38,7 +38,7 @@ public class ScheduleDbHelper extends SQLiteOpenHelper{
 
     public void createDB() throws IOException {
 
-        this.getReadableDatabase();
+        if(dbObj == null) dbObj = this.getReadableDatabase();
         Log.i("Readable ends","end");
 
         try {
@@ -143,11 +143,11 @@ public class ScheduleDbHelper extends SQLiteOpenHelper{
 
     public void onCreate(SQLiteDatabase db) {
         //db.execSQL(ScheduleEntry.SQL_CREATE_TABLE_MESSAGE);
-        try {
-            createDB();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            createDB();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 //        db.execSQL(ScheduleEntry.SQL_CREATE_TABLE_MSG_TIME);
     }
 

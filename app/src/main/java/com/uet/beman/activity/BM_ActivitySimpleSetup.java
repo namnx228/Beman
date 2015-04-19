@@ -25,6 +25,7 @@ import com.uet.beman.fragment.BM_FragmentPhoneNumber;
 import com.uet.beman.fragment.BM_FragmentWelcomeScreen;
 import com.uet.beman.fragment.BM_FragmentWifi;
 import com.uet.beman.object.SentenceNode;
+import com.uet.beman.support.BM_StorageHandler;
 import com.uet.beman.support.BM_ViewPagerAdapter;
 
 public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
@@ -45,6 +46,7 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
      */
     private PagerAdapter mPagerAdapter;
     private BM_ModelScheduler model;
+    private BM_StorageHandler storageHandler;
 
 
 
@@ -60,7 +62,9 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
         mPagerAdapter = new BM_ViewPagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
         model = BM_ModelScheduler.getInstance();
+        storageHandler = BM_StorageHandler.getInstance();
 
+        new Thread(new Task()).start();
 
 
 //        mPager.setPageTransformer(true, new DepthPageTransformer());
@@ -148,6 +152,20 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
     {
         if (SharedPreferencesHelper.getInstance().getCheckIntrusion()) setDialog();
         SharedPreferencesHelper.getInstance().setCheckIntrusion(false);
+    }
+
+    class Task implements Runnable {
+        @Override
+        public void run() {
+//            try {
+                storageHandler.initListInMessageSet("\"|morning|\"");
+                storageHandler.initListInMessageSet("\"|night|\"");
+                storageHandler.initListInMessageSet("\"|eat|\"");
+                storageHandler.initListInMessageSet("\"|miss|\"");
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+        }
     }
 }
 

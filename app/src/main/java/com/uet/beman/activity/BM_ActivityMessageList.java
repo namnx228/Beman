@@ -17,7 +17,7 @@ public class BM_ActivityMessageList extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_list);
 
-        MessageCard card = new MessageCard(this);
+        MessageCard card = new MessageCard(this, "|morning|");
         card.init();
         card.updateScheduleItems();
 
