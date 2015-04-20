@@ -38,4 +38,8 @@
         <item name="android:textColor">@color/color_text_message_dialog</item>
     </style>
 
+    <style name="checkmark_toggle" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/circle_checkmark_button</item>
+    </style>
+
 </resources>

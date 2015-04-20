@@ -10,9 +10,9 @@ import android.support.v4.app.Fragment;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.uet.beman.R;
 import com.uet.beman.fragment.BM_FragmentMessageList;
@@ -86,7 +86,7 @@ public class MessageCard extends CardWithList {
 
 //        TextView language = (TextView) convertView.findViewById(R.id.messagecard_dayName);
 //        TextView dayDate = (TextView) convertView.findViewById(R.id.messagecard_dayDate);
-        final ImageView checkmark = (ImageView) convertView.findViewById(R.id.checkmark_message);
+        final ToggleButton checkmark = (ToggleButton) convertView.findViewById(R.id.checkmark_message);
         TextView content = (TextView) convertView.findViewById(R.id.messagecard_dayDate);
 
         final MessageObject obj = (MessageObject) object;
@@ -96,20 +96,11 @@ public class MessageCard extends CardWithList {
 //        }
         content.setText(obj.sentenceNode.getMessage());
 
-        checkmark.setOnClickListener(new View.OnClickListener() {
+        checkmark.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                String enabled = obj.sentenceNode.getEnabled();
-//                checkmark = (ImageView) view.findViewById(view.getId());
-                if(enabled.compareTo("0") == 0) {
-                    obj.sentenceNode.setEnabled("1");
-                    Toast.makeText(activity, "YES", Toast.LENGTH_LONG).show();
-                    checkmark.setImageResource(R.drawable.ic_check_circle_black);
-                } else if(enabled.compareTo("1") == 0) {
-                    Toast.makeText(activity, "NO", Toast.LENGTH_LONG).show();
-                    obj.sentenceNode.setEnabled("0");
-                    checkmark.setImageResource(R.drawable.ic_panorama_fisheye_black);
-                }
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) obj.sentenceNode.setEnabled("1");
+                else obj.sentenceNode.setEnabled("0");
             }
         });
 //        WeatherObject weatherObject= (WeatherObject)object;

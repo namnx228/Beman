@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@drawable/ic_check_circle_black"
-        android:state_selected="true"/>
-    <item android:drawable="@drawable/ic_panorama_fisheye_black"
-        android:state_selected="false"/>
-    <item android:drawable="@drawable/ic_panorama_fisheye_black" />
+        android:state_checked="true">
+        <shape android:shape="oval">
+            <solid android:color="@color/md_grey_300"/>
+            <stroke android:width="2dp" android:color="@color/md_grey_300"/>
+        </shape>
+    </item>
+    <item android:drawable="@drawable/ic_panorama_fisheye_black">
+        <shape android:shape="oval">
+            <solid android:color="@color/md_grey_300"/>
+            <stroke android:width="2dp" android:color="@color/md_grey_300"/>
+        </shape>
+    </item>
 </selector>
