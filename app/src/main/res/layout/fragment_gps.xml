@@ -1,0 +1,158 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/md_yellow_500"
+    android:layout_gravity="center_vertical|center_horizontal"
+    android:gravity="center_vertical|center_horizontal">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical|center_horizontal">
+
+        <LinearLayout
+            android:id="@+id/layout_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:weightSum="1"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:gravity="center_vertical"
+            android:layout_centerInParent="true"
+            android:paddingLeft="35dp"
+            android:paddingStart="35dp"
+            android:paddingRight="20dp"
+            android:paddingEnd="20dp">
+
+            <TextView
+                android:id="@+id/fragment_gps_headline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/abc_text_size_display_1_material"
+                android:text="@string/line_fragment_gps1" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/abc_text_size_body_2_material" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gps1"
+                android:textSize="@dimen/abc_text_size_body_2_material"/>
+
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/abc_text_size_headline_material" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="35dp"
+            android:paddingRight="35dp"
+            android:paddingBottom="35dp"
+            android:layout_below="@+id/layout_number">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gps_home"
+                android:textSize="@dimen/abc_text_size_medium_material"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:id="@+id/fragment_gps_text_view_title_home"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_toLeftOf="@+id/fragment_gps_switch_home"
+                android:layout_toStartOf="@+id/fragment_gps_switch_home" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fragment_gps_switch_home"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignBottom="@+id/fragment_gps_text_view_title_home"
+                android:checked="false" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/abc_text_size_body_2_material"
+                android:layout_below="@+id/fragment_gps_text_view_title_home"
+                android:id="@+id/space1"
+                />
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gps_work"
+                android:textSize="@dimen/abc_text_size_medium_material"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:id="@+id/fragment_gps_text_view_title_work"
+                android:layout_below="@id/space1"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_toLeftOf="@+id/fragment_gps_switch_work"
+                android:layout_toStartOf="@+id/fragment_gps_switch_work" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fragment_gps_switch_work"
+                android:layout_alignTop="@+id/fragment_gps_text_view_title_work"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignBottom="@+id/fragment_gps_text_view_title_work"
+                android:singleLine="true" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/abc_text_size_body_2_material"
+                android:layout_below="@+id/fragment_gps_text_view_title_work"
+                android:id="@+id/space2"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gps_girl_home"
+                android:textSize="@dimen/abc_text_size_medium_material"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:id="@+id/fragment_gps_text_view_title_girl"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_toLeftOf="@+id/fragment_gps_switch_girl"
+                android:layout_toStartOf="@+id/fragment_gps_switch_girl"
+                android:layout_below="@+id/space2"/>
+
+            <android.support.v7.widget.SwitchCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fragment_gps_switch_girl"
+                android:layout_alignTop="@+id/fragment_gps_text_view_title_girl"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignBottom="@+id/fragment_gps_text_view_title_girl"
+                android:singleLine="true" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/line_fragment_info_result2"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

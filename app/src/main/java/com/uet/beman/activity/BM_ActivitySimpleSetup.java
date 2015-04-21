@@ -17,6 +17,7 @@ import com.uet.beman.common.BM_CustomViewPager;
 import com.uet.beman.common.SharedPreferencesHelper;
 import com.uet.beman.database.BM_ModelScheduler;
 import com.uet.beman.fragment.BM_FragmentDays;
+import com.uet.beman.fragment.BM_FragmentGps;
 import com.uet.beman.fragment.BM_FragmentInfo;
 import com.uet.beman.fragment.BM_FragmentIntelligentMessage;
 import com.uet.beman.fragment.BM_FragmentMessageDialog;
@@ -33,7 +34,8 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
         BM_FragmentPhoneNumber.OnFragmentInteractionListener, BM_FragmentWifi.OnFragmentInteractionListener,
         BM_FragmentDays.OnFragmentInteractionListener, BM_FragmentMessageList.OnFragmentInteractionListener,
         BM_FragmentIntelligentMessage.OnFragmentInteractionListener,
-        BM_FragmentMessageDialog.MessageDialogListener {
+        BM_FragmentMessageDialog.MessageDialogListener,
+        BM_FragmentGps.OnFragmentInteractionListener {
 
     /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous

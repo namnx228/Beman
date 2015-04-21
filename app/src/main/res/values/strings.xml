@@ -22,6 +22,7 @@
     <string name="line_fragment_days_selected_not_all">We\'ll send messages every </string>
     <string name="line_fragment_message_list">%1$s, select and edit messages</string>
     <string name="line_fragment_message_list1">Tap a message to edit. Tap + to write your own.</string>
+    <string name="line_fragment_gps1">%1$s, where about</string>
     <string name="logo_activity_login_description">BeMan</string>
     <string name="hint_activity_login">Enter your pin</string>
     <string name="hint_action_name">Enter your name</string>
@@ -32,6 +33,12 @@
     <string name="wifi_custom">Custom</string>
     <string name="wifi_select">Select</string>
     <string name="wifi_none">None</string>
+    
+    <string name="gps1"> If there is not a wifi access location at that place, you can use gps at:</string>
+    <string name="gps_home">Home</string>
+    <string name="gps_work">Work</string>
+    <string name="gps_girl_home">Girl\'s house</string>
+
 
     <string name="day_morning">Morning</string>
     <string name="day_noon">Noon</string>

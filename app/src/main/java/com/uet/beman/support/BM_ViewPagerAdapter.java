@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.uet.beman.fragment.BM_FragmentDays;
+import com.uet.beman.fragment.BM_FragmentGps;
 import com.uet.beman.fragment.BM_FragmentInfo;
 import com.uet.beman.fragment.BM_FragmentIntelligentMessage;
 import com.uet.beman.fragment.BM_FragmentMessageList;
@@ -21,7 +22,7 @@ public class BM_ViewPagerAdapter extends FragmentPagerAdapter {
     /**
      * The number of pages (wizard steps) to show in this demo.
      */
-    private static final int NUM_PAGES = 7;
+    private static final int NUM_PAGES = 20;
 
     BM_FragmentWelcomeScreen BMFragmentWelcomeScreen;
     BM_FragmentInfo BMFragmentInfo;
@@ -30,6 +31,7 @@ public class BM_ViewPagerAdapter extends FragmentPagerAdapter {
     BM_FragmentDays BMFragmentDays;
     BM_FragmentMessageList BMFragmentMessageList;
     BM_FragmentIntelligentMessage BMFragmentIntelligentMessage;
+    BM_FragmentGps BMFragmentGPS;
 
     public BM_ViewPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -51,12 +53,16 @@ public class BM_ViewPagerAdapter extends FragmentPagerAdapter {
                 if(this.BMFragmentWifi == null) this.BMFragmentWifi = new BM_FragmentWifi();
                 return this.BMFragmentWifi;
             case 4:
+                if(this.BMFragmentGPS == null) this.BMFragmentGPS = new BM_FragmentGps();
+                return this.BMFragmentGPS;
+
+            case 5:
                 if(this.BMFragmentMessageList == null) this.BMFragmentMessageList = new BM_FragmentMessageList();
                 return this.BMFragmentMessageList;
-            case 5:
+            case 6:
                 if(this.BMFragmentDays == null) this.BMFragmentDays = new BM_FragmentDays();
                 return this.BMFragmentDays;
-            case 6:
+            case 7:
                 if(BMFragmentIntelligentMessage == null) BMFragmentIntelligentMessage = new BM_FragmentIntelligentMessage();
                 return BMFragmentIntelligentMessage;
         }
