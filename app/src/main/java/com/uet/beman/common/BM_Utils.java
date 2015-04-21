@@ -38,4 +38,8 @@ public class BM_Utils {
         String res = String.format(resources.getString(id), text1, text2);
         textView.setText(res);
     }
+
+    public static String standardlizeValueDB(String input) {
+        return "\"" + input + "\"";
+    }
 }

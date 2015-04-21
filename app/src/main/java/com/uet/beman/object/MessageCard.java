@@ -10,9 +10,9 @@ import android.support.v4.app.Fragment;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.uet.beman.R;
 import com.uet.beman.fragment.BM_FragmentMessageList;
@@ -86,7 +86,7 @@ public class MessageCard extends CardWithList {
 
 //        TextView language = (TextView) convertView.findViewById(R.id.messagecard_dayName);
 //        TextView dayDate = (TextView) convertView.findViewById(R.id.messagecard_dayDate);
-        final ImageView checkmark = (ImageView) convertView.findViewById(R.id.checkmark_message);
+        final ToggleButton checkmark = (ToggleButton) convertView.findViewById(R.id.checkmark_message);
         TextView content = (TextView) convertView.findViewById(R.id.messagecard_dayDate);
 
         final MessageObject obj = (MessageObject) object;
@@ -96,20 +96,11 @@ public class MessageCard extends CardWithList {
 //        }
         content.setText(obj.sentenceNode.getMessage());
 
-        checkmark.setOnClickListener(new View.OnClickListener() {
+        checkmark.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                String enabled = obj.sentenceNode.getEnabled();
-//                checkmark = (ImageView) view.findViewById(view.getId());
-                if(enabled.compareTo("0") == 0) {
-                    obj.sentenceNode.setEnabled("1");
-                    Toast.makeText(activity, "YES", Toast.LENGTH_LONG).show();
-                    checkmark.setImageResource(R.drawable.ic_check_circle_black);
-                } else if(enabled.compareTo("1") == 0) {
-                    Toast.makeText(activity, "NO", Toast.LENGTH_LONG).show();
-                    obj.sentenceNode.setEnabled("0");
-                    checkmark.setImageResource(R.drawable.ic_panorama_fisheye_black);
-                }
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) obj.sentenceNode.setEnabled("1");
+                else obj.sentenceNode.setEnabled("0");
             }
         });
 //        WeatherObject weatherObject= (WeatherObject)object;
@@ -126,11 +117,9 @@ public class MessageCard extends CardWithList {
 
     @Override
     protected CardHeader initCardHeader() {
-//        //Create a CardHeader
-//        CustomHeaderColor header = new CustomHeaderColor(getActivity());
-//        //Set the header title
-//        header.setTitle("DEMO");
-//
+        //Create a CardHeader
+//        CustomHeaderColor header = new CustomHeaderColor(getContext());
+
 //        header.setOtherButtonVisible(true);
 //        header.setOtherButtonClickListener(new CardHeader.OnClickCardHeaderOtherButtonListener() {
 //            @Override
@@ -144,7 +133,6 @@ public class MessageCard extends CardWithList {
 //                card.getCardView().refreshCard(card);
 //            }
 //        });
-//        card.addCardHeader(header);
 
         //Add Header
         CardHeader header = new CardHeader(getContext());
@@ -171,12 +159,12 @@ public class MessageCard extends CardWithList {
     @Override
     protected void initCard() {
 //        setSwipeable(true);
-        setOnSwipeListener(new Card.OnSwipeListener() {
-            @Override
-            public void onSwipe(Card card) {
-                Toast.makeText(getContext(), "Swipe on " + card.getCardHeader().getTitle(), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        setOnSwipeListener(new Card.OnSwipeListener() {
+//            @Override
+//            public void onSwipe(Card card) {
+//                Toast.makeText(getContext(), "Swipe on " + card.getCardHeader().getTitle(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         //Provide a custom view for the ViewStud EmptyView
         setEmptyViewViewStubLayoutId(R.layout.carddemo_extras_base_withlist_empty);
@@ -208,7 +196,13 @@ public class MessageCard extends CardWithList {
                 @Override
                 public void onItemClick(LinearListView linearListView, View view, int i, CardWithList.ListObject listObject) {
 //                    Toast.makeText(getContext(), "Click on " + sentenceNode.getMessage(), Toast.LENGTH_SHORT).show();
-                    fragment.createMessageDialog(sentenceNode);
+                  fragment.createMessageDialog(sentenceNode);
+//                try {
+//                    BM_ActivitySimpleSetup setup = (BM_ActivitySimpleSetup) activity;
+//                    setup.createMessageDialog(sentenceNode);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
                 }
 
             });

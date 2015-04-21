@@ -13,16 +13,17 @@
         android:layout_height="wrap_content"
         android:minHeight="48dp">
 
-        <ImageView
+        <ToggleButton
             android:id="@+id/checkmark_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="25dip"
+            android:layout_height="25dip"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerInParent="true"
-            android:src="@drawable/circle_checkmark_button"
-            android:clickable="true"
-            android:onClick="onCheckmarkClick"
+            android:textOn=" "
+            android:textOff=" "
+            android:background="@drawable/circle_checkmark_button"
+            style="@style/checkmark_toggle"
             />
 
         <TextView

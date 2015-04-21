@@ -16,13 +16,14 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.uet.beman.R;
 import com.uet.beman.object.SentenceNode;
+import com.uet.beman.support.BM_MessageCardHandler;
+import com.uet.beman.support.BM_StorageHandler;
 
-import java.util.Arrays;
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,7 +42,10 @@ public class BM_FragmentMessageDialog extends DialogFragment implements Compound
     private String msg;
     private String id;
     private char[] charArray = new char[7];
-    Boolean activate = false;
+    private BM_StorageHandler storageHandler;
+    private BM_MessageCardHandler messageCardHandler;
+    private HashMap<String, ToggleButton> btnSet;
+    Boolean activate;
     View content, title;
 
     ToggleButton monBtn, tueBtn, wedBtn, thuBtn, friBtn, satBtn, sunBtn;
@@ -80,6 +84,8 @@ public class BM_FragmentMessageDialog extends DialogFragment implements Compound
         currentNode = sentenceNode;
         msg = sentenceNode.getMessage();
         id = sentenceNode.getId();
+        charArray = sentenceNode.getDays().toCharArray();
+        activate = (sentenceNode.getEnabled().equals("1"));
     }
 
     @Override
@@ -89,7 +95,10 @@ public class BM_FragmentMessageDialog extends DialogFragment implements Compound
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        Arrays.fill(charArray, '0');
+//        Arrays.fill(charArray, '0');
+        btnSet = new HashMap<>();
+        storageHandler = BM_StorageHandler.getInstance();
+        messageCardHandler = BM_MessageCardHandler.getInstance();
     }
 
     @Override
@@ -120,9 +129,12 @@ public class BM_FragmentMessageDialog extends DialogFragment implements Compound
         builder.setPositiveButton(R.string.dialog_action_save, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // Send the positive button event back to the host activity
-                currentNode.setEnabled(String.valueOf(activate));
+                msg = message.getText().toString();
+                currentNode.setEnabled(activate ? "1" : "0");
                 currentNode.setMessage(msg);
                 currentNode.setDays(String.valueOf(charArray));
+                storageHandler.updateItemInMessageSet(currentNode.getLabel(), currentNode);
+                messageCardHandler.setCardView(currentNode.getLabel(), getActivity(), getTargetFragment());
                 mListener.onDialogPositiveClick(BM_FragmentMessageDialog.this, currentNode);
             }
         })
@@ -162,21 +174,28 @@ public class BM_FragmentMessageDialog extends DialogFragment implements Compound
 
     private void setSwitchListener(View view) {
         enabled = (Switch) view.findViewById(R.id.dialog_message_switch);
+        if(activate) {
+            enabled.setChecked(true);
+            enableDisableView(content, true);
+            enableDisableView(title, true);
+        } else {
+            enabled.setChecked(false);
+            enableDisableView(content, false);
+            enableDisableView(title, false);
+        }
         enabled.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Toast.makeText(getActivity(), "The Switch is " + (isChecked ? "on" : "off"),
-                        Toast.LENGTH_SHORT).show();
-                if(isChecked) {
-                    //do stuff when Switch is ON
-                    enableDisableView(content, true);
-                    enableDisableView(title, true);
+            if(isChecked) {
+                //do stuff when Switch is ON
+                enableDisableView(content, true);
+                enableDisableView(title, true);
 
-                } else {
-                    //do stuff when Switch if OFF
-                    enableDisableView(content, false);
-                    enableDisableView(title, false);
-                }
+            } else {
+                //do stuff when Switch if OFF
+                enableDisableView(content, false);
+                enableDisableView(title, false);
+            }
             }
         });
     }
@@ -212,6 +231,23 @@ public class BM_FragmentMessageDialog extends DialogFragment implements Compound
         friBtn = (ToggleButton) view.findViewById(R.id.dialog_friBtn);
         satBtn = (ToggleButton) view.findViewById(R.id.dialog_satBtn);
         sunBtn = (ToggleButton) view.findViewById(R.id.dialog_sunBtn);
+
+        btnSet.put("0", monBtn);
+        btnSet.put("1", tueBtn);
+        btnSet.put("2", wedBtn);
+        btnSet.put("3", thuBtn);
+        btnSet.put("4", friBtn);
+        btnSet.put("5", satBtn);
+        btnSet.put("6", sunBtn);
+
+        for(int i = 0; i < 7; i++) {
+            if(charArray[i] == '1') {
+                String idx = String.valueOf(i);
+                ToggleButton btn = btnSet.get(idx);
+                btn.setChecked(true);
+                btnSet.put(idx, btn);
+            }
+        }
 
         monBtn.setOnCheckedChangeListener(this);
         tueBtn.setOnCheckedChangeListener(this);

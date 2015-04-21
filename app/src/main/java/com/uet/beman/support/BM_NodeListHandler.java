@@ -37,6 +37,10 @@ public class BM_NodeListHandler {
         return messageList;
     }
 
+    public void updateItemInMessageList(SentenceNode node) {
+        model.updateDialog(node);
+    }
+
     public long getEarliestTimeInEpoch() {
         SentenceNode earliestNode = nodeList.get(0);
         nodeList.remove(0);

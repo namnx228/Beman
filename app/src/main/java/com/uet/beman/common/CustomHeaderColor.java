@@ -15,7 +15,7 @@ import it.gmariotti.cardslib.library.internal.CardHeader;
 public class CustomHeaderColor extends CardHeader {
 
     public CustomHeaderColor(Context context) {
-        super(context, R.layout.card_header_custom);
+        super(context, R.layout.card_header_inner_with_custom_button);
     }
 
     @Override

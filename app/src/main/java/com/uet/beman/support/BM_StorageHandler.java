@@ -33,8 +33,11 @@ public class BM_StorageHandler {
     }
 
     public void updateItemInMessageSet(String label, SentenceNode node) {
-        List<SentenceNode> nodeList = getListInMessageSet(label);
         int idx = Integer.parseInt(node.getId());
+        String newLabel = "\"" + label + "\"";
+        List<SentenceNode> nodeList = getListInMessageSet(newLabel);
         nodeList.set(idx, node);
+        messageSet.put(newLabel, nodeList);
+        handler.updateItemInMessageList(node);
     }
 }

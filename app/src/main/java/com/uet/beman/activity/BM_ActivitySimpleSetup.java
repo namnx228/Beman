@@ -160,6 +160,7 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
         @Override
         public void run() {
 //            try {
+//                View view =
                 storageHandler.initListInMessageSet("\"|morning|\"");
                 storageHandler.initListInMessageSet("\"|night|\"");
                 storageHandler.initListInMessageSet("\"|eat|\"");
@@ -169,5 +170,15 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
 //            }
         }
     }
+
+//    public void createMessageDialog(SentenceNode sentenceNode) {
+//        BM_FragmentMessageDialog dialog = new BM_FragmentMessageDialog();
+//        dialog.setNode(sentenceNode);
+//
+//        FragmentManager fm = getSupportFragmentManager();
+//        dialog.setTargetFragment(BM_FragmentMessageList.newInstance("1", "2"), 0);
+//        dialog.show(fm, "ABC");
+//    }
 }
 
+;

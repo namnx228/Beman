@@ -16,8 +16,10 @@
 
         android:textSize="20sp"
         android:layout_marginLeft="0dp"
+        android:layout_marginStart="0dp"
         android:background="#53A93F"
         android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:gravity="center_vertical"
         android:textColor="#FFF"
         />
