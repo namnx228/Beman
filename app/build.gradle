@@ -33,4 +33,6 @@ dependencies {
     compile project(':MaterialWidget')
     //Compile ViewPagerTransform Library
     compile 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.1.0@aar'
+    //Compile ShowcaseView Library
+    compile 'com.github.amlcurran.showcaseview:library:5.0.0'
 }

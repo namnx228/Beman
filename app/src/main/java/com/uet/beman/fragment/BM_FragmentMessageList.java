@@ -13,10 +13,8 @@ import android.widget.TextView;
 import com.uet.beman.R;
 import com.uet.beman.common.BM_Utils;
 import com.uet.beman.common.SharedPreferencesHelper;
-import com.uet.beman.object.MessageCard;
 import com.uet.beman.object.SentenceNode;
-
-import it.gmariotti.cardslib.library.view.CardView;
+import com.uet.beman.support.BM_MessageCardHandler;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,6 +35,7 @@ public class BM_FragmentMessageList extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private BM_MessageCardHandler mHandler;
 
     /**
      * Use this factory method to create a new instance of
@@ -67,6 +66,7 @@ public class BM_FragmentMessageList extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        mHandler = BM_MessageCardHandler.getInstance();
     }
 
     @Override
@@ -79,40 +79,46 @@ public class BM_FragmentMessageList extends Fragment {
         String name = SharedPreferencesHelper.getInstance().getUserName();
         BM_Utils.updateNameReferences(headline, getResources(), R.string.line_fragment_message_list, name);
 
-        MessageCard card = new MessageCard(getActivity(), "Morning");
-        card.init();
-        card.setFragment(this);
-        card.updateMessageItems("|morning|");
-        //card.updateScheduleItems();
+        mHandler.setCardView(view, R.id.card_morning, "|morning|", getActivity(), this);
+        mHandler.setCardView(view, R.id.card_noon, "|night|", getActivity(), this);
+        mHandler.setCardView(view, R.id.card_afternoon, "|miss|", getActivity(), this);
+        mHandler.setCardView(view, R.id.card_evening, "|eat|", getActivity(), this);
+        mHandler.setCardView(view, R.id.card_night, "|morning|", getActivity(), this);
 
-//        Set card in the cardView
-        CardView cardView = (CardView) view.findViewById(R.id.card_morning);
-        cardView.setCard(card);
-
-
-        MessageCard card1 = new MessageCard(getActivity(), "Night");
-        card1.init();
-        card1.setFragment(this);
-        card1.updateMessageItems("|night|");
-        CardView cardView1 = (CardView) view.findViewById(R.id.card_noon);
-        cardView1.setCard(card1);
-
-        MessageCard card2 = new MessageCard(getActivity(), "Miss");
-        card2.init();
-        card2.setFragment(this);
-        card2.updateMessageItems("|miss|");
-        CardView cardView2 = (CardView) view.findViewById(R.id.card_afternoon);
-        cardView2.setCard(card2);
-
-        MessageCard card3 = new MessageCard(getActivity(), "Eat");
-        card3.init();
-        card3.setFragment(this);
-        card3.updateMessageItems("|eat|");
-        CardView cardView3 = (CardView) view.findViewById(R.id.card_evening);
-        cardView3.setCard(card3);
-
-        CardView cardView4 = (CardView) view.findViewById(R.id.card_night);
-        cardView4.setCard(card);
+//        MessageCard card = new MessageCard(getActivity(), "Morning");
+//        card.init();
+//        card.setFragment(this);
+//        card.updateMessageItems("|morning|");
+//        //card.updateScheduleItems();
+//
+////        Set card in the cardView
+//        CardView cardView = (CardView) view.findViewById(R.id.card_morning);
+//        cardView.setCard(card);
+//
+//
+//        MessageCard card1 = new MessageCard(getActivity(), "Night");
+//        card1.init();
+//        card1.setFragment(this);
+//        card1.updateMessageItems("|night|");
+//        CardView cardView1 = (CardView) view.findViewById(R.id.card_noon);
+//        cardView1.setCard(card1);
+//
+//        MessageCard card2 = new MessageCard(getActivity(), "Miss");
+//        card2.init();
+//        card2.setFragment(this);
+//        card2.updateMessageItems("|miss|");
+//        CardView cardView2 = (CardView) view.findViewById(R.id.card_afternoon);
+//        cardView2.setCard(card2);
+//
+//        MessageCard card3 = new MessageCard(getActivity(), "Eat");
+//        card3.init();
+//        card3.setFragment(this);
+//        card3.updateMessageItems("|eat|");
+//        CardView cardView3 = (CardView) view.findViewById(R.id.card_evening);
+//        cardView3.setCard(card3);
+//
+//        CardView cardView4 = (CardView) view.findViewById(R.id.card_night);
+//        cardView4.setCard(card);
         // Inflate the layout for this fragment
         return view;
     }

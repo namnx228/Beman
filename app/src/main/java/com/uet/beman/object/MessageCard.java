@@ -196,7 +196,13 @@ public class MessageCard extends CardWithList {
                 @Override
                 public void onItemClick(LinearListView linearListView, View view, int i, CardWithList.ListObject listObject) {
 //                    Toast.makeText(getContext(), "Click on " + sentenceNode.getMessage(), Toast.LENGTH_SHORT).show();
-                    fragment.createMessageDialog(sentenceNode);
+                  fragment.createMessageDialog(sentenceNode);
+//                try {
+//                    BM_ActivitySimpleSetup setup = (BM_ActivitySimpleSetup) activity;
+//                    setup.createMessageDialog(sentenceNode);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
                 }
 
             });

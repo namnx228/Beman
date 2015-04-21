@@ -17,6 +17,7 @@ public class BM_MessageCardHandler {
     public static BM_MessageCardHandler instance = null;
     private HashMap<String, MessageCard> msgCardSet;
     private HashMap<String, CardView> cardViewSet;
+//    private HashMap<String, Integer> cardViewIdSet;
     private BM_StorageHandler storageHandler;
 
     private BM_MessageCardHandler() {
@@ -30,10 +31,10 @@ public class BM_MessageCardHandler {
         return instance;
     }
 
-    public void setCardInCardSet(Context context, String label, Fragment fragment) {
+    public void setCardInCardSet(Context context, String label) {
         MessageCard card = new MessageCard(context, label);
         card.init();
-        card.setFragment(fragment);
+//        card.setFragment(fragment);
         card.updateMessageItems(label);
         msgCardSet.put(label, card);
     }
@@ -44,8 +45,19 @@ public class BM_MessageCardHandler {
 
     public void setCardView(View view, int id, String label, Context context, Fragment fragment) {
         CardView cardView = (CardView) view.findViewById(id);
-        setCardInCardSet(context, label, fragment);
+        setCardInCardSet(context, label);
         MessageCard card = getCardInCardSet(label);
+        card.setFragment(fragment);
         cardView.setCard(card);
+        cardViewSet.put(label, cardView);
+    }
+
+    public void setCardView(String label, Context context, Fragment fragment) {
+        CardView cardView = cardViewSet.get(label);
+        setCardInCardSet(context, label);
+        MessageCard card = getCardInCardSet(label);
+        card.setFragment(fragment);
+        cardView.setCard(card);
+        cardViewSet.put(label, cardView);
     }
 }
