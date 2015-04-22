@@ -10,6 +10,8 @@ import android.net.wifi.WifiManager;
 import android.util.Log;
 
 import com.uet.beman.common.SharedPreferencesHelper;
+import com.uet.beman.operator.BM_Place_Message;
+import com.uet.beman.operator.BM_StopSend;
 import com.uet.beman.util.Constant;
 
 import java.util.ArrayList;
@@ -53,14 +55,23 @@ public class BM_WifiConnectionReceiver extends BroadcastReceiver {
         ArrayList<String> workWifiList = getSavedWifi(Constant.WORK_WIFI_LIST);
         ArrayList<String> girlWifiList = getSavedWifi(Constant.GIRL_WIFI_LIST);
 
+        BM_StopSend stopSend = new BM_StopSend();
+        stopSend.setGirlWifi(false);
+
+        BM_Place_Message wifi_message = new BM_Place_Message();
+
         if (homeWifiList.contains(currWifi)) {
             // At home
+            wifi_message.sendMessage(Constant.HOME);
+            //setMessage
         }
         if (workWifiList.contains(currWifi)) {
             // At work
+            wifi_message.sendMessage(Constant.WORK);
         }
         if (girlWifiList.contains(currWifi)) {
             // At girl's house
+            stopSend.setGirlWifi(true);
         }
 
         Log.d("onReceive", "end onReceive 2: " + currWifi);

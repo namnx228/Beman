@@ -18,6 +18,7 @@ import com.uet.beman.R;
 import com.uet.beman.common.BM_Utils;
 import com.uet.beman.common.SharedPreferencesHelper;
 import com.uet.beman.object.ManageWifiDialogFragment;
+import com.uet.beman.support.BM_GPStracker;
 import com.uet.beman.util.Constant;
 
 import java.util.ArrayList;
@@ -47,7 +48,7 @@ public class BM_FragmentGps extends Fragment implements CompoundButton.OnChecked
 
     private OnFragmentInteractionListener mListener;
 
-    private SharedPreferencesHelper spHelper;
+
 
     private SwitchCompat homeSwitch;
     private SwitchCompat workSwitch;
@@ -90,13 +91,12 @@ public class BM_FragmentGps extends Fragment implements CompoundButton.OnChecked
     public void onCreate(Bundle savedInstanceState) {
         Log.d("onCreate", "start onCreate");
         super.onCreate(savedInstanceState);
-        spHelper = SharedPreferencesHelper.getInstance();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d("onCreateView", "start onCreateView");
+        Log.d("onCreateView", "start onCreateViewGps");
         onCreateViewRunning = true;
 
         View view = inflater.inflate(R.layout.fragment_gps, container, false);
@@ -157,22 +157,78 @@ public class BM_FragmentGps extends Fragment implements CompoundButton.OnChecked
      * >Communicating with Other Fragments</a> for more information.
      */
 
+    private void notifyAfterSetGps(String longitudeOfPlace, String latitudeOfPlace, Float longitude, Float latitude)
+    {
+        String msg = longitudeOfPlace + " is " + longitude.toString() + '\n'
+                     + latitudeOfPlace + " is " + latitude.toString();
+        Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
+    }
+
+    private void notifyAfterTurnOffGps(String place)
+    {
+        String msg = place + " gps is turn off";
+        Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
+    }
+
+    private void setGps(int id)
+    {
+        //Toast.makeText(getActivity(),"vao day", Toast.LENGTH_LONG).show();
+        BM_GPStracker gpsTracker = new BM_GPStracker(getActivity());
+        float longitude = gpsTracker.getLongitude(), latitude = gpsTracker.getLatitude();
+        SharedPreferencesHelper preference = SharedPreferencesHelper.getInstance();
+        String longitudeOfPlace = "", latitudeOfPlace = "";
+        switch (id) {
+            case R.id.fragment_gps_switch_home:
+                longitudeOfPlace = Constant.HOME_LONGITUDE;
+                latitudeOfPlace = Constant.HOME_LATITUDE;
+
+                break;
+            case R.id.fragment_gps_switch_work:
+                longitudeOfPlace = Constant.WORK_LONGITUDE;
+                latitudeOfPlace = Constant.WORK_LATITUDE;
+                break;
+            case R.id.fragment_wifi_switch_girl:
+                longitudeOfPlace = Constant.GIRL_LONGITUDE;
+                latitudeOfPlace = Constant.GIRL_LATITUDE;
+                break;
+        }
+        preference.setLongitude(longitudeOfPlace, longitude);
+        preference.setLatitude(latitudeOfPlace, latitude);
+        notifyAfterSetGps(longitudeOfPlace, latitudeOfPlace, longitude, latitude);
+    }
+
+    private void setGpsToZero(int id)
+    {
+        String longitudeOfPlace = "", latitudeOfPlace = "", place = "";
+        SharedPreferencesHelper preference = SharedPreferencesHelper.getInstance();
+        switch (id) {
+            case R.id.fragment_gps_switch_home:
+                longitudeOfPlace = Constant.HOME_LONGITUDE;
+                latitudeOfPlace = Constant.HOME_LATITUDE;
+                place = "Home";
+                break;
+            case R.id.fragment_gps_switch_work:
+                longitudeOfPlace = Constant.WORK_LONGITUDE;
+                latitudeOfPlace = Constant.WORK_LATITUDE;
+                place = "Work";
+                break;
+            case R.id.fragment_wifi_switch_girl:
+                longitudeOfPlace = Constant.GIRL_LONGITUDE;
+                latitudeOfPlace = Constant.GIRL_LATITUDE;
+                place = "Girl's home";
+                break;
+        }
+        notifyAfterTurnOffGps(place);
+        preference.setLongitude(longitudeOfPlace, 0);
+        preference.setLatitude(latitudeOfPlace, 0);
+    }
+
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (onCreateViewRunning)
             return;
-
-        switch (buttonView.getId()) {
-            case R.id.fragment_gps_switch_home:
-//                spHelper.setWifiState(Constant.HOME_WIFI_STATE, isChecked);
-                break;
-            case R.id.fragment_gps_switch_work:
-  //              spHelper.setWifiState(Constant.WORK_WIFI_STATE, isChecked);
-                break;
-            case R.id.fragment_wifi_switch_girl:
-    //            spHelper.setWifiState(Constant.GIRL_WIFI_STATE, isChecked);
-                break;
-        }
+        if (isChecked) setGps(buttonView.getId());
+        else setGpsToZero(buttonView.getId());
     }
 
    /* @Override

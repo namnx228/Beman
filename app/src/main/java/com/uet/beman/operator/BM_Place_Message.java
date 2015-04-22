@@ -13,18 +13,11 @@ import java.util.Random;
 /**
  * Created by nam on 17/04/2015.
  */
-public class BM_Wifi_Message {
+public class BM_Place_Message {
 
-    private String place;
 
-    public void setPlace(String place) { this.place = place;}
 
-    public BM_Wifi_Message(String place)
-    {
-        setPlace(place);
-    }
-
-    public void setMessage(int id)
+    public void setMessage(int id, String place)
     {
         BM_ModelScheduler.getInstance().addPlaceMessage(id,place);
     }
@@ -35,7 +28,7 @@ public class BM_Wifi_Message {
         return rand.nextInt(list.size());
     }
 
-    public void getMessage()
+    public void sendMessage(String place)
     {
         List<Integer> list = BM_ModelScheduler.getInstance().getIdMessageByPlace(place);
         int chosenId = getRandomIdMessage(list);

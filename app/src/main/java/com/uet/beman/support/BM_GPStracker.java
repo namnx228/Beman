@@ -121,25 +121,25 @@ public class BM_GPStracker extends Service implements LocationListener
     /**
      * Function to get latitude
      * */
-    public double getLatitude(){
-        if(location != null){
+    public float getLatitude(){
+        /*if(location != null){
             latitude = location.getLatitude();
-        }
+        }*/
 
         // return latitude
-        return latitude;
+        return (float)latitude;
     }
 
     /**
      * Function to get longitude
      * */
-    public double getLongitude(){
-        if(location != null){
+    public float getLongitude(){
+       /* if(location != null){
             longitude = location.getLongitude();
-        }
+        }*/
 
         // return longitude
-        return longitude;
+        return (float)longitude;
     }
 
     /**

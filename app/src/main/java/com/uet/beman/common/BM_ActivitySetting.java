@@ -157,7 +157,7 @@ public class BM_ActivitySetting extends ActionBarActivity {
         if (view.getId() == R.id.test_gps) {
             BM_GPStracker gps = new BM_GPStracker(this);
             if (gps.canGetLocation()) {
-                Double latitude = gps.getLatitude(),
+                Float latitude = gps.getLatitude(),
                         longtitude = gps.getLongitude();
                 String mes = "your place is: Latutude = " + latitude.toString() + "\n Longtitude = " + longtitude.toString();
                 Toast.makeText(getBaseContext(), mes, Toast.LENGTH_LONG).show();

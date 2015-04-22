@@ -22,7 +22,7 @@ public class BM_ViewPagerAdapter extends FragmentPagerAdapter {
     /**
      * The number of pages (wizard steps) to show in this demo.
      */
-    private static final int NUM_PAGES = 20;
+    private static final int NUM_PAGES = 8;
 
     BM_FragmentWelcomeScreen BMFragmentWelcomeScreen;
     BM_FragmentInfo BMFragmentInfo;

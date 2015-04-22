@@ -2,6 +2,7 @@ package com.uet.beman.common;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,13 +42,13 @@ public class SharedPreferencesHelper {
     }
 
     public boolean getCheckIntrusion() {
-        SharedPreferences preferences = BM_Application.getInstance().getSharedPreferences("CHECK_INSTRUSION", Context.MODE_PRIVATE);
+        SharedPreferences preferences = BM_Application.getInstance().getSharedPreferences("CheckInstrusion", Context.MODE_PRIVATE);
         return preferences.getBoolean("CHECK_INSTRUSION", false);
     }
 
     public void setCheckIntrusion(boolean checkInstrusion)
     {
-        SharedPreferences preferences = BM_Application.getInstance().getSharedPreferences("CHECK_INSTRUSION", Context.MODE_PRIVATE);
+        SharedPreferences preferences = BM_Application.getInstance().getSharedPreferences("CheckInstrusion", Context.MODE_PRIVATE);
         SharedPreferences.Editor user = preferences.edit();
         user.putBoolean("CHECK_INSTRUSION",checkInstrusion);
         user.apply();
@@ -143,6 +144,35 @@ public class SharedPreferencesHelper {
         return sharedPreferences.getBoolean(key, false);
     }
 
+    public void setLongitude(String key, float longitude)
+    {
+        SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("GpsInfo", 0);
+        SharedPreferences.Editor user = sharedPreferences.edit();
+        user.putFloat(key, longitude);
+        user.apply();
+    }
+
+    public float getLongitude(String key)
+    {
+        SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("GpsInfo", 0);
+        return sharedPreferences.getFloat(key,0);
+    }
+
+    public void setLatitude(String key, float latitude)
+    {
+        SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("GpsInfo", 0);
+        SharedPreferences.Editor user = sharedPreferences.edit();
+        user.putFloat(key, latitude);//key == ..._lat
+        user.apply();
+    }
+
+    public float getLatitude(String key)
+    {
+        SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("GpsInfo", 0);
+        return sharedPreferences.getFloat(key,0);//...lat
+    }
+
+
     public void setDaysPreferences(String value) {
         SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
         SharedPreferences.Editor user = sharedPreferences.edit();
@@ -157,4 +187,33 @@ public class SharedPreferencesHelper {
         SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
         return sharedPreferences.getString("DAYS", str);
     }
+
+    public void setGirlWifiState(boolean state)
+    {
+        SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("StopSend", 0);
+        SharedPreferences.Editor user = sharedPreferences.edit();
+        user.putBoolean("WIFI", state);//key == ..._lat
+        user.apply();
+    }
+
+    public boolean getGirlWifiState()
+    {
+        SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("StopSend",0);
+        return sharedPreferences.getBoolean("WIFI",false);
+    }
+
+    public void setGirlGpsState(boolean state)
+    {
+        SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("StopSend", 0);
+        SharedPreferences.Editor user = sharedPreferences.edit();
+        user.putBoolean("GPS", state);//key == ..._lat
+        user.apply();
+    }
+
+    public boolean getGirlGpsState()
+    {
+        SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("StopSend",0);
+        return sharedPreferences.getBoolean("GPS",false);
+    }
+
 }
