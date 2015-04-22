@@ -89,24 +89,28 @@ public class BM_ModelScheduler {
         return node;
     }
 
-    public void addSentence(SentenceNode node) {
+    public long addSentence(SentenceNode node) {
+        long returnidx = -1;
         openDb();
-        String[] allColumn = { ScheduleEntry.COLUMN_MESSAGE_ID, ScheduleEntry.COLUMN_MESSAGE, ScheduleEntry.COLUMN_ENABLED, ScheduleEntry.COLUMN_DAYS };
+        String[] allColumn = { ScheduleEntry.COLUMN_MESSAGE,  ScheduleEntry.COLUMN_LANGUAGE, ScheduleEntry.COLUMN_LABEL, ScheduleEntry.COLUMN_ENABLED, ScheduleEntry.COLUMN_DAYS };
 
-        String selection = ScheduleEntry.COLUMN_MESSAGE_ID + " = " + node.getMessageId();
+        String selection = ScheduleEntry._ID + " = " + node.getId();
 
         Cursor cursor = db.query(ScheduleEntry.TABLE_MESSAGE, allColumn, selection, null, null, null, null);
 
         if(cursor.getCount() == 0) {
             ContentValues values = new ContentValues();
-            values.put(ScheduleEntry.COLUMN_MESSAGE_ID, node.getMessageId());
-            values.put(ScheduleEntry.COLUMN_MESSAGE, node.getMessage());
-            values.put(ScheduleEntry.COLUMN_ENABLED, node.getEnabled());
-            values.put(ScheduleEntry.COLUMN_DAYS, node.getDays());
+            values.put(ScheduleEntry.COLUMN_MESSAGE, "\"" + node.getMessage() + "\"");
+            values.put(ScheduleEntry.COLUMN_LANGUAGE, "\"" + node.getLanguage() + "\"");
+            values.put(ScheduleEntry.COLUMN_LABEL, "\"" + node.getLabel() + "\"");
+            values.put(ScheduleEntry.COLUMN_ENABLED, "\"" + node.getEnabled() + "\"");
+            values.put(ScheduleEntry.COLUMN_DAYS, "\"" + node.getDays()+ "\"");
 
-            db.insert(ScheduleEntry.TABLE_MESSAGE, null, values);
+            returnidx = db.insert(ScheduleEntry.TABLE_MESSAGE, null, values);
         }
         closeDb();
+        cursor.close();
+        return returnidx;
     }
 
     public void addSchedule(SentenceNode node) {

@@ -34,14 +34,14 @@ public class MessageCard extends CardWithList {
     List<MessageObject> objs = new ArrayList<>();
     Activity activity;
     BM_FragmentMessageList fragment;
-    String header;
+    public static String title;
     private BM_StorageHandler storageHandler;
 //    MessageObject obj;
 
     public MessageCard(Context context, String header) {
         super(context);
         activity = (Activity) context;
-        this.header = header;
+        MessageCard.title = header;
         storageHandler = BM_StorageHandler.getInstance();
     }
 
@@ -135,7 +135,7 @@ public class MessageCard extends CardWithList {
 //        });
 
         //Add Header
-        CardHeader header = new CardHeader(getContext());
+        final CardHeader header = new CardHeader(getContext());
 
         //Add a popup menu. This method set OverFlow button to visible
         header.setPopupMenu(R.menu.menu_popup_item, new CardHeader.OnClickCardHeaderPopupMenuListener() {
@@ -145,6 +145,10 @@ public class MessageCard extends CardWithList {
                 switch (item.getItemId()){
                     case R.id.action_add_item:
                         //Toast.makeText(getContext(), "Add item", Toast.LENGTH_LONG).show();
+                        SentenceNode node = new SentenceNode();
+                        node.setLabel(MessageCard.title);
+                        node.setLanguage("VIE");
+                        fragment.createMessageDialog(node);
                         break;
                     case R.id.action_settings:
                         //Toast.makeText(getContext(), "Setting", Toast.LENGTH_LONG).show();
@@ -152,7 +156,7 @@ public class MessageCard extends CardWithList {
                 }
             }
         });
-        header.setTitle(this.header); //should use R.string.
+        header.setTitle(MessageCard.title); //should use R.string.
         return header;
     }
 

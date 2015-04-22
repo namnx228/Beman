@@ -40,4 +40,13 @@ public class BM_StorageHandler {
         messageSet.put(newLabel, nodeList);
         handler.updateItemInMessageList(node);
     }
+
+    public void addItemInMessageSet(SentenceNode node) {
+        String label = "\"" + node.getLabel() +"\"";
+        long idx = handler.addNewNode(node);
+        node.setId(String.valueOf(idx));
+        List<SentenceNode> nodeList = getListInMessageSet(label);
+        nodeList.add(node);
+        messageSet.put(label, nodeList);
+    }
 }

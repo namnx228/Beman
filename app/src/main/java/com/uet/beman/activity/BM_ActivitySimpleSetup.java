@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -111,6 +113,14 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
 
     public void onDialogPositiveClick(DialogFragment dialog, SentenceNode currentNode) {
         model.updateDialog(currentNode);
+
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.pager + ":" + mPager.getCurrentItem());
+        if(mPager.getCurrentItem() == 0 && fragment != null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.detach(fragment);
+            ft.attach(fragment);
+            ft.commit();
+        }
     }
 
     public void onDialogNegativeClick(DialogFragment dialog) {

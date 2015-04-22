@@ -23,6 +23,7 @@ import com.uet.beman.object.SentenceNode;
 import com.uet.beman.support.BM_MessageCardHandler;
 import com.uet.beman.support.BM_StorageHandler;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -39,6 +40,7 @@ public class BM_FragmentMessageDialog extends DialogFragment implements Compound
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private SentenceNode currentNode;
+    private Boolean nodeInit = true;
     private String msg;
     private String id;
     private char[] charArray = new char[7];
@@ -84,8 +86,13 @@ public class BM_FragmentMessageDialog extends DialogFragment implements Compound
         currentNode = sentenceNode;
         msg = sentenceNode.getMessage();
         id = sentenceNode.getId();
-        charArray = sentenceNode.getDays().toCharArray();
-        activate = (sentenceNode.getEnabled().equals("1"));
+
+        if (sentenceNode.getDays() == null) Arrays.fill(charArray, '1');
+        else charArray = sentenceNode.getDays().toCharArray();
+
+        activate = (sentenceNode.getEnabled() == null || (sentenceNode.getEnabled().equals("1")));
+        if (sentenceNode.getEnabled() == null) nodeInit = false;
+
     }
 
     @Override
@@ -133,7 +140,13 @@ public class BM_FragmentMessageDialog extends DialogFragment implements Compound
                 currentNode.setEnabled(activate ? "1" : "0");
                 currentNode.setMessage(msg);
                 currentNode.setDays(String.valueOf(charArray));
-                storageHandler.updateItemInMessageSet(currentNode.getLabel(), currentNode);
+
+                if(nodeInit) {
+                    storageHandler.updateItemInMessageSet(currentNode.getLabel(), currentNode);
+                } else {
+                    currentNode.setId("0");
+                    storageHandler.addItemInMessageSet(currentNode);
+                }
                 messageCardHandler.setCardView(currentNode.getLabel(), getActivity(), getTargetFragment());
                 mListener.onDialogPositiveClick(BM_FragmentMessageDialog.this, currentNode);
             }

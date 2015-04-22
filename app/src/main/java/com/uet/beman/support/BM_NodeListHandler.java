@@ -68,4 +68,8 @@ public class BM_NodeListHandler {
     public long getRemainingTime() {
         return (getEarliestTimeInEpoch() - getCurrentTimeInEpoch());
     }
+
+    public long addNewNode(SentenceNode node) {
+        return model.addSentence(node);
+    }
 }
