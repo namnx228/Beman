@@ -13,6 +13,12 @@ public class Constant {
 
     public static final String GIRL_WIFI_STATE = "Girl Wifi State";
 
+    public static final String HOME_GPS_CHECKED = "Home Gps Check";
+
+    public static final String WORK_GPS_CHECKED = "Work Gps Check";
+
+    public static final String GIRL_GPS_CHECKED = "Girl Gps Check";
+
     public static final String HOME_LONGITUDE = "home longitude";
 
     public static final String HOME_LATITUDE = "home latitude";

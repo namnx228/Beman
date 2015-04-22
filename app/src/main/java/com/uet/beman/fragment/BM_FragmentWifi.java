@@ -76,7 +76,7 @@ public class BM_FragmentWifi extends Fragment implements CompoundButton.OnChecke
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d("onCreateView", "start onCreateView");
+        Log.d("onCreateView", "start onCreateViewWifi");
         onCreateViewRunning = true;
 
         View view = inflater.inflate(R.layout.fragment_wifi, container, false);
@@ -157,7 +157,7 @@ public class BM_FragmentWifi extends Fragment implements CompoundButton.OnChecke
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (onCreateViewRunning)
             return;
-
+        //Toast.makeText(getActivity(), "vao wifi", Toast.LENGTH_LONG).show();
         switch (buttonView.getId()) {
             case R.id.fragment_wifi_switch_home:
                 spHelper.setWifiState(Constant.HOME_WIFI_STATE, isChecked);

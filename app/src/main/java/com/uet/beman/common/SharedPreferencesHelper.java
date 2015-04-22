@@ -144,6 +144,18 @@ public class SharedPreferencesHelper {
         return sharedPreferences.getBoolean(key, false);
     }
 
+    public void setGpsCheck(String key, boolean state) {
+        SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("GpsInfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor user = sharedPreferences.edit();
+        user.putBoolean(key, state);
+        user.apply();
+    }
+
+    public boolean getGpsCheck(String key) {
+        SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("GpsInfo", Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(key, false);
+    }
+
     public void setLongitude(String key, float longitude)
     {
         SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("GpsInfo", 0);

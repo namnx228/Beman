@@ -31,7 +31,7 @@ import java.util.ArrayList;
  * Use the {@link BM_FragmentGps#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BM_FragmentGps extends Fragment implements CompoundButton.OnCheckedChangeListener{
+public class BM_FragmentGps extends Fragment implements SwitchCompat.OnCheckedChangeListener{
         //View.OnClickListener{
 
     //ManageWifiDialogFragment.ManageWifiClickListener
@@ -54,15 +54,7 @@ public class BM_FragmentGps extends Fragment implements CompoundButton.OnChecked
     private SwitchCompat workSwitch;
     private SwitchCompat girlSwitch;
 
-    private ImageView homeAddButton;
-    private ImageView workAddButton;
-    private ImageView girlAddButton;
-
-    private TextView homeTextView;
-    private TextView workTextView;
-    private TextView girlTextView;
-
-    private static boolean onCreateViewRunning;
+    private  boolean onCreateViewRunning;
 
 
     /**
@@ -110,20 +102,16 @@ public class BM_FragmentGps extends Fragment implements CompoundButton.OnChecked
         // Initialize wifi switches
         homeSwitch = (SwitchCompat) view.findViewById(R.id.fragment_gps_switch_home);
         homeSwitch.setOnCheckedChangeListener(this);
-
+        homeSwitch.setChecked(SharedPreferencesHelper.getInstance().getGpsCheck(Constant.HOME_GPS_CHECKED));
 
         workSwitch = (SwitchCompat) view.findViewById(R.id.fragment_gps_switch_work);
         workSwitch.setOnCheckedChangeListener(this);
-
+        workSwitch.setChecked(SharedPreferencesHelper.getInstance().getGpsCheck(Constant.WORK_GPS_CHECKED));
 
         girlSwitch = (SwitchCompat) view.findViewById(R.id.fragment_gps_switch_girl);
         girlSwitch.setOnCheckedChangeListener(this);
+        girlSwitch.setChecked(SharedPreferencesHelper.getInstance().getGpsCheck(Constant.GIRL_GPS_CHECKED));
 
-
-        // Initialize add buttons
-
-        // Initialize wifi detail text views
-        //loadWifiDetail();
 
         onCreateViewRunning = false;
         return view;
@@ -170,6 +158,8 @@ public class BM_FragmentGps extends Fragment implements CompoundButton.OnChecked
         Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
     }
 
+
+
     private void setGps(int id)
     {
         //Toast.makeText(getActivity(),"vao day", Toast.LENGTH_LONG).show();
@@ -181,15 +171,18 @@ public class BM_FragmentGps extends Fragment implements CompoundButton.OnChecked
             case R.id.fragment_gps_switch_home:
                 longitudeOfPlace = Constant.HOME_LONGITUDE;
                 latitudeOfPlace = Constant.HOME_LATITUDE;
+                preference.setGpsCheck(Constant.HOME_GPS_CHECKED, true);
 
                 break;
             case R.id.fragment_gps_switch_work:
                 longitudeOfPlace = Constant.WORK_LONGITUDE;
                 latitudeOfPlace = Constant.WORK_LATITUDE;
+                preference.setGpsCheck(Constant.WORK_GPS_CHECKED, true);
                 break;
             case R.id.fragment_wifi_switch_girl:
                 longitudeOfPlace = Constant.GIRL_LONGITUDE;
                 latitudeOfPlace = Constant.GIRL_LATITUDE;
+                preference.setGpsCheck(Constant.GIRL_GPS_CHECKED, true);
                 break;
         }
         preference.setLongitude(longitudeOfPlace, longitude);
@@ -206,16 +199,19 @@ public class BM_FragmentGps extends Fragment implements CompoundButton.OnChecked
                 longitudeOfPlace = Constant.HOME_LONGITUDE;
                 latitudeOfPlace = Constant.HOME_LATITUDE;
                 place = "Home";
+                preference.setGpsCheck(Constant.HOME_GPS_CHECKED, false);
                 break;
             case R.id.fragment_gps_switch_work:
                 longitudeOfPlace = Constant.WORK_LONGITUDE;
                 latitudeOfPlace = Constant.WORK_LATITUDE;
                 place = "Work";
+                preference.setGpsCheck(Constant.WORK_GPS_CHECKED, false);
                 break;
             case R.id.fragment_wifi_switch_girl:
                 longitudeOfPlace = Constant.GIRL_LONGITUDE;
                 latitudeOfPlace = Constant.GIRL_LATITUDE;
                 place = "Girl's home";
+                preference.setGpsCheck(Constant.WORK_GPS_CHECKED, false);
                 break;
         }
         notifyAfterTurnOffGps(place);
