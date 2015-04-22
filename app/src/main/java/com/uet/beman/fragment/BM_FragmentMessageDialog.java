@@ -145,6 +145,7 @@ public class BM_FragmentMessageDialog extends DialogFragment implements Compound
                     storageHandler.updateItemInMessageSet(currentNode.getLabel(), currentNode);
                 } else {
                     currentNode.setId("0");
+                    currentNode.setEnabled("1");
                     storageHandler.addItemInMessageSet(currentNode);
                 }
                 messageCardHandler.setCardView(currentNode.getLabel(), getActivity(), getTargetFragment());

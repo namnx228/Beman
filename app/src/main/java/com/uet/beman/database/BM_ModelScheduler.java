@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.uet.beman.common.BM_Utils;
+import com.uet.beman.common.SharedPreferencesHelper;
 import com.uet.beman.object.Node;
 import com.uet.beman.object.SentenceNode;
 
@@ -16,6 +17,7 @@ import java.util.List;
  */
 public class BM_ModelScheduler {
     private ScheduleDbHelper mDbHelper;
+    private SharedPreferencesHelper spHelper;
     private SQLiteDatabase db;
     private BM_Utils utils;
 
@@ -29,19 +31,21 @@ public class BM_ModelScheduler {
     public BM_ModelScheduler() {
         mDbHelper = ScheduleDbHelper.getInstance();
         utils = BM_Utils.getInstance();
-        try {
-            mDbHelper.createDB();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        spHelper = SharedPreferencesHelper.getInstance();
+
+//        try {
+//            mDbHelper.
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     private void openDb() {
-        try {
-            mDbHelper.createDB();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            mDbHelper.createDB();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
         db = mDbHelper.getReadableDatabase();
     }
@@ -90,6 +94,7 @@ public class BM_ModelScheduler {
     }
 
     public long addSentence(SentenceNode node) {
+        int dbVer = spHelper.getDatabaseVersion();
         long returnidx = -1;
         openDb();
         String[] allColumn = { ScheduleEntry.COLUMN_MESSAGE,  ScheduleEntry.COLUMN_LANGUAGE, ScheduleEntry.COLUMN_LABEL, ScheduleEntry.COLUMN_ENABLED, ScheduleEntry.COLUMN_DAYS };
@@ -98,18 +103,19 @@ public class BM_ModelScheduler {
 
         Cursor cursor = db.query(ScheduleEntry.TABLE_MESSAGE, allColumn, selection, null, null, null, null);
 
-        if(cursor.getCount() == 0) {
+        if(cursor.getCount() <= 0) {
             ContentValues values = new ContentValues();
-            values.put(ScheduleEntry.COLUMN_MESSAGE, "\"" + node.getMessage() + "\"");
-            values.put(ScheduleEntry.COLUMN_LANGUAGE, "\"" + node.getLanguage() + "\"");
-            values.put(ScheduleEntry.COLUMN_LABEL, "\"" + node.getLabel() + "\"");
-            values.put(ScheduleEntry.COLUMN_ENABLED, "\"" + node.getEnabled() + "\"");
-            values.put(ScheduleEntry.COLUMN_DAYS, "\"" + node.getDays()+ "\"");
+            values.put(ScheduleEntry.COLUMN_MESSAGE, node.getMessage());
+            values.put(ScheduleEntry.COLUMN_LANGUAGE, node.getLanguage());
+            values.put(ScheduleEntry.COLUMN_LABEL, node.getLabel());
+            values.put(ScheduleEntry.COLUMN_ENABLED, node.getEnabled());
+            values.put(ScheduleEntry.COLUMN_DAYS, node.getDays());
 
             returnidx = db.insert(ScheduleEntry.TABLE_MESSAGE, null, values);
         }
         closeDb();
         cursor.close();
+        spHelper.setDatabaseVersion(dbVer + 1);
         return returnidx;
     }
 
@@ -308,10 +314,9 @@ public class BM_ModelScheduler {
         openDb();
         List<SentenceNode> result = new ArrayList<>();
 
-        String selection = "SELECT "  + ScheduleEntry.TABLE_MESSAGE + ".* "
+        String selection = "SELECT *"
                 + " FROM " +  ScheduleEntry.TABLE_MESSAGE
-                + " WHERE "  + ScheduleEntry.TABLE_MESSAGE + "."
-                + ScheduleEntry.COLUMN_LABEL + " = " + label;
+                + " WHERE "  + ScheduleEntry.COLUMN_LABEL + " = " + label;
 
         Cursor cursor = db.rawQuery(selection, null);
         if(cursor.getCount() > 0) {
@@ -329,6 +334,7 @@ public class BM_ModelScheduler {
     }
 
     public void updateDialog(SentenceNode currentNode) {
+        int dbVersion = spHelper.getDatabaseVersion();
         openDb();
         String update = "UPDATE " + ScheduleEntry.TABLE_MESSAGE + " SET " + ScheduleEntry.COLUMN_MESSAGE + " = " +
                         BM_Utils.standardlizeValueDB(currentNode.getMessage()) + ScheduleEntry.COMMA_SEP + ScheduleEntry.COLUMN_ENABLED + " = " +
@@ -337,6 +343,7 @@ public class BM_ModelScheduler {
                         currentNode.getId();
         db.execSQL(update);
         closeDb();
+        spHelper.setDatabaseVersion(dbVersion + 1);
     }
 
 }

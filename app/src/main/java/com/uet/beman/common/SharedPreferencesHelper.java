@@ -2,7 +2,6 @@ package com.uet.beman.common;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -228,4 +227,15 @@ public class SharedPreferencesHelper {
         return sharedPreferences.getBoolean("GPS",false);
     }
 
+    public void setDatabaseVersion(int version) {
+        SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("AppInfo", 0);
+        SharedPreferences.Editor user = sharedPreferences.edit();
+        user.putInt("VERSION", version);
+        user.apply();
+    }
+
+    public int getDatabaseVersion() {
+        SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("AppInfo", 0);
+        return sharedPreferences.getInt("VERSION", 1);
+    }
 }

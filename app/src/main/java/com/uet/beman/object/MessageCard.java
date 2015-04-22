@@ -34,14 +34,14 @@ public class MessageCard extends CardWithList {
     List<MessageObject> objs = new ArrayList<>();
     Activity activity;
     BM_FragmentMessageList fragment;
-    public static String title;
+    private String title;
     private BM_StorageHandler storageHandler;
 //    MessageObject obj;
 
     public MessageCard(Context context, String header) {
         super(context);
         activity = (Activity) context;
-        MessageCard.title = header;
+        title = header;
         storageHandler = BM_StorageHandler.getInstance();
     }
 
@@ -146,7 +146,7 @@ public class MessageCard extends CardWithList {
                     case R.id.action_add_item:
                         //Toast.makeText(getContext(), "Add item", Toast.LENGTH_LONG).show();
                         SentenceNode node = new SentenceNode();
-                        node.setLabel(MessageCard.title);
+                        node.setLabel(getCardTitle());
                         node.setLanguage("VIE");
                         fragment.createMessageDialog(node);
                         break;
@@ -156,7 +156,7 @@ public class MessageCard extends CardWithList {
                 }
             }
         });
-        header.setTitle(MessageCard.title); //should use R.string.
+        header.setTitle(getCardTitle()); //should use R.string.
         return header;
     }
 
@@ -211,6 +211,10 @@ public class MessageCard extends CardWithList {
 
             });
         }
+    }
+
+    public String getCardTitle() {
+        return title;
     }
 
 }

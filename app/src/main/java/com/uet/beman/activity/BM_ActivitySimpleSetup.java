@@ -17,7 +17,6 @@ import android.widget.TextView;
 import com.uet.beman.R;
 import com.uet.beman.common.BM_CustomViewPager;
 import com.uet.beman.common.SharedPreferencesHelper;
-import com.uet.beman.database.BM_ModelScheduler;
 import com.uet.beman.fragment.BM_FragmentDays;
 import com.uet.beman.fragment.BM_FragmentGps;
 import com.uet.beman.fragment.BM_FragmentInfo;
@@ -49,8 +48,8 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
      * The pager adapter, which provides the pages to the view pager widget.
      */
     private PagerAdapter mPagerAdapter;
-    private BM_ModelScheduler model;
-    private BM_StorageHandler storageHandler;
+//    private BM_ModelScheduler model;
+//    private BM_StorageHandler storageHandler;
 
 
 
@@ -65,8 +64,8 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
         mPager = (BM_CustomViewPager) findViewById(R.id.pager);
         mPagerAdapter = new BM_ViewPagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
-        model = BM_ModelScheduler.getInstance();
-        storageHandler = BM_StorageHandler.getInstance();
+//        model = BM_ModelScheduler.getInstance();
+//        storageHandler = BM_StorageHandler.getInstance();
 
         new Thread(new Task()).start();
 
@@ -112,7 +111,7 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
     }
 
     public void onDialogPositiveClick(DialogFragment dialog, SentenceNode currentNode) {
-        model.updateDialog(currentNode);
+//        model.updateDialog(currentNode);
 
         Fragment fragment = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.pager + ":" + mPager.getCurrentItem());
         if(mPager.getCurrentItem() == 0 && fragment != null) {
@@ -169,26 +168,11 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
     class Task implements Runnable {
         @Override
         public void run() {
-//            try {
-//                View view =
-                storageHandler.initListInMessageSet("\"|morning|\"");
-                storageHandler.initListInMessageSet("\"|night|\"");
-                storageHandler.initListInMessageSet("\"|eat|\"");
-                storageHandler.initListInMessageSet("\"|miss|\"");
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
+            BM_StorageHandler storageHandler = BM_StorageHandler.getInstance();
+            storageHandler.initListInMessageSet("\"|morning|\"");
+            storageHandler.initListInMessageSet("\"|night|\"");
+            storageHandler.initListInMessageSet("\"|eat|\"");
+            storageHandler.initListInMessageSet("\"|miss|\"");
         }
     }
-
-//    public void createMessageDialog(SentenceNode sentenceNode) {
-//        BM_FragmentMessageDialog dialog = new BM_FragmentMessageDialog();
-//        dialog.setNode(sentenceNode);
-//
-//        FragmentManager fm = getSupportFragmentManager();
-//        dialog.setTargetFragment(BM_FragmentMessageList.newInstance("1", "2"), 0);
-//        dialog.show(fm, "ABC");
-//    }
 }
-
-;

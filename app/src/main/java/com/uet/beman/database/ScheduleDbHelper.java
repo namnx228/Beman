@@ -1,15 +1,14 @@
 package com.uet.beman.database;
 
 import android.content.Context;
-import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.uet.beman.common.BM_Application;
+import com.uet.beman.common.SharedPreferencesHelper;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,6 +24,7 @@ public class ScheduleDbHelper extends SQLiteOpenHelper{
     public static final String DB_NAME = "Scheduler";
 
     private static ScheduleDbHelper instance = null;
+    private final Context mContext;
     SQLiteDatabase dbObj;
 
     public static ScheduleDbHelper getInstance() {
@@ -34,102 +34,83 @@ public class ScheduleDbHelper extends SQLiteOpenHelper{
 
     public ScheduleDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        mContext = context;
+        initialize();
     }
 
-    public void createDB() throws IOException {
-
-        if(dbObj == null) dbObj = this.getReadableDatabase();
-        Log.i("Readable ends","end");
-
-        try {
-            copyDB();
-            Log.i("copy db ends","end");
-
-        } catch (IOException e) {
-
-            throw new Error("Error copying database");
-        }
-    }
-
-    private boolean checkDB(){
-
-        SQLiteDatabase checkDB = null;
-
-        try{
-            String path = DB_PATH + DB_NAME;
-            Log.i("myPath ......",path);
-            checkDB = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);
-
-            Log.i("myPath ......",path);
-            if (checkDB != null)
-            {
-                Cursor c= checkDB.rawQuery("SELECT * FROM Messages", null);
-                //Log.i("Cursor.......",c.getString(0));
-                c.moveToFirst();
-                String contents[]=new String[80];
-                int flag=0;
-
-                while(! c.isAfterLast())
-                {
-                    String temp="";
-                    String s2=c.getString(0);
-                    String s3=c.getString(1);
-                    String s4=c.getString(2);
-                    temp=temp+"\n Id:"+s2+"\tType:"+s3+"\tBal:"+s4;
-                    contents[flag]=temp;
-                    flag=flag+1;
-
-                    //Log.i("DB values.........",temp);
-                    c.moveToNext();
-
+    /**
+     * Initializes database. Creates database if doesn't exist.
+     */
+    private void initialize() {
+        if (databaseExists()) {
+            SharedPreferencesHelper helper = SharedPreferencesHelper.getInstance();
+            int dbVersion = helper.getDatabaseVersion();
+            if (DATABASE_VERSION >= dbVersion) {
+                File dbFile = mContext.getDatabasePath(DATABASE_NAME);
+                if (!dbFile.delete()) {
+                    Log.w("DB_ERROR", "Unable to update database");
                 }
-                c.close();
             }
-            else
-            {
-                return false;
-            }
-
-        }catch(SQLiteException e){
-            e.printStackTrace();
         }
-
-        if(checkDB != null){
-
-            checkDB.close();
-
+        if (!databaseExists()) {
+            createDatabase();
         }
-        return checkDB != null ? true : false;
     }
 
-    public void copyDB() throws IOException{
-        try {
-            //Log.i("inside copyDB","start");
+    /**
+     * Returns true if database file exists, false otherwise.
+     * @return
+     */
+    private boolean databaseExists() {
+        File dbFile = mContext.getDatabasePath(DATABASE_NAME);
+        return dbFile.exists();
+    }
 
-            InputStream ip =  BM_Application.getInstance().getAssets().open(DB_NAME+".db");
-            //Log.i("Input Stream....",ip+"");
-            String op=  DB_PATH  +  DATABASE_NAME ;
-            OutputStream output = new FileOutputStream( op);
+    public void createDatabase() {
+
+        String parentPath = mContext.getDatabasePath(DATABASE_NAME).getParent();
+        String path = mContext.getDatabasePath(DATABASE_NAME).getPath();
+
+        File file = new File(parentPath);
+        if (!file.exists()) {
+            if (!file.mkdir()) {
+                Log.w("DB_ERR", "Unable to create database directory");
+                return;
+            }
+        }
+
+        InputStream is = null;
+        OutputStream os = null;
+        try {
+            is = mContext.getAssets().open(DATABASE_NAME);
+            os = new FileOutputStream(path);
+
             byte[] buffer = new byte[1024];
             int length;
-            while ((length = ip.read(buffer))>0){
-                output.write(buffer, 0, length);
-                //Log.i("Content.... ",length+"");
+            while ((length = is.read(buffer)) > 0) {
+                os.write(buffer, 0, length);
             }
-            output.flush();
-            output.close();
-            ip.close();
+            os.flush();
+            SharedPreferencesHelper helper = SharedPreferencesHelper.getInstance();
+            helper.setDatabaseVersion(DATABASE_VERSION);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (os != null) {
+                try {
+                    os.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-        catch (IOException e) {
-            Log.v("error", e.toString());
-        }
-    }
-
-    public void openDB() throws SQLException {
-
-        String myPath = DB_PATH + DB_NAME;
-        dbObj = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
-        //Log.i("open DB......", dbObj.toString());
     }
 
     @Override
@@ -142,13 +123,7 @@ public class ScheduleDbHelper extends SQLiteOpenHelper{
     }
 
     public void onCreate(SQLiteDatabase db) {
-        //db.execSQL(ScheduleEntry.SQL_CREATE_TABLE_MESSAGE);
-//        try {
-//            createDB();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        db.execSQL(ScheduleEntry.SQL_CREATE_TABLE_MSG_TIME);
+
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
