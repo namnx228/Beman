@@ -3,15 +3,9 @@ package com.uet.beman.support;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.provider.CallLog;
-import android.provider.Telephony;
-import android.telephony.SmsManager;
 import android.text.format.Time;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by nam on 15/04/2015.
@@ -19,7 +13,7 @@ import java.util.List;
 
 public class BM_SMS {
 
-    private  final long ONE_DAY = 864000;
+    private  final long ONE_DAY = 86400;
     private boolean checkSmsDate(Date date)
     {
         Time now = new Time();
@@ -28,8 +22,6 @@ public class BM_SMS {
         return now.second - date.getTime() < ONE_DAY ;
     }
     public boolean checkSmsHistory(Context context, String girlPhone) {
-
-
         Cursor cursor = context.getContentResolver().query(Uri.parse("content://sms/sent"), null, null, null, null);
         boolean stopSend = false;
         int number = cursor.getColumnIndex("address");
@@ -42,6 +34,7 @@ public class BM_SMS {
         cursor.close();
         return stopSend;
     }
+
 
 }
 

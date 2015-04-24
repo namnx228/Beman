@@ -42,4 +42,8 @@ public class BM_Utils {
     public static String standardlizeValueDB(String input) {
         return "\"" + input + "\"";
     }
+
+    public static long getTimeTillNow(long time) {
+        return time - System.currentTimeMillis()*1000;
+    }
 }
