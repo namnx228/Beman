@@ -179,7 +179,7 @@ public class BM_FragmentGps extends Fragment implements SwitchCompat.OnCheckedCh
                 latitudeOfPlace = Constant.WORK_LATITUDE;
                 preference.setGpsCheck(Constant.WORK_GPS_CHECKED, true);
                 break;
-            case R.id.fragment_wifi_switch_girl:
+            case R.id.fragment_gps_switch_girl:
                 longitudeOfPlace = Constant.GIRL_LONGITUDE;
                 latitudeOfPlace = Constant.GIRL_LATITUDE;
                 preference.setGpsCheck(Constant.GIRL_GPS_CHECKED, true);
@@ -211,7 +211,7 @@ public class BM_FragmentGps extends Fragment implements SwitchCompat.OnCheckedCh
                 longitudeOfPlace = Constant.GIRL_LONGITUDE;
                 latitudeOfPlace = Constant.GIRL_LATITUDE;
                 place = "Girl's home";
-                preference.setGpsCheck(Constant.WORK_GPS_CHECKED, false);
+                preference.setGpsCheck(Constant.GIRL_GPS_CHECKED, false);
                 break;
         }
         notifyAfterTurnOffGps(place);

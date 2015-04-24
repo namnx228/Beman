@@ -27,9 +27,9 @@ public class Constant {
 
     public static final String WORK_LATITUDE = "work latitude";
 
-    public static final String GIRL_LONGITUDE = "girl's home longitude";
+    public static final String GIRL_LONGITUDE = "girl longitude";
 
-    public static final String GIRL_LATITUDE = "girl's home latitude";
+    public static final String GIRL_LATITUDE = "girl latitude";
 
     public static final String HOME = "home";
 
