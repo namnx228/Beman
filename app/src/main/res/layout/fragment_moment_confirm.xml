@@ -1,0 +1,40 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/md_yellow_500"
+    android:layout_gravity="center_vertical|center_horizontal"
+    android:gravity="center_vertical|center_horizontal">
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SURE"
+        android:id="@+id/buttonConfirm"
+        android:onClick="onClick"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="163dp"
+        android:background="@color/md_green_A700" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/abc_text_size_display_1_material"
+        android:text="%1$s, Are you sure to plan this schedule?"
+        android:layout_above="@+id/buttonConfirm"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="109dp" />
+
+    <Space
+        android:layout_width="20px"
+        android:layout_height="10px"
+        android:layout_below="@+id/textView3"
+
+        android:layout_alignLeft="@+id/buttonConfirm"
+        android:layout_alignStart="@+id/buttonConfirm" />
+
+</RelativeLayout>

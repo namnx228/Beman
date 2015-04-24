@@ -24,15 +24,8 @@ import java.util.Random;
  */
 public class BM_Moment
 {
-    private int id;
-    private ArrayList<Integer> listMoment;
-    private ArrayList<Integer> listDay;
-    public BM_Moment(int id, ArrayList<Integer> moment, ArrayList<Integer> list)
-    {
-        this.id = id;
-        this.listMoment = moment;
-        this.listDay = list;
-    }
+
+
 
     private HashMap<Integer,String> mapIndexToMoment()
     {
@@ -98,26 +91,38 @@ public class BM_Moment
         }
     }
 
+    private GregorianCalendar checkIfNewBeforeNow(GregorianCalendar newTime, Calendar now)
+    {
+        if (newTime.before(now)) newTime.add(Calendar.WEEK_OF_MONTH, 1);
+        return newTime;
+    }
 
-    int getDay(int day)
+    private int getDay(int day)
     {
         return day;
     }
 
-    private BM_ExtractTime getExtractTime()
+    private long getTime(int day, int hour, int minute)
     {
-        BM_ExtractTime extractTime = new BM_ExtractTime();
-        extractTime.setId(id);
-        extractTime.setListDay(listDay);
-        extractTime.setRepeat(true);
-        return  extractTime;
+        Calendar now = Calendar.getInstance();
+
+        GregorianCalendar newTime = new GregorianCalendar();
+        newTime.set(Calendar.YEAR,now.get(Calendar.YEAR));
+        newTime.set(Calendar.MONTH, now.get(Calendar.MONTH));
+        newTime.set(Calendar.WEEK_OF_MONTH, now.get(Calendar.WEEK_OF_MONTH));
+        newTime.set(Calendar.DAY_OF_WEEK, getDay(day));
+        newTime.set(Calendar.HOUR_OF_DAY, hour);
+        newTime.set(Calendar.MINUTE, minute);
+        newTime = checkIfNewBeforeNow(newTime, now);
+        if (newTime == null) return 0;
+
+        return newTime.getTime().getTime();
     }
 
-    Long getTime(int day, String moment)
+    private Long getTime(int day, String moment)
     {
         Pair<Integer,Integer> hourAndMinute = getTime(moment);
-        BM_ExtractTime extractTime = getExtractTime();
-        return extractTime.getTime(day,hourAndMinute.first, hourAndMinute.second);
+        return getTime(day,hourAndMinute.first, hourAndMinute.second);
     }
 
     private boolean equal(String x, String y)

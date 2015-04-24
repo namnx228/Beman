@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.uet.beman.R;
 import com.uet.beman.common.BM_CustomViewPager;
@@ -26,7 +27,9 @@ import com.uet.beman.fragment.BM_FragmentMessageList;
 import com.uet.beman.fragment.BM_FragmentPhoneNumber;
 import com.uet.beman.fragment.BM_FragmentWelcomeScreen;
 import com.uet.beman.fragment.BM_FragmentWifi;
+import com.uet.beman.fragment.BM_MomentConfirm;
 import com.uet.beman.object.SentenceNode;
+import com.uet.beman.operator.BM_Moment;
 import com.uet.beman.support.BM_StorageHandler;
 import com.uet.beman.support.BM_ViewPagerAdapter;
 
@@ -36,7 +39,8 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
         BM_FragmentDays.OnFragmentInteractionListener, BM_FragmentMessageList.OnFragmentInteractionListener,
         BM_FragmentIntelligentMessage.OnFragmentInteractionListener,
         BM_FragmentMessageDialog.MessageDialogListener,
-        BM_FragmentGps.OnFragmentInteractionListener {
+        BM_FragmentGps.OnFragmentInteractionListener,
+        BM_MomentConfirm.OnFragmentInteractionListener{
 
     /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous
@@ -175,4 +179,18 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
             storageHandler.initListInMessageSet("\"|miss|\"");
         }
     }
+
+    public void onClick(View view)
+    {
+        switch (view.getId()) {
+            case R.id.buttonConfirm:
+                BM_Moment moment = new BM_Moment();
+                moment.setSchedule();
+                break;
+        }
+
+    }
 }
+
+
+
