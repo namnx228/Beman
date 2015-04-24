@@ -12,13 +12,15 @@ import android.provider.CallLog;
 import android.provider.Telephony;
 import android.text.format.Time;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class BM_CallLog extends Service {
 
     private static int ONE_DAY = 86400;
     private int geometricCallTime = 0;
-
+    private int lastTimeCall;
 
     /*protected void onCreate(Bundle bundle)
     {
@@ -28,6 +30,9 @@ public class BM_CallLog extends Service {
     public BM_CallLog(String girlFriend)
     {
         geometricCallTime = calGeometricCallTime(girlFriend);
+    }
+    public int getLastTimeCall(){
+        return lastTimeCall;
     }
 
     public int getGeometricCallTime()
@@ -74,29 +79,28 @@ public class BM_CallLog extends Service {
 
         Cursor managedCursor = getContentResolver().query(CallLog.Calls.CONTENT_URI, null,
                 null, null, null);
-
+        long lastTime = 0;
         int date = managedCursor.getColumnIndex(CallLog.Calls.DATE);
         int nameIndex = managedCursor.getColumnIndex(CallLog.Calls.CACHED_NAME);
         Date tmpDate = null;
         int sumTime = 0, numOfCall = 0;
+        Calendar callDayTime = Calendar.getInstance();
         while (managedCursor.moveToNext()) {
 
             String name = managedCursor.getString(nameIndex);
 
 
             String callDate = managedCursor.getString(date);
-            Date callDayTime = new Date(Long.valueOf(callDate));
+
+            callDayTime.setTime(new Date(Long.valueOf(callDate)));
             if (girlfriend.compareToIgnoreCase(name) == 0) {
-                if (tmpDate != null) sumTime+= callDayTime.getTime() - tmpDate.getTime();
-                tmpDate = callDayTime;
+                if (tmpDate != null) sumTime+= callDayTime.getTime().getTime() - tmpDate.getTime();
+                else lastTimeCall = callDayTime.get(Calendar.HOUR_OF_DAY);
+                tmpDate = callDayTime.getTime();
                 numOfCall++;
             }
-
-
-
         }
         managedCursor.close();
-
         return sumTime/numOfCall;
     }
 

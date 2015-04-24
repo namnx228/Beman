@@ -98,15 +98,6 @@ public class BM_Moment
         }
     }
 
-    public void setSchedule()
-    {
-        for(int day = 0;day<7;day++)
-        {
-            ArrayList<String> listMoment = getListMoment(day);
-            setWithEachMoment(day, listMoment);
-        }
-    }
-
 
     int getDay(int day)
     {
@@ -148,11 +139,10 @@ public class BM_Moment
         return dinner;
     }
 
-    private  boolean miss()
+    private int chooseForMiss()
     {
         BM_CallLog callLog = new BM_CallLog(SharedPreferencesHelper.getInstance().getDestName());
-        //return min(calcallLog.getGeometricCallTime(), MISS_TIME);
-        return false;
+        return min(callLog.getGeometricCallTime(), MISS_TIME) + callLog.getLastTimeCall();
     }
 
     Pair<Integer,Integer> getTime(String moment)
@@ -163,9 +153,18 @@ public class BM_Moment
         if(equal(moment,NOON)) hour = rand.nextInt(3) + 11; // 11-13
         if(equal(NIGHT,moment))  hour = rand.nextInt(3) + 22; // 22-24
         if(equal(moment,EAT)) hour = chooseForMeal();
-        //if(equal(moment,MISS)) hour = chooseForMiss();
+        if(equal(moment,MISS)) hour = chooseForMiss();
 
         return Pair.create(hour,minute);
+    }
+
+    public void setSchedule()
+    {
+        for(int day = 0;day<7;day++)
+        {
+            ArrayList<String> listMoment = getListMoment(day);
+            setWithEachMoment(day, listMoment);
+        }
     }
 
     private final String MORNING = "|morning|";
