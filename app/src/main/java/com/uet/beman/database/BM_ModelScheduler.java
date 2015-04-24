@@ -17,17 +17,11 @@ import java.util.List;
  * Created by thanhpd on 3/12/2015.
  */
 public class BM_ModelScheduler {
+    private static BM_ModelScheduler instance = null;
     private ScheduleDbHelper mDbHelper;
     private SharedPreferencesHelper spHelper;
     private SQLiteDatabase db;
     private BM_Utils utils;
-
-    private static BM_ModelScheduler instance = null;
-
-    public static BM_ModelScheduler getInstance() {
-        if(instance == null) instance = new BM_ModelScheduler();
-        return instance;
-    }
 
     public BM_ModelScheduler() {
         mDbHelper = ScheduleDbHelper.getInstance();
@@ -41,6 +35,11 @@ public class BM_ModelScheduler {
 //        }
     }
 
+    public static BM_ModelScheduler getInstance() {
+        if (instance == null) instance = new BM_ModelScheduler();
+        return instance;
+    }
+
     private void openDb() {
 //        try {
 //            mDbHelper.createDB();
@@ -48,7 +47,8 @@ public class BM_ModelScheduler {
 //            e.printStackTrace();
 //        }
 
-        db = mDbHelper.getReadableDatabase();
+//        db = mDbHelper.getReadableDatabase();
+        db = mDbHelper.getWritableDatabase();
     }
 
     private void closeDb() {
@@ -79,13 +79,12 @@ public class BM_ModelScheduler {
         return node;
     }
 
-    private Node cursorToMessageList(Cursor cursor)
-    {
+    private Node cursorToMessageList(Cursor cursor) {
         SentenceNode node = new SentenceNode();
 //        node.setMessageId(cursor.getInt(cursor.getColumnIndex(ScheduleEntry.COLUMN_MESSAGE_ID)));
         node.setMessage(cursor.getString(cursor.getColumnIndex(ScheduleEntry.COLUMN_MESSAGE)));
 //        node.setParentId(cursor.getInt(cursor.getColumnIndex(ScheduleEntry)));
-     //        node.setSendTimeEpoch(cursor.getString(cursor.getColumnIndex(ScheduleEntry.COLUMN_ALARM_TIME)));
+        //        node.setSendTimeEpoch(cursor.getString(cursor.getColumnIndex(ScheduleEntry.COLUMN_ALARM_TIME)));
         node.setEnabled(cursor.getString(cursor.getColumnIndex(ScheduleEntry.COLUMN_ENABLED)));
         node.setDays(cursor.getString(cursor.getColumnIndex(ScheduleEntry.COLUMN_DAYS)));
         node.setId(cursor.getString(cursor.getColumnIndex(ScheduleEntry._ID)));
@@ -98,13 +97,13 @@ public class BM_ModelScheduler {
         int dbVer = spHelper.getDatabaseVersion();
         long returnidx = -1;
         openDb();
-        String[] allColumn = { ScheduleEntry.COLUMN_MESSAGE,  ScheduleEntry.COLUMN_LANGUAGE, ScheduleEntry.COLUMN_LABEL, ScheduleEntry.COLUMN_ENABLED, ScheduleEntry.COLUMN_DAYS };
+        String[] allColumn = {ScheduleEntry.COLUMN_MESSAGE, ScheduleEntry.COLUMN_LANGUAGE, ScheduleEntry.COLUMN_LABEL, ScheduleEntry.COLUMN_ENABLED, ScheduleEntry.COLUMN_DAYS};
 
         String selection = ScheduleEntry._ID + " = " + node.getId();
 
         Cursor cursor = db.query(ScheduleEntry.TABLE_MESSAGE, allColumn, selection, null, null, null, null);
 
-        if(cursor.getCount() <= 0) {
+        if (cursor.getCount() <= 0) {
             ContentValues values = new ContentValues();
             values.put(ScheduleEntry.COLUMN_MESSAGE, node.getMessage());
             values.put(ScheduleEntry.COLUMN_LANGUAGE, node.getLanguage());
@@ -122,13 +121,13 @@ public class BM_ModelScheduler {
 
     public void addSchedule(SentenceNode node) {
         openDb();
-        String[] allColumn1 = { ScheduleEntry._ID, ScheduleEntry.COLUMN_MESSAGE };
+        String[] allColumn1 = {ScheduleEntry._ID, ScheduleEntry.COLUMN_MESSAGE};
 
         String selection1 = ScheduleEntry.COLUMN_MESSAGE + " = '" + node.getMessage() + "'";
 
         Cursor cursor1 = db.query(ScheduleEntry.TABLE_MESSAGE, allColumn1, selection1, null, null, null, null);
 
-        if(cursor1.getCount() == 0) {
+        if (cursor1.getCount() == 0) {
             ContentValues values = new ContentValues();
 //            values.put(ScheduleEntry.COLUMN_MESSAGE_ID, node.getMessageId());
             values.put(ScheduleEntry.COLUMN_MESSAGE, node.getMessage());
@@ -137,21 +136,21 @@ public class BM_ModelScheduler {
 
             long id = db.insert(ScheduleEntry.TABLE_MESSAGE, null, values);
             node.setMessageId(String.valueOf(id));
-        } else if(cursor1.getCount() > 0){
+        } else if (cursor1.getCount() > 0) {
             cursor1.moveToFirst();
             int id = cursor1.getInt(cursor1.getColumnIndex(ScheduleEntry._ID));
             node.setMessageId(String.valueOf(id));
         }
         cursor1.close();
 
-        String[] allColumn2 = { ScheduleEntry.COLUMN_MESSAGE_ID, ScheduleEntry.COLUMN_ALARM_TIME };
+        String[] allColumn2 = {ScheduleEntry.COLUMN_MESSAGE_ID, ScheduleEntry.COLUMN_ALARM_TIME};
 
         String selection2 = ScheduleEntry.COLUMN_ALARM_TIME + " = '" + node.getSendTime() + "' AND " +
-                            ScheduleEntry.COLUMN_MESSAGE_ID + " = " + node.getMessageId();
+                ScheduleEntry.COLUMN_MESSAGE_ID + " = " + node.getMessageId();
 
         Cursor cursor2 = db.query(ScheduleEntry.TABLE_MSG_TIME, allColumn2, selection2, null, null, null, null);
 
-        if(cursor2.getCount() == 0) {
+        if (cursor2.getCount() == 0) {
             ContentValues values = new ContentValues();
             values.put(ScheduleEntry.COLUMN_MESSAGE_ID, node.getMessageId());
             values.put(ScheduleEntry.COLUMN_ALARM_TIME, node.getSendTime());
@@ -162,17 +161,16 @@ public class BM_ModelScheduler {
         closeDb();
     }
 
-    public  void addPlaceMessage(int id, String place)
-    {
+    public void addPlaceMessage(int id, String place) {
         openDb();
-        String[] allColumn = { ScheduleEntry.COLUMN_MESSAGE_ID, ScheduleEntry.COLUMN_PLACES };
+        String[] allColumn = {ScheduleEntry.COLUMN_MESSAGE_ID, ScheduleEntry.COLUMN_PLACES};
 
         String selection = ScheduleEntry.COLUMN_MESSAGE_ID + " = " + id + " AND "
-                            + ScheduleEntry.COLUMN_PLACES + " = " + place;
+                + ScheduleEntry.COLUMN_PLACES + " = " + place;
 
         Cursor cursor = db.query(ScheduleEntry.TABLE_MSG_PLACE, allColumn, selection, null, null, null, null);
 
-        if(cursor.getCount() == 0) {
+        if (cursor.getCount() == 0) {
             ContentValues values = new ContentValues();
             values.put(ScheduleEntry.COLUMN_MESSAGE_ID, id);
             values.put(ScheduleEntry.COLUMN_PLACES, place);
@@ -181,21 +179,20 @@ public class BM_ModelScheduler {
         closeDb();
     }
 
-    public List<Integer> getIdMessageByPlace(String place)
-    {
+    public List<Integer> getIdMessageByPlace(String place) {
         openDb();
         List<Integer> result = new ArrayList<>();
 //        String[] tableMessageColumn = { ScheduleEntry.COLUMN_MESSAGE_ID, ScheduleEntry.COLUMN_MESSAGE };
 //        String[] tableScheduleColumn = { ScheduleEntry.COLUMN_MESSAGE_ID, ScheduleEntry.COLUMN_ALARM_TIME };
-        String[] allColumn = { ScheduleEntry.COLUMN_MESSAGE_ID };
+        String[] allColumn = {ScheduleEntry.COLUMN_MESSAGE_ID};
         String selection = ScheduleEntry.COLUMN_PLACES + " = " + place;
 
         Cursor cursor = db.query(ScheduleEntry.TABLE_MSG_PLACE, allColumn, selection, null, null, null, null);
 
 
-        if(cursor.getCount() > 0) {
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
-            while(!cursor.isAfterLast()) {
+            while (!cursor.isAfterLast()) {
                 int tmp = cursor.getInt(cursor.getColumnIndex(ScheduleEntry.COLUMN_MESSAGE_ID));
                 result.add(tmp);
                 cursor.moveToNext();
@@ -214,12 +211,12 @@ public class BM_ModelScheduler {
 //        String[] tableScheduleColumn = { ScheduleEntry.COLUMN_MESSAGE_ID, ScheduleEntry.COLUMN_ALARM_TIME };
 
         String selection = ScheduleEntry.SQL_JOIN_TABLES_BY_ID + " WHERE " + ScheduleEntry.TABLE_MESSAGE +
-                            ScheduleEntry.DOT_SEP + ScheduleEntry.COLUMN_MESSAGE_ID + " = '" + id + "'";
+                ScheduleEntry.DOT_SEP + ScheduleEntry.COLUMN_MESSAGE_ID + " = '" + id + "'";
 
         Cursor cursor = db.rawQuery(selection, null);
-        if(cursor.getCount() > 0) {
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
-            while(!cursor.isAfterLast()) {
+            while (!cursor.isAfterLast()) {
                 SentenceNode tmp = (SentenceNode) cursorToSchedule(cursor);
                 result.add(tmp);
                 cursor.moveToNext();
@@ -237,13 +234,13 @@ public class BM_ModelScheduler {
 //        String[] tableScheduleColumn = { ScheduleEntry.COLUMN_MESSAGE_ID, ScheduleEntry.COLUMN_ALARM_TIME };
 
         String getDate = "date('" + ScheduleEntry.TABLE_MSG_TIME + ScheduleEntry.DOT_SEP +
-                         ScheduleEntry.COLUMN_ALARM_TIME + "')";
+                ScheduleEntry.COLUMN_ALARM_TIME + "')";
         String selection = ScheduleEntry.SQL_JOIN_TABLES_BY_ID + " WHERE " + getDate + " = " + date;
 
         Cursor cursor = db.rawQuery(selection, null);
-        if(cursor.getCount() > 0) {
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
-            while(!cursor.isAfterLast()) {
+            while (!cursor.isAfterLast()) {
                 SentenceNode tmp = (SentenceNode) cursorToSchedule(cursor);
                 result.add(tmp);
                 cursor.moveToNext();
@@ -263,9 +260,9 @@ public class BM_ModelScheduler {
         String selection = ScheduleEntry.SQL_JOIN_TABLES_BY_ID + " ORDER BY Schedule.alarmTime";
 
         Cursor cursor = db.rawQuery(selection, null);
-        if(cursor.getCount() > 0) {
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
-            while(!cursor.isAfterLast()) {
+            while (!cursor.isAfterLast()) {
                 SentenceNode tmp = (SentenceNode) cursorToSchedule(cursor);
                 result.add(tmp);
                 cursor.moveToNext();
@@ -283,24 +280,23 @@ public class BM_ModelScheduler {
     }
 
 
-
     public List<SentenceNode> getMessagesOnSchedule(String label) {
         openDb();
         List<SentenceNode> result = new ArrayList<>();
 
-        String selection = "SELECT "  + ScheduleEntry.TABLE_MESSAGE + ".*, "
-                            + ScheduleEntry.TABLE_MSG_TIME + "."
-                            + ScheduleEntry.COLUMN_ALARM_TIME + " FROM " +  ScheduleEntry.TABLE_MESSAGE
-                            + " JOIN " + ScheduleEntry.TABLE_MSG_TIME
-                            + " ON " + ScheduleEntry.TABLE_MESSAGE + "." + ScheduleEntry._ID
-                            + "=" + ScheduleEntry.TABLE_MSG_TIME + "." + ScheduleEntry._ID
-                            + " WHERE "  + ScheduleEntry.TABLE_MESSAGE + "."
-                            + ScheduleEntry.COLUMN_LABEL + " = " + label;
+        String selection = "SELECT " + ScheduleEntry.TABLE_MESSAGE + ".*, "
+                + ScheduleEntry.TABLE_MSG_TIME + "."
+                + ScheduleEntry.COLUMN_ALARM_TIME + " FROM " + ScheduleEntry.TABLE_MESSAGE
+                + " JOIN " + ScheduleEntry.TABLE_MSG_TIME
+                + " ON " + ScheduleEntry.TABLE_MESSAGE + "." + ScheduleEntry._ID
+                + "=" + ScheduleEntry.TABLE_MSG_TIME + "." + ScheduleEntry._ID
+                + " WHERE " + ScheduleEntry.TABLE_MESSAGE + "."
+                + ScheduleEntry.COLUMN_LABEL + " = " + label;
 
         Cursor cursor = db.rawQuery(selection, null);
-        if(cursor.getCount() > 0) {
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
-            while(!cursor.isAfterLast()) {
+            while (!cursor.isAfterLast()) {
                 SentenceNode tmp = (SentenceNode) cursorToSchedule(cursor);
                 result.add(tmp);
                 cursor.moveToNext();
@@ -316,13 +312,13 @@ public class BM_ModelScheduler {
         ArrayList<SentenceNode> result = new ArrayList<>();
 
         String selection = "SELECT *"
-                + " FROM " +  ScheduleEntry.TABLE_MESSAGE
-                + " WHERE "  + ScheduleEntry.COLUMN_LABEL + " = " + label;
+                + " FROM " + ScheduleEntry.TABLE_MESSAGE
+                + " WHERE " + ScheduleEntry.COLUMN_LABEL + " = " + label;
 
         Cursor cursor = db.rawQuery(selection, null);
-        if(cursor.getCount() > 0) {
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
-            while(!cursor.isAfterLast()) {
+            while (!cursor.isAfterLast()) {
                 SentenceNode tmp = (SentenceNode) cursorToMessageList(cursor);
                 int idx = Integer.parseInt(tmp.getId());
                 result.add(tmp);
@@ -337,12 +333,14 @@ public class BM_ModelScheduler {
     public void updateDialog(SentenceNode currentNode) {
         int dbVersion = spHelper.getDatabaseVersion();
         openDb();
-        String update = "UPDATE " + ScheduleEntry.TABLE_MESSAGE + " SET " + ScheduleEntry.COLUMN_MESSAGE + " = " +
-                        BM_Utils.standardlizeValueDB(currentNode.getMessage()) + ScheduleEntry.COMMA_SEP + ScheduleEntry.COLUMN_ENABLED + " = " +
-                        BM_Utils.standardlizeValueDB(currentNode.getEnabled()) + ScheduleEntry.COMMA_SEP + ScheduleEntry.COLUMN_DAYS + " = " +
-                        BM_Utils.standardlizeValueDB(currentNode.getDays()) + " WHERE " + ScheduleEntry._ID + " = " +
-                        currentNode.getId();
-        db.execSQL(update);
+
+        ContentValues values = new ContentValues();
+        values.put(ScheduleEntry.COLUMN_MESSAGE, BM_Utils.standardlizeValueDB(currentNode.getMessage()));
+        values.put(ScheduleEntry.COLUMN_ENABLED, BM_Utils.standardlizeValueDB(currentNode.getEnabled()));
+        values.put(ScheduleEntry.COLUMN_DAYS, BM_Utils.standardlizeValueDB(currentNode.getDays()));
+
+        db.update(ScheduleEntry.TABLE_MESSAGE, values, ScheduleEntry._ID + " = ?", new String[]{String.valueOf(currentNode.getId())});
+
         closeDb();
         spHelper.setDatabaseVersion(dbVersion + 1);
     }
