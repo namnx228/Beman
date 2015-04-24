@@ -12,74 +12,99 @@ import android.provider.CallLog;
 import android.provider.Telephony;
 import android.text.format.Time;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class BM_CallLog extends Service {
 
     private static int ONE_DAY = 86400;
+    private int geometricCallTime = 0;
+    private int lastTimeCall;
 
     /*protected void onCreate(Bundle bundle)
     {
         super.onCreate(bundle);
     }*/
+    public BM_CallLog(){}
+    public BM_CallLog(String girlFriend)
+    {
+        geometricCallTime = calGeometricCallTime(girlFriend);
+    }
+    public int getLastTimeCall(){
+        return lastTimeCall;
+    }
 
-    private boolean checkCallDate(Date date)
+    public int getGeometricCallTime()
+    {
+        return  geometricCallTime;
+    }
+
+    private boolean checkCallDate(Date date, int timePeriod)
     {
         Time now = new Time();
         now.setToNow();
-        return now.second -  date.getTime() < ONE_DAY ;
+        return now.second -  date.getTime() < timePeriod ;
     }
 
-    public boolean checkCall(Context context, String girlfriend)
-        {
+    public boolean checkCall(Context context, String girlfriend, int timePeriod) {
 
-            //StringBuffer sb = new StringBuffer();
-            boolean stopSend = false;
-           Cursor managedCursor = context.getContentResolver().query(CallLog.Calls.CONTENT_URI, null,
-                    null, null, null);
-       //     int number = managedCursor.getColumnIndex(CallLog.Calls.NUMBER);
-           // int type = managedCursor.getColumnIndex(CallLog.Calls.TYPE);
-            int date = managedCursor.getColumnIndex(CallLog.Calls.DATE);
-            int nameIndex = managedCursor.getColumnIndex(CallLog.Calls.CACHED_NAME);
-          //  int duration = managedCursor.getColumnIndex(CallLog.Calls.DURATION);
-          //  sb.append("Call Details :");
+        //StringBuffer sb = new StringBuffer();
+        boolean stopSend = false;
+        Cursor managedCursor = context.getContentResolver().query(CallLog.Calls.CONTENT_URI, null,
+                null, null, null);
+        //     int number = managedCursor.getColumnIndex(CallLog.Calls.NUMBER);
+        // int type = managedCursor.getColumnIndex(CallLog.Calls.TYPE);
+        int date = managedCursor.getColumnIndex(CallLog.Calls.DATE);
+        int nameIndex = managedCursor.getColumnIndex(CallLog.Calls.CACHED_NAME);
+        //  int duration = managedCursor.getColumnIndex(CallLog.Calls.DURATION);
+        //  sb.append("Call Details :");
 
-            while (managedCursor.moveToNext()) {
-               // String phNumber = managedCursor.getString(number);
-             //   String callType = managedCursor.getString(type);
-                String name = managedCursor.getString(nameIndex);
-
-
-                String callDate = managedCursor.getString(date);
-                Date callDayTime = new Date(Long.valueOf(callDate));
-                if (girlfriend.compareToIgnoreCase(name) == 0)
-                    stopSend = checkCallDate(callDayTime);
-                if (stopSend) break;
-               // String callDuration = managedCursor.getString(duration);
-                //String dir = null;
-              //  int dircode = Integer.parseInt(callType);
-            /*    switch (dircode) {
-                    case CallLog.Calls.OUTGOING_TYPE:
-                        dir = "OUTGOING";
-                        break;
-
-                    case CallLog.Calls.INCOMING_TYPE:
-                        dir = "INCOMING";
-                        break;
-
-                    case CallLog.Calls.MISSED_TYPE:
-                        dir = "MISSED";
-                        break;
-                }*/
-           /*     sb.append("\nPhone Number:--- " + phNumber + " \nCall Type:--- "
-                        + dir + " \nCall Date:--- " + callDayTime
-                        + " \nCall duration in sec :--- " + callDuration);
-                sb.append("\n----------------------------------");*/
-            }
-            managedCursor.close();
-            return stopSend;
-
+        while (managedCursor.moveToNext()) {
+            // String phNumber = managedCursor.getString(number);
+            //   String callType = managedCursor.getString(type);
+            String name = managedCursor.getString(nameIndex);
+            String callDate = managedCursor.getString(date);
+            Date callDayTime = new Date(Long.valueOf(callDate));
+            if (girlfriend.compareToIgnoreCase(name) == 0)
+                stopSend = checkCallDate(callDayTime,timePeriod);
+            if (stopSend) break;
         }
+        managedCursor.close();
+        return stopSend;
+    }
+
+    private int calGeometricCallTime(String girlfriend)
+    {
+
+        Cursor managedCursor = getContentResolver().query(CallLog.Calls.CONTENT_URI, null,
+                null, null, null);
+        long lastTime = 0;
+        int date = managedCursor.getColumnIndex(CallLog.Calls.DATE);
+        int nameIndex = managedCursor.getColumnIndex(CallLog.Calls.CACHED_NAME);
+        Date tmpDate = null;
+        int sumTime = 0, numOfCall = 0;
+        Calendar callDayTime = Calendar.getInstance();
+        while (managedCursor.moveToNext()) {
+
+            String name = managedCursor.getString(nameIndex);
+
+
+            String callDate = managedCursor.getString(date);
+
+            callDayTime.setTime(new Date(Long.valueOf(callDate)));
+            if (girlfriend.compareToIgnoreCase(name) == 0) {
+                if (tmpDate != null) sumTime+= callDayTime.getTime().getTime() - tmpDate.getTime();
+                else lastTimeCall = callDayTime.get(Calendar.HOUR_OF_DAY);
+                tmpDate = callDayTime.getTime();
+                numOfCall++;
+            }
+        }
+        managedCursor.close();
+        return sumTime/numOfCall;
+    }
+
+
 
 
     @Override

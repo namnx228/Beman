@@ -52,6 +52,7 @@ public abstract class ScheduleEntry implements BaseColumns{
                                                                 COLUMN_MESSAGE_ID + TEXT_TYPE + COMMA_SEP +
                                                                 COLUMN_STATUS + TEXT_TYPE + COMMA_SEP +
                                                                 COLUMN_ALARM_TIME + TEXT_TYPE + COMMA_SEP +
+                                                                COLUMN_LABEL + TEXT_TYPE + COMMA_SEP +
                                                                 "FOREIGN KEY (" + COLUMN_MESSAGE_ID + ") REFERENCES " +
                                                                 TABLE_MESSAGE + "(" + _ID + ")" +
                                                                 " )";

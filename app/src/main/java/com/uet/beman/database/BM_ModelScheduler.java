@@ -9,6 +9,7 @@ import com.uet.beman.common.SharedPreferencesHelper;
 import com.uet.beman.object.Node;
 import com.uet.beman.object.SentenceNode;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -306,9 +307,9 @@ public class BM_ModelScheduler {
         return result;
     }
 
-    public List<SentenceNode> getMessages(String label) {
+    public ArrayList<SentenceNode> getMessages(String label) {
         openDb();
-        List<SentenceNode> result = new ArrayList<>();
+        ArrayList<SentenceNode> result = new ArrayList<>();
 
         String selection = "SELECT *"
                 + " FROM " + ScheduleEntry.TABLE_MESSAGE

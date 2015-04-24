@@ -157,6 +157,7 @@
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
             </intent-filter>
         </receiver>
+        <service android:name=".support.BM_CallLog"/>
     </application>
 
 </manifest>

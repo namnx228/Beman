@@ -40,4 +40,8 @@ public class Constant {
     public  static final int MOMENT = 1;
 
     public  static final int PLACE = 0;
+
+    public  static final int ONE_DAY = 86400;
+
+
     }
