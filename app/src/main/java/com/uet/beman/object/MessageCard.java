@@ -16,6 +16,7 @@ import android.widget.ToggleButton;
 
 import com.uet.beman.R;
 import com.uet.beman.fragment.BM_FragmentMessageList;
+import com.uet.beman.support.BM_MessageCardHandler;
 import com.uet.beman.support.BM_NodeListHandler;
 import com.uet.beman.support.BM_StorageHandler;
 
@@ -79,34 +80,39 @@ public class MessageCard extends CardWithList {
         //updateProgressBar(true,true);
     }
 
+//    public void messy() {
+//        getLinearListAdapter().
+//    }
+
 
 
     @Override
     public View setupChildView(int childPosition, ListObject object, View convertView, ViewGroup parent) {
-
-//        TextView language = (TextView) convertView.findViewById(R.id.messagecard_dayName);
-//        TextView dayDate = (TextView) convertView.findViewById(R.id.messagecard_dayDate);
         final ToggleButton checkmark = (ToggleButton) convertView.findViewById(R.id.checkmark_message);
         TextView content = (TextView) convertView.findViewById(R.id.messagecard_dayDate);
 
         final MessageObject obj = (MessageObject) object;
-//        checkmark.
-//        if(obj.sentenceNode.getCheckStatus() != null) {
-//            checkmark.requestFocus();
-//        }
+
         content.setText(obj.sentenceNode.getMessage());
+
+        if(obj.sentenceNode.getEnabled().equals("1")) checkmark.setChecked(true);
+        else checkmark.setChecked(false);
 
         checkmark.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) obj.sentenceNode.setEnabled("1");
-                else obj.sentenceNode.setEnabled("0");
+                if(isChecked) {
+                    obj.sentenceNode.setEnabled("1");
+                    BM_StorageHandler.getInstance().updateItemInMessageSet(getCardTitle(), obj.sentenceNode);
+                    BM_MessageCardHandler.getInstance().setCardView(null, 0, getCardTitle(), fragment.getActivity(), fragment);
+                }
+                else {
+                    obj.sentenceNode.setEnabled("0");
+                    BM_StorageHandler.getInstance().updateItemInMessageSet(getCardTitle(), obj.sentenceNode);
+                    BM_MessageCardHandler.getInstance().setCardView(null, 0, getCardTitle(), fragment.getActivity(), fragment);
+                }
             }
         });
-//        WeatherObject weatherObject= (WeatherObject)object;
-//        icon.setImageResource(weatherObject.weatherIcon);
-//        city.setText(weatherObject.city);
-//        temperature.setText(weatherObject.temperature + weatherObject.temperatureUnit);
 
         return  convertView;
     }

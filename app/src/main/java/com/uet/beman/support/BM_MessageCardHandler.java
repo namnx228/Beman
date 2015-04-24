@@ -44,7 +44,9 @@ public class BM_MessageCardHandler {
     }
 
     public void setCardView(View view, int id, String label, Context context, Fragment fragment) {
-        CardView cardView = (CardView) view.findViewById(id);
+        CardView cardView;
+        if(view != null) cardView = (CardView) view.findViewById(id);
+        else cardView = cardViewSet.get(label);
         setCardInCardSet(context, label);
         MessageCard card = getCardInCardSet(label);
         card.setFragment(fragment);
