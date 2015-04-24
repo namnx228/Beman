@@ -15,6 +15,7 @@ import com.uet.beman.R;
 import com.uet.beman.support.BM_CallLog;
 import com.uet.beman.support.BM_GPStracker;
 import com.uet.beman.support.BM_SMS;
+import com.uet.beman.util.Constant;
 
 public class BM_ActivitySetting extends ActionBarActivity {
 
@@ -167,7 +168,7 @@ public class BM_ActivitySetting extends ActionBarActivity {
         if (view.getId() == R.id.calllog)
         {
             BM_CallLog callog = new BM_CallLog();
-            if (callog.checkCall(getBaseContext(), "xịt"))
+            if (callog.checkCall(getBaseContext(), "xịt", Constant.ONE_DAY))
             {
                 String mes = "OK";
                 Toast.makeText(getBaseContext(), mes, Toast.LENGTH_LONG).show();
