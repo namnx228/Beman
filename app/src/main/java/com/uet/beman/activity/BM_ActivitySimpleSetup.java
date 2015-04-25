@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.uet.beman.R;
 import com.uet.beman.common.BM_CustomViewPager;
@@ -30,6 +29,7 @@ import com.uet.beman.fragment.BM_FragmentWifi;
 import com.uet.beman.fragment.BM_MomentConfirm;
 import com.uet.beman.object.SentenceNode;
 import com.uet.beman.operator.BM_Moment;
+import com.uet.beman.support.BM_MessageCardHandler;
 import com.uet.beman.support.BM_StorageHandler;
 import com.uet.beman.support.BM_ViewPagerAdapter;
 
@@ -54,6 +54,7 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
     private PagerAdapter mPagerAdapter;
 //    private BM_ModelScheduler model;
 //    private BM_StorageHandler storageHandler;
+    private BM_MessageCardHandler messageCardHandler;
 
 
 
@@ -70,7 +71,7 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
         mPager.setAdapter(mPagerAdapter);
 //        model = BM_ModelScheduler.getInstance();
 //        storageHandler = BM_StorageHandler.getInstance();
-
+        messageCardHandler = BM_MessageCardHandler.getInstance();
         new Thread(new Task()).start();
 
 
@@ -123,6 +124,7 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
             ft.detach(fragment);
             ft.attach(fragment);
             ft.commit();
+            messageCardHandler.setCardView(null, 0, currentNode.getLabel(), this, fragment);
         }
     }
 

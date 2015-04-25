@@ -9,7 +9,6 @@ import com.uet.beman.common.SharedPreferencesHelper;
 import com.uet.beman.object.Node;
 import com.uet.beman.object.SentenceNode;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -335,9 +334,9 @@ public class BM_ModelScheduler {
         openDb();
 
         ContentValues values = new ContentValues();
-        values.put(ScheduleEntry.COLUMN_MESSAGE, BM_Utils.standardlizeValueDB(currentNode.getMessage()));
-        values.put(ScheduleEntry.COLUMN_ENABLED, BM_Utils.standardlizeValueDB(currentNode.getEnabled()));
-        values.put(ScheduleEntry.COLUMN_DAYS, BM_Utils.standardlizeValueDB(currentNode.getDays()));
+        values.put(ScheduleEntry.COLUMN_MESSAGE, currentNode.getMessage());
+        values.put(ScheduleEntry.COLUMN_ENABLED, currentNode.getEnabled());
+        values.put(ScheduleEntry.COLUMN_DAYS, currentNode.getDays());
 
         db.update(ScheduleEntry.TABLE_MESSAGE, values, ScheduleEntry._ID + " = ?", new String[]{String.valueOf(currentNode.getId())});
 

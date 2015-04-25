@@ -16,7 +16,6 @@ import android.widget.ToggleButton;
 
 import com.uet.beman.R;
 import com.uet.beman.fragment.BM_FragmentMessageList;
-import com.uet.beman.support.BM_MessageCardHandler;
 import com.uet.beman.support.BM_NodeListHandler;
 import com.uet.beman.support.BM_StorageHandler;
 
@@ -39,11 +38,12 @@ public class MessageCard extends CardWithList {
     private BM_StorageHandler storageHandler;
 //    MessageObject obj;
 
-    public MessageCard(Context context, String header) {
+    public MessageCard(Context context, String header, Fragment fragment) {
         super(context);
-        activity = (Activity) context;
+//        BM_FragmentMessageList fm = (Fragment) context;
         title = header;
         storageHandler = BM_StorageHandler.getInstance();
+        this.fragment = (BM_FragmentMessageList)fragment;
     }
 
     public void setFragment(Fragment fragment) {
@@ -104,12 +104,12 @@ public class MessageCard extends CardWithList {
                 if(isChecked) {
                     obj.sentenceNode.setEnabled("1");
                     BM_StorageHandler.getInstance().updateItemInMessageSet(getCardTitle(), obj.sentenceNode);
-                    BM_MessageCardHandler.getInstance().setCardView(null, 0, getCardTitle(), fragment.getActivity(), fragment);
+                    //BM_MessageCardHandler.getInstance().setCardView(null, 0, getCardTitle(), fragment.getActivity(), fragment);
                 }
                 else {
                     obj.sentenceNode.setEnabled("0");
                     BM_StorageHandler.getInstance().updateItemInMessageSet(getCardTitle(), obj.sentenceNode);
-                    BM_MessageCardHandler.getInstance().setCardView(null, 0, getCardTitle(), fragment.getActivity(), fragment);
+                    //BM_MessageCardHandler.getInstance().setCardView(null, 0, getCardTitle(), fragment.getActivity(), fragment);
                 }
             }
         });

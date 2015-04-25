@@ -83,7 +83,7 @@ public class BM_FragmentMessageList extends Fragment {
         mHandler.setCardView(view, R.id.card_noon, "|night|", getActivity(), this);
         mHandler.setCardView(view, R.id.card_afternoon, "|miss|", getActivity(), this);
         mHandler.setCardView(view, R.id.card_evening, "|eat|", getActivity(), this);
-        mHandler.setCardView(view, R.id.card_night, "|morning|", getActivity(), this);
+//        mHandler.setCardView(view, R.id.card_night, "|morning|", getActivity(), this);
 
         // Inflate the layout for this fragment
         return view;

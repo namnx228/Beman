@@ -36,7 +36,7 @@ public class BM_StorageHandler {
         int idx = Integer.parseInt(node.getId());
         String newLabel = "\"" + label + "\"";
         List<SentenceNode> nodeList = getListInMessageSet(newLabel);
-        nodeList.set(idx, node);
+        nodeList.set(idx-1, node);
         messageSet.put(newLabel, nodeList);
         handler.updateItemInMessageList(node);
     }

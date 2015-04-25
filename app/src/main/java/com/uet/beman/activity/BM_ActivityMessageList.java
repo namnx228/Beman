@@ -6,9 +6,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.uet.beman.R;
-import com.uet.beman.object.MessageCard;
-
-import it.gmariotti.cardslib.library.view.CardView;
 
 public class BM_ActivityMessageList extends ActionBarActivity {
 
@@ -17,13 +14,13 @@ public class BM_ActivityMessageList extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_list);
 
-        MessageCard card = new MessageCard(this, "|morning|");
-        card.init();
-        card.updateScheduleItems();
-
-//        Set card in the cardView
-        CardView cardView = (CardView) this.findViewById(R.id.carddemo_weathercard);
-        cardView.setCard(card);
+//        MessageCard card = new MessageCard(this, "|morning|");
+//        card.init();
+//        card.updateScheduleItems();
+//
+////        Set card in the cardView
+//        CardView cardView = (CardView) this.findViewById(R.id.carddemo_weathercard);
+//        cardView.setCard(card);
 
 
 
