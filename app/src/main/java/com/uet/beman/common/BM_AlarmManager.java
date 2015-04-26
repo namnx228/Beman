@@ -19,12 +19,11 @@ public class BM_AlarmManager extends Service{
 
 
     public BM_AlarmManager() {
-        if(instance == null) instance = new BM_AlarmManager();
-
         if(alarmManager == null) alarmManager = (AlarmManager) BM_Application.getInstance().getSystemService(Context.ALARM_SERVICE);
     }
 
     public static BM_AlarmManager getInstance() {
+        if (instance == null) instance = new BM_AlarmManager();
         return instance;
     }
 

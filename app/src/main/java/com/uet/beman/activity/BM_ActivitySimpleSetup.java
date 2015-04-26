@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.uet.beman.R;
 import com.uet.beman.common.BM_CustomViewPager;
 import com.uet.beman.common.SharedPreferencesHelper;
+import com.uet.beman.database.BM_ModelScheduler;
 import com.uet.beman.fragment.BM_FragmentDays;
 import com.uet.beman.fragment.BM_FragmentGps;
 import com.uet.beman.fragment.BM_FragmentInfo;
@@ -28,10 +29,14 @@ import com.uet.beman.fragment.BM_FragmentWelcomeScreen;
 import com.uet.beman.fragment.BM_FragmentWifi;
 import com.uet.beman.fragment.BM_MomentConfirm;
 import com.uet.beman.object.SentenceNode;
+import com.uet.beman.operator.BM_MessageHandler;
 import com.uet.beman.operator.BM_Moment;
 import com.uet.beman.support.BM_MessageCardHandler;
 import com.uet.beman.support.BM_StorageHandler;
 import com.uet.beman.support.BM_ViewPagerAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
         BM_FragmentWelcomeScreen.OnFragmentInteractionListener, BM_FragmentInfo.OnFragmentInteractionListener,
@@ -72,6 +77,8 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
 //        model = BM_ModelScheduler.getInstance();
 //        storageHandler = BM_StorageHandler.getInstance();
         messageCardHandler = BM_MessageCardHandler.getInstance();
+        setAlarmFromDb();
+
         new Thread(new Task()).start();
 
 
@@ -191,6 +198,15 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
                 break;
         }
 
+    }
+
+    private void setAlarmFromDb()
+    {
+        List<SentenceNode> list = BM_ModelScheduler.getInstance().getAllNodes();
+        for(SentenceNode node : list)
+        {
+            BM_MessageHandler.getInstance().setMesageAlarmTime(node);
+        }
     }
 }
 

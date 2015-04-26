@@ -12,6 +12,13 @@ import com.uet.beman.object.SentenceNode;
  */
 public class BM_MessageHandler {
 
+    private static BM_MessageHandler instance;
+    public static BM_MessageHandler getInstance()
+    {
+        if (instance == null) instance = new BM_MessageHandler();
+        return instance;
+    }
+
 
     public void setMesageAlarmTime(SentenceNode node)
     {
@@ -43,7 +50,9 @@ public class BM_MessageHandler {
     }
 
     public void preSend()
-    {}
+    {
+        //xoa 1 node trong schedule
+    }
 
     public void postSend()
     {}

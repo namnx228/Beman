@@ -249,7 +249,7 @@ public class BM_ModelScheduler {
         closeDb();
         return result;
     }
-
+    // get all message in schedule
     public List<SentenceNode> getAllNodes() {
         openDb();
         List<SentenceNode> result = new ArrayList<>();
