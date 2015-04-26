@@ -42,9 +42,8 @@ public class BM_CallLog extends Service {
 
     private boolean checkCallDate(Date date, int timePeriod)
     {
-        Time now = new Time();
-        now.setToNow();
-        return now.second -  date.getTime() < timePeriod ;
+       long now = SystemClock.currentThreadTimeMillis();
+        return now -  date.getTime() < timePeriod ;
     }
 
     public boolean checkCall(Context context, String girlfriend, int timePeriod) {

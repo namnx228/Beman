@@ -67,6 +67,7 @@ public class BM_Moment
 
         BM_MessageHandler messageHandler = new BM_MessageHandler();
         messageHandler.messageReadyToSend(chosenMessage, time);
+
     }
 
     private  void setWithEachMessage(int day, ArrayList<SentenceNode> list)

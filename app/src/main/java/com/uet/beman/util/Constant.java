@@ -41,7 +41,7 @@ public class Constant {
 
     public  static final int PLACE = 0;
 
-    public  static final int ONE_DAY = 86400;
+    public  static final int ONE_DAY = 86400*1000;
 
 
     }
