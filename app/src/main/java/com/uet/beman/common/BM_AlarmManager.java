@@ -29,7 +29,7 @@ public class BM_AlarmManager extends Service{
 
     /* Create alarm to auto send message on a specific time ahead */
     public void createAlarm( int id, String message, long remainTime) {
-        Intent intent = new Intent(getBaseContext(), BM_BroadcastReceiver.class);
+        Intent intent = new Intent(this, BM_BroadcastReceiver.class);
         intent.putExtra("message", message);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + remainTime, pendingIntent);

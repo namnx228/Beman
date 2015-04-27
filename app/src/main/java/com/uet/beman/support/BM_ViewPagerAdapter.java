@@ -53,25 +53,29 @@ public class BM_ViewPagerAdapter extends FragmentPagerAdapter {
             case 2:
                 if (this.BMFragmentPhoneNumber == null) this.BMFragmentPhoneNumber = new BM_FragmentPhoneNumber();
                 return this.BMFragmentPhoneNumber;
+
             case 3:
-                if (this.BMMomentConfirm == null) this.BMMomentConfirm = new BM_MomentConfirm();
-                return this.BMMomentConfirm;
-            case 4:
                 if(this.BMFragmentWifi == null) this.BMFragmentWifi = new BM_FragmentWifi();
                 return this.BMFragmentWifi;
-            case 5:
+            case 4:
                 if(this.BMFragmentGPS == null) this.BMFragmentGPS = new BM_FragmentGps();
                 return this.BMFragmentGPS;
 
-            case 6:
+            case 5:
                 if(this.BMFragmentMessageList == null) this.BMFragmentMessageList = new BM_FragmentMessageList();
                 return this.BMFragmentMessageList;
-            case 7:
+            case 6:
                 if(this.BMFragmentDays == null) this.BMFragmentDays = new BM_FragmentDays();
                 return this.BMFragmentDays;
+
+            case 7:
+                if (this.BMMomentConfirm == null) this.BMMomentConfirm = new BM_MomentConfirm();
+                return this.BMMomentConfirm;
+
             case 8:
                 if(BMFragmentIntelligentMessage == null) BMFragmentIntelligentMessage = new BM_FragmentIntelligentMessage();
                 return BMFragmentIntelligentMessage;
+
         }
         return null;
     }

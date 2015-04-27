@@ -1,3 +1,4 @@
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/content"
     android:layout_width="match_parent"
@@ -12,11 +13,13 @@
         android:layout_height="wrap_content"
         android:text="SURE"
         android:id="@+id/buttonConfirm"
-        android:onClick="onClick"
+
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="163dp"
-        android:background="@color/md_green_A700" />
+        android:background="@color/md_green_A700"
+
+            />
 
     <TextView
         android:id="@+id/textView3"
@@ -36,5 +39,7 @@
 
         android:layout_alignLeft="@+id/buttonConfirm"
         android:layout_alignStart="@+id/buttonConfirm" />
+
+
 
 </RelativeLayout>

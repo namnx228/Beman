@@ -2,6 +2,7 @@ package com.uet.beman.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -11,6 +12,7 @@ import android.support.v4.view.PagerAdapter;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -71,9 +73,11 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
 
         // Instantiate a ViewPager and a PagerAdapter.
         checkIntrusion();
+
         mPager = (BM_CustomViewPager) findViewById(R.id.pager);
         mPagerAdapter = new BM_ViewPagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
+
 //        model = BM_ModelScheduler.getInstance();
 //        storageHandler = BM_StorageHandler.getInstance();
         messageCardHandler = BM_MessageCardHandler.getInstance();
@@ -189,16 +193,7 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
         }
     }
 
-    public void onClick(View view)
-    {
-        switch (view.getId()) {
-            case R.id.buttonConfirm:
-                BM_Moment moment = new BM_Moment();
-                moment.setSchedule();
-                break;
-        }
 
-    }
 
     private void setAlarmFromDb()
     {
