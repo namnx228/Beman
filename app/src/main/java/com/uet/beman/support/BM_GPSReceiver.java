@@ -26,7 +26,7 @@ public class BM_GPSReceiver extends BroadcastReceiver {
     private void sendMessage(String place)
     {
         BM_Place_Message place_message = new BM_Place_Message();
-        place_message.sendMessage(place);
+        place_message.send(place);
     }
 
     private void checkHome(SharedPreferencesHelper sp, float longitude, float latitude)

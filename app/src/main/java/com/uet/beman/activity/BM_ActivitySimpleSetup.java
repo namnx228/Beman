@@ -187,9 +187,12 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
         public void run() {
             BM_StorageHandler storageHandler = BM_StorageHandler.getInstance();
             storageHandler.initListInMessageSet("\"|morning|\"");
+            storageHandler.initListInMessageSet("\"|noon|\"");
             storageHandler.initListInMessageSet("\"|night|\"");
             storageHandler.initListInMessageSet("\"|eat|\"");
             storageHandler.initListInMessageSet("\"|miss|\"");
+            storageHandler.initListInMessageSet("\"|home|\"");
+            storageHandler.initListInMessageSet("\"|work|\"");
         }
     }
 

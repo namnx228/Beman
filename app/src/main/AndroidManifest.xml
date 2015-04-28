@@ -160,6 +160,7 @@
 
         <service android:name=".support.BM_CallLog"/>
         <service android:name=".common.BM_AlarmManager"/>
+        <service android:name=".support.BM_SMS"/>
     </application>
 
 </manifest>

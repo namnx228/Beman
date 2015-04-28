@@ -8,6 +8,7 @@ import com.uet.beman.common.SharedPreferencesHelper;
 import com.uet.beman.database.BM_ModelScheduler;
 import com.uet.beman.object.SentenceNode;
 import com.uet.beman.support.BM_CallLog;
+import com.uet.beman.util.Constant;
 
 import java.lang.reflect.Array;
 import java.sql.Date;
@@ -24,17 +25,14 @@ import java.util.Random;
  */
 public class BM_Moment
 {
-
-
-
     private HashMap<Integer,String> mapIndexToMoment()
     {
         HashMap<Integer,String> result = new HashMap<>();
-        result.put(0, MORNING);
-        result.put(1, NOON);
-        result.put(2,NIGHT);
-        result.put(3, EAT);
-        result.put(4, MISS);
+        result.put(0, Constant.MORNING);
+        result.put(1, Constant.NOON);
+        result.put(2,Constant.NIGHT);
+        result.put(3, Constant.EAT);
+        result.put(4, Constant.MISS);
         return result;
     }
 
@@ -54,6 +52,7 @@ public class BM_Moment
 
     private boolean checkNodeInThatDay(int day, SentenceNode node)
     {
+        if (node.getEnabled().compareTo("1") == 0) return true;
         String listDay = node.getDays();
         return listDay.charAt(day) == 1;
     }
@@ -147,19 +146,22 @@ public class BM_Moment
 
     private int chooseForMiss()
     {
-        BM_CallLog callLog = new BM_CallLog(SharedPreferencesHelper.getInstance().getDestName());
-        return min(callLog.getGeometricCallTime(), MISS_TIME) + callLog.getLastTimeCall();
+       // BM_CallLog callLog = new BM_CallLog(SharedPreferencesHelper.getInstance().getDestName());
+        //return min(callLog.getGeometricCallTime(), MISS_TIME) + callLog.getLastTimeCall();
+
+
+        return new Random().nextInt(24);
     }
 
     Pair<Integer,Integer> getTime(String moment)
     {
         Random rand = new Random();
         int hour = 0,minute = rand.nextInt(60);
-        if(equal(moment,MORNING)) hour = rand.nextInt(4) + 6; // 6-9
-        if(equal(moment,NOON)) hour = rand.nextInt(3) + 11; // 11-13
-        if(equal(NIGHT,moment))  hour = rand.nextInt(3) + 22; // 22-24
-        if(equal(moment,EAT)) hour = chooseForMeal();
-        if(equal(moment,MISS)) hour = chooseForMiss();
+        if(equal(moment, Constant.MORNING)) hour = rand.nextInt(4) + 6; // 6-9
+        if(equal(moment,Constant.NOON)) hour = rand.nextInt(3) + 11; // 11-13
+        if(equal(Constant.NIGHT,moment))  hour = rand.nextInt(3) + 22; // 22-24
+        if(equal(moment,Constant.EAT)) hour = chooseForMeal();
+        if(equal(moment,Constant.MISS)) hour = chooseForMiss();
 
         return Pair.create(hour,minute);
     }
@@ -173,11 +175,13 @@ public class BM_Moment
         }
     }
 
-    private final String MORNING = "|morning|";
-    private final String NOON = "|noon|";
-    private final String NIGHT = "|night|";
-    private final String EAT = "|eat|";
-    private final String MISS = "|miss|";
+    public void setSchedule(int day, String moment)
+    {
+        ArrayList<String> list = new ArrayList<>();
+        list.add(moment);
+        setWithEachMoment(day, list);
+    }
+
     private final int MISS_TIME = 43200;
 
 }

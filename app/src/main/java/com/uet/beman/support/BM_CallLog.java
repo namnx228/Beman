@@ -12,6 +12,8 @@ import android.provider.CallLog;
 import android.provider.Telephony;
 import android.text.format.Time;
 
+import com.uet.beman.common.SharedPreferencesHelper;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -27,10 +29,10 @@ public class BM_CallLog extends Service {
         super.onCreate(bundle);
     }*/
     public BM_CallLog(){}
-    public BM_CallLog(String girlFriend)
+  /*  public BM_CallLog(String girlFriend)
     {
         geometricCallTime = calGeometricCallTime(girlFriend);
-    }
+    }*/
     public int getLastTimeCall(){
         return lastTimeCall;
     }
@@ -40,17 +42,18 @@ public class BM_CallLog extends Service {
         return  geometricCallTime;
     }
 
-    private boolean checkCallDate(Date date, int timePeriod)
+    private boolean checkCallDate(Date date, long timePeriod)
     {
        long now = SystemClock.currentThreadTimeMillis();
         return now -  date.getTime() < timePeriod ;
     }
 
-    public boolean checkCall(Context context, String girlfriend, int timePeriod) {
+    public boolean checkCall( long timePeriod) {
 
         //StringBuffer sb = new StringBuffer();
         boolean stopSend = false;
-        Cursor managedCursor = context.getContentResolver().query(CallLog.Calls.CONTENT_URI, null,
+        String girlFriend = SharedPreferencesHelper.getInstance().getDestName();
+        Cursor managedCursor = getContentResolver().query(CallLog.Calls.CONTENT_URI, null,
                 null, null, null);
         //     int number = managedCursor.getColumnIndex(CallLog.Calls.NUMBER);
         // int type = managedCursor.getColumnIndex(CallLog.Calls.TYPE);
@@ -65,14 +68,14 @@ public class BM_CallLog extends Service {
             String name = managedCursor.getString(nameIndex);
             String callDate = managedCursor.getString(date);
             Date callDayTime = new Date(Long.valueOf(callDate));
-            if (girlfriend.compareToIgnoreCase(name) == 0)
+            if (girlFriend.compareToIgnoreCase(name) == 0)
                 stopSend = checkCallDate(callDayTime,timePeriod);
             if (stopSend) break;
         }
         managedCursor.close();
         return stopSend;
     }
-
+/*
     private int calGeometricCallTime(String girlfriend)
     {
 
@@ -101,7 +104,7 @@ public class BM_CallLog extends Service {
         }
         managedCursor.close();
         return sumTime/numOfCall;
-    }
+    }*/
 
 
 

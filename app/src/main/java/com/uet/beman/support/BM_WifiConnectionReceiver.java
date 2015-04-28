@@ -55,6 +55,7 @@ public class BM_WifiConnectionReceiver extends BroadcastReceiver {
         ArrayList<String> workWifiList = getSavedWifi(Constant.WORK_WIFI_LIST);
         ArrayList<String> girlWifiList = getSavedWifi(Constant.GIRL_WIFI_LIST);
 
+
         BM_StopSend stopSend = new BM_StopSend();
         stopSend.setGirlWifi(false);
 
@@ -62,12 +63,12 @@ public class BM_WifiConnectionReceiver extends BroadcastReceiver {
 
         if (homeWifiList.contains(currWifi)) {
             // At home
-            wifi_message.sendMessage(Constant.HOME);
+            wifi_message.send(Constant.HOME);
             //setMessage
         }
         if (workWifiList.contains(currWifi)) {
             // At work
-            wifi_message.sendMessage(Constant.WORK);
+            wifi_message.send(Constant.WORK);
         }
         if (girlWifiList.contains(currWifi)) {
             // At girl's house

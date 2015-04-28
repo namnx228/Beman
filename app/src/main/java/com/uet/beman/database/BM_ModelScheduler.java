@@ -178,6 +178,12 @@ public class BM_ModelScheduler {
         closeDb();
     }
 
+    public void delMessageInSchedule(SentenceNode node)
+    {
+        String where = "where "+ ScheduleEntry.COLUMN_ALARM_TIME + " = " + node.getSendTime();
+        db.delete(ScheduleEntry.TABLE_MSG_TIME, where,null);
+    }
+
     public List<Integer> getIdMessageByPlace(String place) {
         openDb();
         List<Integer> result = new ArrayList<>();

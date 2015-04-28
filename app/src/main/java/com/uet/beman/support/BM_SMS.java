@@ -1,10 +1,16 @@
 package com.uet.beman.support;
 
+import android.app.Service;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.IBinder;
 import android.os.SystemClock;
 import android.text.format.Time;
+
+import com.uet.beman.common.SharedPreferencesHelper;
+import com.uet.beman.object.SentenceNode;
 
 import java.util.Date;
 
@@ -12,7 +18,7 @@ import java.util.Date;
  * Created by nam on 15/04/2015.
  */
 
-public class BM_SMS {
+public class BM_SMS extends Service{
 
 
     private boolean checkSmsDate(Date date, long timePeriod)
@@ -20,8 +26,9 @@ public class BM_SMS {
         long now = SystemClock.currentThreadTimeMillis();
         return now - date.getTime() < timePeriod ;
     }
-    public boolean checkSmsHistory(Context context, String girlPhone, long timePeriod) {
-        Cursor cursor = context.getContentResolver().query(Uri.parse("content://sms/sent"), null, null, null, null);
+    public boolean checkSmsHistory(long timePeriod) {
+        Cursor cursor = getContentResolver().query(Uri.parse("content://sms/sent"), null, null, null, null);
+        String girlPhone = SharedPreferencesHelper.getInstance().getDestNumber();
         boolean stopSend = false;
         int number = cursor.getColumnIndex("address");
         int date = cursor.getColumnIndexOrThrow("date");
@@ -32,6 +39,12 @@ public class BM_SMS {
         }
         cursor.close();
         return stopSend;
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        // TODO: Return the communication channel to the service.
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 
 

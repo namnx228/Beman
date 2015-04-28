@@ -65,17 +65,27 @@
                         android:layout_height="wrap_content"/>
 
                     <it.gmariotti.cardslib.library.view.CardView
-                        android:id="@+id/card_afternoon"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-                    <it.gmariotti.cardslib.library.view.CardView
-                        android:id="@+id/card_evening"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-                    <it.gmariotti.cardslib.library.view.CardView
                         android:id="@+id/card_night"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <it.gmariotti.cardslib.library.view.CardView
+                        android:id="@+id/card_eat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <it.gmariotti.cardslib.library.view.CardView
+                        android:id="@+id/card_miss"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <it.gmariotti.cardslib.library.view.CardView
+                        android:id="@+id/card_home"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <it.gmariotti.cardslib.library.view.CardView
+                        android:id="@+id/card_work"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>

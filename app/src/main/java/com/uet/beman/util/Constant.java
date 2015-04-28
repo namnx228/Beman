@@ -37,6 +37,12 @@ public class Constant {
 
     public  static  final String GIRL = "girl";
 
+    public static final String MORNING = "|morning|";
+    public static final String NOON = "|noon|";
+    public static final String NIGHT = "|night|";
+    public static final String EAT = "|eat|";
+    public static final String MISS = "|miss|";
+
     public  static final int MOMENT = 1;
 
     public  static final int PLACE = 0;

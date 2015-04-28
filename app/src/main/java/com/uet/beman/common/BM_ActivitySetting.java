@@ -168,7 +168,7 @@ public class BM_ActivitySetting extends ActionBarActivity {
         if (view.getId() == R.id.calllog)
         {
             BM_CallLog callog = new BM_CallLog();
-            if (callog.checkCall(getBaseContext(), "xịt", Constant.ONE_DAY))
+            if (callog.checkCall(Constant.ONE_DAY))
             {
                 String mes = "OK";
                 Toast.makeText(getBaseContext(), mes, Toast.LENGTH_LONG).show();
@@ -184,7 +184,7 @@ public class BM_ActivitySetting extends ActionBarActivity {
         if (view.getId() == R.id.sms)
         {
             BM_SMS sms = new BM_SMS();
-            if (sms.checkSmsHistory(this, "01649993291", Constant.ONE_DAY))
+            if (sms.checkSmsHistory(Constant.ONE_DAY))
             {
                 String mes = "OK";
                 Toast.makeText(getBaseContext(), mes, Toast.LENGTH_LONG).show();

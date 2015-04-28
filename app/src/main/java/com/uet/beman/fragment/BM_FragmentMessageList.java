@@ -80,9 +80,9 @@ public class BM_FragmentMessageList extends Fragment {
         BM_Utils.updateNameReferences(headline, getResources(), R.string.line_fragment_message_list, name);
 
         mHandler.setCardView(view, R.id.card_morning, "|morning|", getActivity(), this);
-        mHandler.setCardView(view, R.id.card_noon, "|night|", getActivity(), this);
-        mHandler.setCardView(view, R.id.card_afternoon, "|miss|", getActivity(), this);
-        mHandler.setCardView(view, R.id.card_evening, "|eat|", getActivity(), this);
+        mHandler.setCardView(view, R.id.card_night, "|night|", getActivity(), this);
+        mHandler.setCardView(view, R.id.card_miss, "|miss|", getActivity(), this);
+        mHandler.setCardView(view, R.id.card_eat, "|eat|", getActivity(), this);
 //        mHandler.setCardView(view, R.id.card_night, "|morning|", getActivity(), this);
 
         // Inflate the layout for this fragment
