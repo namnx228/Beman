@@ -60,7 +60,7 @@ public class BM_Place_Message {
     {
         ArrayList<SentenceNode> list = BM_ModelScheduler.getInstance().getMessages(label);
         int day = findDay(Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
-        setWithEachMessage(day, list);
+        if (list.size() > 0) setWithEachMessage(day, list);
     }
 
     private int findDay(int day)

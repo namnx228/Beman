@@ -1,7 +1,9 @@
 package com.uet.beman.activity;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.uet.beman.R;
+import com.uet.beman.common.BM_AlarmManager;
 import com.uet.beman.common.BM_CustomViewPager;
 import com.uet.beman.common.SharedPreferencesHelper;
 import com.uet.beman.database.BM_ModelScheduler;
@@ -33,9 +36,12 @@ import com.uet.beman.fragment.BM_MomentConfirm;
 import com.uet.beman.object.SentenceNode;
 import com.uet.beman.operator.BM_MessageHandler;
 import com.uet.beman.operator.BM_Moment;
+import com.uet.beman.support.BM_CallLog;
+import com.uet.beman.support.BM_Context;
 import com.uet.beman.support.BM_MessageCardHandler;
 import com.uet.beman.support.BM_StorageHandler;
 import com.uet.beman.support.BM_ViewPagerAdapter;
+import com.uet.beman.util.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,7 +87,13 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
 //        model = BM_ModelScheduler.getInstance();
 //        storageHandler = BM_StorageHandler.getInstance();
         messageCardHandler = BM_MessageCardHandler.getInstance();
+
+        BM_Context.getInstance().setContext(this);
         setAlarmFromDb();
+
+
+        Intent intent = new Intent(this, BM_CallLog.class);
+        startService(intent);
 
         new Thread(new Task()).start();
 
@@ -191,8 +203,8 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
             storageHandler.initListInMessageSet("\"|night|\"");
             storageHandler.initListInMessageSet("\"|eat|\"");
             storageHandler.initListInMessageSet("\"|miss|\"");
-            storageHandler.initListInMessageSet("\"|home|\"");
-            storageHandler.initListInMessageSet("\"|work|\"");
+            storageHandler.initListInMessageSet("\"home\"");
+            storageHandler.initListInMessageSet("\"work\"");
         }
     }
 
@@ -206,6 +218,8 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
             BM_MessageHandler.getInstance().setMesageAlarmTime(node);
         }
     }
+
+
 }
 
 

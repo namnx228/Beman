@@ -65,12 +65,13 @@ public abstract class ScheduleEntry implements BaseColumns{
                                                             TABLE_MESSAGE + "(" + _ID + ")" +
                                                             " )";
 
-    public static final String SQL_JOIN_TABLES_BY_ID = "SELECT " + TABLE_MESSAGE + DOT_SEP + _ID +
+    public static final String SQL_JOIN_TABLES_BY_ID = "SELECT " + TABLE_MESSAGE + DOT_SEP + "*" +
                                                         COMMA_SEP + TABLE_MESSAGE + DOT_SEP + COLUMN_MESSAGE +
                                                         COMMA_SEP + TABLE_MSG_TIME + DOT_SEP + COLUMN_ALARM_TIME +
                                                         " FROM " + TABLE_MESSAGE + " JOIN " + TABLE_MSG_TIME + " ON " +
                                                         TABLE_MESSAGE + DOT_SEP + _ID + " = " +
                                                         TABLE_MSG_TIME + DOT_SEP + COLUMN_MESSAGE_ID;
+                                                     //   select message.cid, message.message, schedule.alarmTime from
 
     public static final String SQL_DELETE_SENT_SMS = "DELETE FROM " + TABLE_MSG_TIME + " WHERE " +
                                                      COLUMN_ALARM_TIME + " = (SELECT MIN(" + COLUMN_ALARM_TIME +

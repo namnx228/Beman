@@ -10,6 +10,7 @@ import android.os.SystemClock;
 
 import com.uet.beman.object.SentenceNode;
 import com.uet.beman.support.BM_BroadcastReceiver;
+import com.uet.beman.support.BM_Context;
 
 /**
  * Created by PhanDuy on 4/24/2015.
@@ -17,7 +18,7 @@ import com.uet.beman.support.BM_BroadcastReceiver;
 public class BM_AlarmManager extends Service{
     private static AlarmManager alarmManager = null;
     private static BM_AlarmManager instance = null;
-
+    private Context context = BM_Context.getInstance().getContext();
 
     public BM_AlarmManager() {
         if(alarmManager == null) alarmManager = (AlarmManager) BM_Application.getInstance().getSystemService(Context.ALARM_SERVICE);
@@ -30,21 +31,21 @@ public class BM_AlarmManager extends Service{
 
     /* Create alarm to auto send message on a specific time ahead */
     public void createAlarm( int id, String time) {
-        Intent intent = new Intent(getBaseContext(), BM_BroadcastReceiver.class);
+        Intent intent = new Intent(context, BM_BroadcastReceiver.class);
 
         long remainTime = Long.valueOf(time) - SystemClock.currentThreadTimeMillis();
         intent.putExtra("sendTime", time);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + remainTime, pendingIntent);
     }
 
     /* Cancel an alarm that was set before */
     public void cancelAlarm(int id, String message) {
 
-        Intent intent = new Intent(getBaseContext(), BM_BroadcastReceiver.class);
+        Intent intent = new Intent(context, BM_BroadcastReceiver.class);
         intent.putExtra("message", message);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.cancel(pendingIntent);
     }
 

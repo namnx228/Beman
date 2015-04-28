@@ -27,7 +27,7 @@ public class BM_SMS extends Service{
         return now - date.getTime() < timePeriod ;
     }
     public boolean checkSmsHistory(long timePeriod) {
-        Cursor cursor = getContentResolver().query(Uri.parse("content://sms/sent"), null, null, null, null);
+        Cursor cursor = BM_Context.getInstance().getContext().getContentResolver().query(Uri.parse("content://sms/sent"), null, null, null, null);
         String girlPhone = SharedPreferencesHelper.getInstance().getDestNumber();
         boolean stopSend = false;
         int number = cursor.getColumnIndex("address");

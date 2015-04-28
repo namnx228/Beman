@@ -70,14 +70,19 @@ public class BM_MessageHandler {
         //xoa 1 node trong schedule
         List<SentenceNode> listNode = BM_ModelScheduler.getInstance().getSentenceNodeByDate(time);
         delNodeInSchedule(listNode);
-        sendingNode = listNode.get(0);
+        if (listNode.size() > 0) sendingNode = listNode.get(0);
+        else
+        {
+            stopSend = true;
+            return;
+        }
         BM_StopSend stopSend = new BM_StopSend();
         this.stopSend = stopSend.checkStopSend(sendingNode);
     }
 
     public void postSend()
     {
-        if (notHomeOrWork(sendingNode))
+        if (sendingNode != null && notHomeOrWork(sendingNode))
         {
             BM_Moment moment = new BM_Moment();
             moment.setSchedule(findDay(Calendar.getInstance().get(Calendar.DAY_OF_WEEK)), sendingNode.getLabel());
@@ -86,6 +91,7 @@ public class BM_MessageHandler {
 
     public void sending(Context context)
     {
+        if (stopSend) return;
         String SMS_SENT = "SENT";
         String SMS_DELIVERED = "DELIVERED";
         PendingIntent sentIntent = PendingIntent.getBroadcast(context, 0,

@@ -69,6 +69,8 @@ public class MessageCard extends CardWithList {
         //Update the array inside the card
 
         tag = "\"" + tag + "\"";
+        if (tag.compareTo("\"home\"") == 0)
+            tag = "\"home\"";
         List<SentenceNode> sentenceNodes = storageHandler.getListInMessageSet(tag);
         for(SentenceNode i : sentenceNodes) {
             MessageObject tmp = new MessageObject(this, i);

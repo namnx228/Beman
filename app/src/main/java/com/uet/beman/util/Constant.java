@@ -1,5 +1,7 @@
 package com.uet.beman.util;
 
+import android.content.Context;
+
 public class Constant {
     public static final String HOME_WIFI_LIST = "Home Wifi List";
 
@@ -48,6 +50,7 @@ public class Constant {
     public  static final int PLACE = 0;
 
     public  static final int ONE_DAY = 86400*1000;
+
 
 
     }

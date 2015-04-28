@@ -13,6 +13,7 @@ import android.provider.Telephony;
 import android.text.format.Time;
 
 import com.uet.beman.common.SharedPreferencesHelper;
+import com.uet.beman.util.Constant;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -52,28 +53,42 @@ public class BM_CallLog extends Service {
 
         //StringBuffer sb = new StringBuffer();
         boolean stopSend = false;
-        String girlFriend = SharedPreferencesHelper.getInstance().getDestName();
-        Cursor managedCursor = getContentResolver().query(CallLog.Calls.CONTENT_URI, null,
+
+        String phoneNo = SharedPreferencesHelper.getInstance().getDestNumber();
+        Cursor managedCursor = BM_Context.getInstance().getContext().getContentResolver().query(CallLog.Calls.CONTENT_URI, null,
                 null, null, null);
         //     int number = managedCursor.getColumnIndex(CallLog.Calls.NUMBER);
         // int type = managedCursor.getColumnIndex(CallLog.Calls.TYPE);
         int date = managedCursor.getColumnIndex(CallLog.Calls.DATE);
-        int nameIndex = managedCursor.getColumnIndex(CallLog.Calls.CACHED_NAME);
+        int phoneIndex = managedCursor.getColumnIndex(CallLog.Calls.NUMBER);
         //  int duration = managedCursor.getColumnIndex(CallLog.Calls.DURATION);
         //  sb.append("Call Details :");
 
         while (managedCursor.moveToNext()) {
             // String phNumber = managedCursor.getString(number);
             //   String callType = managedCursor.getString(type);
-            String name = managedCursor.getString(nameIndex);
+            String phone = managedCursor.getString(phoneIndex);
             String callDate = managedCursor.getString(date);
             Date callDayTime = new Date(Long.valueOf(callDate));
-            if (girlFriend.compareToIgnoreCase(name) == 0)
+            if (phoneNo.compareTo(phone) == 0)
                 stopSend = checkCallDate(callDayTime,timePeriod);
             if (stopSend) break;
         }
         managedCursor.close();
         return stopSend;
+    }
+
+    @Override
+    public void onCreate()
+    {
+        super.onCreate();
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId)
+    {
+
+      return super.onStartCommand(intent,flags,startId);
     }
 /*
     private int calGeometricCallTime(String girlfriend)
