@@ -1,14 +1,20 @@
 package com.uet.beman.support;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.uet.beman.R;
+import com.uet.beman.activity.BM_GirlMode;
 import com.uet.beman.common.SharedPreferencesHelper;
 import com.uet.beman.operator.BM_Place_Message;
 import com.uet.beman.operator.BM_StopSend;
@@ -76,5 +82,34 @@ public class BM_WifiConnectionReceiver extends BroadcastReceiver {
         }
 
         Log.d("onReceive", "end onReceive 2: " + currWifi);
+
+        showNotification(context, currWifi);
+    }
+
+    private void showNotification(Context context, String currWifi) {
+        // Create pending intent
+        Intent intent = new Intent(context, BM_GirlMode.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        // Set notification style
+        NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
+        inboxStyle.setBigContentTitle("Demo style");
+        inboxStyle.addLine("line 1");
+        inboxStyle.addLine("line 2");
+
+        // Create notification builder
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+        builder.setSmallIcon(R.drawable.abc_btn_rating_star_on_mtrl_alpha);
+        builder.setContentTitle("Demo Notification");
+        builder.setContentText("Current WiFi: " + currWifi);
+        builder.setAutoCancel(true);
+        builder.setContentIntent(pendingIntent);
+        builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+        builder.setVibrate(new long[]{1000});
+        builder.setStyle(inboxStyle);
+
+        // Notify notification
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(0, builder.build());
     }
 }
