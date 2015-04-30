@@ -118,11 +118,12 @@ public class BM_MomentConfirm extends Fragment implements Button.OnClickListener
 
     public void onClick(View view)
     {
+        Toast.makeText(getActivity(), "da confirm", Toast.LENGTH_LONG).show();
         switch (view.getId()) {
             case R.id.buttonConfirm:
                 BM_Moment moment = new BM_Moment();
                 moment.setSchedule();
-                
+
                 break;
         }
 

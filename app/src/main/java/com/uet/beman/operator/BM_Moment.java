@@ -45,7 +45,7 @@ public class BM_Moment
         for(int i = 0 ;i < 5;i++)
         {
             int j = i + day * 5;
-            if (dayPrefence.charAt(j) == 1) result.add(map.get(i));
+            if (dayPrefence.charAt(j) == '1') result.add(map.get(i));
         }
         return result;
     }
@@ -59,6 +59,7 @@ public class BM_Moment
 
     private void chooseRandMessage(int day, ArrayList<SentenceNode>messageRand)
     {
+        if (messageRand.size() <= 0) return;
         Random rand = new Random();
         int index = rand.nextInt(messageRand.size());
         SentenceNode chosenMessage = messageRand.get(index);
@@ -71,7 +72,7 @@ public class BM_Moment
 
     private  void setWithEachMessage(int day, ArrayList<SentenceNode> list)
     {
-
+        if (list.size() <= 0) return;
         ArrayList<SentenceNode> messageRand =  new ArrayList<SentenceNode>();
         for (SentenceNode node:list)
         {

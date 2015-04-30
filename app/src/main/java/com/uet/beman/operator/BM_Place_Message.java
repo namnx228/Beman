@@ -34,6 +34,7 @@ public class BM_Place_Message {
 
     private void chooseRandMessage( ArrayList<SentenceNode>messageRand)
     {
+        if (messageRand.size() <= 0) return;
         Random rand = new Random();
         int index = rand.nextInt(messageRand.size());
         SentenceNode chosenMessage = messageRand.get(index);
@@ -41,7 +42,6 @@ public class BM_Place_Message {
         Long time = SystemClock.currentThreadTimeMillis() + 10;
         BM_MessageHandler messageHandler = new BM_MessageHandler();
         messageHandler.messageReadyToSend(chosenMessage, time.toString());
-
     }
 
     private  void setWithEachMessage(int day, ArrayList<SentenceNode> list)

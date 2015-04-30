@@ -53,6 +53,18 @@ public class SharedPreferencesHelper {
         user.apply();
     }
 
+    public void setInstrusionTime(String time)
+    {
+        SharedPreferences preferences = BM_Application.getInstance().getSharedPreferences("CheckInstrusion", Context.MODE_PRIVATE);
+        SharedPreferences.Editor user = preferences.edit();
+        user.putString("TIME_INSTRUSION", time);
+        user.apply();
+    }
+    public String getInstrusionTime() {
+        SharedPreferences preferences = BM_Application.getInstance().getSharedPreferences("CheckInstrusion", Context.MODE_PRIVATE);
+        return preferences.getString("TIME_INSTRUSION", "");
+    }
+
     public String getUserRealPW() {
         SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
         return sharedPreferences.getString("PIN_REAL", "");
@@ -238,4 +250,33 @@ public class SharedPreferencesHelper {
         SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("AppInfo", 0);
         return sharedPreferences.getInt("VERSION", 1);
     }
+
+    public void setAutoReply(boolean auto)
+    {
+        SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("reply", 0);
+        SharedPreferences.Editor user = sharedPreferences.edit();
+        user.putBoolean("auto", auto);
+        user.apply();
+    }
+
+    public boolean getAutoReply()
+    {
+        SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("reply", 0);
+        return sharedPreferences.getBoolean("auto",false);
+    }
+
+    public void setReplyWaitTime(int time)
+    {
+        SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("reply", 0);
+        SharedPreferences.Editor user = sharedPreferences.edit();
+        user.putInt("time", time);
+        user.apply();
+    }
+
+    public int getReplyWaitTime()
+    {
+        SharedPreferences sharedPreferences = BM_Application.getInstance().getSharedPreferences("reply", 0);
+        return sharedPreferences.getInt("time",0);
+    }
+
 }

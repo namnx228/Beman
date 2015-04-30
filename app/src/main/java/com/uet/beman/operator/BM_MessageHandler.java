@@ -13,6 +13,8 @@ import com.uet.beman.common.SharedPreferencesHelper;
 import com.uet.beman.database.BM_ModelScheduler;
 import com.uet.beman.object.SentenceNode;
 import com.uet.beman.support.BM_DeliveredBroadcastReceiver;
+import com.uet.beman.support.BM_HandlerResponse;
+import com.uet.beman.support.BM_MakeBotRequest;
 import com.uet.beman.support.BM_SentBroadcastReceiver;
 import com.uet.beman.util.Constant;
 
@@ -82,7 +84,7 @@ public class BM_MessageHandler {
 
     public void postSend()
     {
-        if (sendingNode != null && notHomeOrWork(sendingNode))
+        if (sendingNode != null && notHomeOrWorkOrReply(sendingNode))
         {
             BM_Moment moment = new BM_Moment();
             moment.setSchedule(findDay(Calendar.getInstance().get(Calendar.DAY_OF_WEEK)), sendingNode.getLabel());
@@ -108,8 +110,14 @@ public class BM_MessageHandler {
         sms.sendTextMessage(phoneNumber, null, sendingNode.getMessage(), sentIntent, deliveredIntent);
     }
 
-    public void sendReply()
-    {}
+
+
+    public void sendReply(String message)
+    {
+        String request = BM_MakeBotRequest.makeRequest(message);
+        BM_HandlerResponse handlerResponse = new BM_HandlerResponse(message);
+        handlerResponse.start();
+    }
 
     private void delNodeInSchedule(List<SentenceNode> list)
     {
@@ -122,10 +130,11 @@ public class BM_MessageHandler {
         return day - 2;
     }
 
-    private boolean notHomeOrWork(SentenceNode sendingNode)
+    private boolean notHomeOrWorkOrReply(SentenceNode sendingNode)
     {
         String label = sendingNode.getLabel();
-        return label.compareTo(Constant.WORK) != 0 && label.compareTo(Constant.HOME) != 0;
+        return label.length() > 0 && label.compareTo(Constant.WORK) != 0 && label.compareTo(Constant.HOME) != 0;
     }
+
 
 }

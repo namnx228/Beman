@@ -207,7 +207,7 @@ public class BM_FragmentGps extends Fragment implements SwitchCompat.OnCheckedCh
                 place = "Work";
                 preference.setGpsCheck(Constant.WORK_GPS_CHECKED, false);
                 break;
-            case R.id.fragment_wifi_switch_girl:
+            case R.id.fragment_gps_switch_girl:
                 longitudeOfPlace = Constant.GIRL_LONGITUDE;
                 latitudeOfPlace = Constant.GIRL_LATITUDE;
                 place = "Girl's home";
@@ -227,47 +227,6 @@ public class BM_FragmentGps extends Fragment implements SwitchCompat.OnCheckedCh
         else setGpsToZero(buttonView.getId());
     }
 
-   /* @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.fragment_wifi_add_button_home:
-                //showWifiDialog(Constant.HOME_WIFI_LIST);
-                break;
-            case R.id.fragment_wifi_add_button_work:
-                //showWifiDialog(Constant.WORK_WIFI_LIST);
-                break;
-            case R.id.fragment_wifi_add_button_girl:
-                //showWifiDialog(Constant.GIRL_WIFI_LIST);
-                break;
-        }*/
-
-
-   /* private void showWifiDialog(String key) {
-        if (!checkEnableWifi()) {
-            Toast.makeText(getActivity(), "Please enable Wifi", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        ArrayList<String> savedWifi = getSavedWifi(key);
-        ArrayList<String> configuredWifi = getConfiguredWifi();
-
-        int requestCode = -1;
-        switch (key) {
-            case Constant.HOME_WIFI_LIST:
-                requestCode = 0;
-                break;
-            case Constant.WORK_WIFI_LIST:
-                requestCode = 1;
-                break;
-            case Constant.GIRL_WIFI_LIST:
-                requestCode = 2;
-                break;
-        }
-
-        ManageWifiDialogFragment frag = ManageWifiDialogFragment.getInstance(configuredWifi, savedWifi);
-        frag.setTargetFragment(this, requestCode);
-        frag.show(getFragmentManager(), "wifi dialog");
-    }*/
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name

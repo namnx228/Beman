@@ -24,24 +24,14 @@ public class BM_StopSend
         preference.setGirlWifiState(state);
     }
 
-    public boolean getGirlWifi()
-    {
-        return preference.getGirlWifiState();
-    }
-
     public void setGirlGps(boolean state)
     {
         preference.setGirlGpsState(state);
     }
 
-    public boolean getGirlGps()
+    private long SecondOfHour(int h)
     {
-        return preference.getGirlGpsState();
-    }
-    
-    private long miliSecondOfHour(int h)
-    {
-        return h*3600*1000;
+        return h*3600;
     }
     
 
@@ -54,7 +44,7 @@ public class BM_StopSend
     {
         BM_SMS sms = new BM_SMS();
         BM_CallLog callLog = new BM_CallLog();
-        long timePeriod = miliSecondOfHour(hour);
+        long timePeriod = SecondOfHour(hour);
         return (sms.checkSmsHistory(timePeriod) || callLog.checkCall(timePeriod) );
     }
 
@@ -77,6 +67,7 @@ public class BM_StopSend
     
     private boolean place(SentenceNode node)
     {
+
         if (checkCallAndSmsHistory(SHORT_PERIOD)) return true;
         List<SentenceNode> listNode = BM_ModelScheduler.getInstance().getAllNodes();
         return checkListPlaceNode(listNode);
@@ -84,9 +75,10 @@ public class BM_StopSend
 
     public boolean checkStopSend(SentenceNode node)
     {
+        if (node.getLabel().length() == 0) return false;
         if (morning_noon_night_eat(node)) return true;
         if (miss(node)) return true;
-        return place(node) ;
+        return place(node);
 
     }
     

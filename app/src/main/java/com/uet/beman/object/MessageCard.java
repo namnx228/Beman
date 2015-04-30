@@ -16,6 +16,7 @@ import android.widget.ToggleButton;
 
 import com.uet.beman.R;
 import com.uet.beman.fragment.BM_FragmentMessageList;
+import com.uet.beman.support.BM_Context;
 import com.uet.beman.support.BM_NodeListHandler;
 import com.uet.beman.support.BM_StorageHandler;
 
@@ -69,8 +70,6 @@ public class MessageCard extends CardWithList {
         //Update the array inside the card
 
         tag = "\"" + tag + "\"";
-        if (tag.compareTo("\"home\"") == 0)
-            tag = "\"home\"";
         List<SentenceNode> sentenceNodes = storageHandler.getListInMessageSet(tag);
         for(SentenceNode i : sentenceNodes) {
             MessageObject tmp = new MessageObject(this, i);
@@ -103,6 +102,7 @@ public class MessageCard extends CardWithList {
         checkmark.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (BM_Context.getInstance().getOnCreateViewFragmentMessageList()) return;
                 if(isChecked) {
                     obj.sentenceNode.setEnabled("1");
                     BM_StorageHandler.getInstance().updateItemInMessageSet(getCardTitle(), obj.sentenceNode);
@@ -118,7 +118,7 @@ public class MessageCard extends CardWithList {
 
         return  convertView;
     }
-
+    @Override
     public int getChildLayoutId() {
         return R.layout.messagecard_inner_main;
     }

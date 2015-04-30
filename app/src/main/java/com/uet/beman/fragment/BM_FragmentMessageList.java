@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.uet.beman.R;
 import com.uet.beman.common.BM_Utils;
 import com.uet.beman.common.SharedPreferencesHelper;
 import com.uet.beman.object.SentenceNode;
+import com.uet.beman.support.BM_Context;
 import com.uet.beman.support.BM_MessageCardHandler;
 
 /**
@@ -33,6 +35,9 @@ public class BM_FragmentMessageList extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+
+    private int a = 0;
 
     private OnFragmentInteractionListener mListener;
     private BM_MessageCardHandler mHandler;
@@ -74,21 +79,27 @@ public class BM_FragmentMessageList extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_message_list, container, false);
 
+
+
         // Update name reference
+        /*a++;
+        if (a == 2)
+        {
+            Log.d("vo day","vo day");
+        }
+*/
         TextView headline = (TextView) view.findViewById(R.id.fragment_messagelist_headline);
         String name = SharedPreferencesHelper.getInstance().getUserName();
         BM_Utils.updateNameReferences(headline, getResources(), R.string.line_fragment_message_list, name);
-
+        BM_Context.getInstance().setOnCreateViewFragmentMessageList(true);
         mHandler.setCardView(view, R.id.card_morning, "|morning|", getActivity(), this);
+        mHandler.setCardView(view, R.id.card_noon, "|noon|", getActivity(), this);
         mHandler.setCardView(view, R.id.card_night, "|night|", getActivity(), this);
         mHandler.setCardView(view, R.id.card_miss, "|miss|", getActivity(), this);
         mHandler.setCardView(view, R.id.card_eat, "|eat|", getActivity(), this);
-        mHandler.setCardView(view, R.id.card_noon, "|noon|", getActivity(), this);
         mHandler.setCardView(view, R.id.card_home, "home", getActivity(), this);
         mHandler.setCardView(view, R.id.card_work, "work", getActivity(), this);
-//        mHandler.setCardView(view, R.id.card_night, "|morning|", getActivity(), this);
-
-        // Inflate the layout for this fragment
+        BM_Context.getInstance().setOnCreateViewFragmentMessageList(false);
         return view;
     }
 

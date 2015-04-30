@@ -22,4 +22,15 @@ public class BM_Context {
         if (instance == null) instance = new BM_Context();
         return instance;
     }
+
+    private Boolean onCreateViewFragmentMessageList;
+    public void setOnCreateViewFragmentMessageList(boolean onCreateViewFragmentMessageList)
+    {
+        this.onCreateViewFragmentMessageList = onCreateViewFragmentMessageList;
+    }
+
+    public boolean getOnCreateViewFragmentMessageList()
+    {
+        return onCreateViewFragmentMessageList;
+    }
 }

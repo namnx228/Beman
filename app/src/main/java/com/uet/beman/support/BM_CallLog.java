@@ -43,10 +43,18 @@ public class BM_CallLog extends Service {
         return  geometricCallTime;
     }
 
+    private String standardizePhoneNumber(String number)
+    {
+        number = number.replaceAll("\\s","");
+        if(number.charAt(0) == '+') number = "0" + number.substring(3);
+        return number;
+    }
+
     private boolean checkCallDate(Date date, long timePeriod)
     {
-       long now = SystemClock.currentThreadTimeMillis();
-        return now -  date.getTime() < timePeriod ;
+        Time now = new Time();
+        now.setToNow();
+        return now.second - date.getTime() < timePeriod ;
     }
 
     public boolean checkCall( long timePeriod) {
@@ -54,7 +62,7 @@ public class BM_CallLog extends Service {
         //StringBuffer sb = new StringBuffer();
         boolean stopSend = false;
 
-        String phoneNo = SharedPreferencesHelper.getInstance().getDestNumber();
+        String phoneNo = standardizePhoneNumber(SharedPreferencesHelper.getInstance().getDestNumber());
         Cursor managedCursor = BM_Context.getInstance().getContext().getContentResolver().query(CallLog.Calls.CONTENT_URI, null,
                 null, null, null);
         //     int number = managedCursor.getColumnIndex(CallLog.Calls.NUMBER);
@@ -67,7 +75,7 @@ public class BM_CallLog extends Service {
         while (managedCursor.moveToNext()) {
             // String phNumber = managedCursor.getString(number);
             //   String callType = managedCursor.getString(type);
-            String phone = managedCursor.getString(phoneIndex);
+            String phone = standardizePhoneNumber(managedCursor.getString(phoneIndex));
             String callDate = managedCursor.getString(date);
             Date callDayTime = new Date(Long.valueOf(callDate));
             if (phoneNo.compareTo(phone) == 0)
@@ -78,18 +86,7 @@ public class BM_CallLog extends Service {
         return stopSend;
     }
 
-    @Override
-    public void onCreate()
-    {
-        super.onCreate();
-    }
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId)
-    {
-
-      return super.onStartCommand(intent,flags,startId);
-    }
 /*
     private int calGeometricCallTime(String girlfriend)
     {

@@ -101,4 +101,6 @@
     <string name="girl_mode_gift_desc_5">Hoan Kiem Lake</string>
     <string name="title_activity_bm__base">BM_BaseActivity</string>
 
+    <string name="reply_checkbox">Auto reply</string>
+
 </resources>

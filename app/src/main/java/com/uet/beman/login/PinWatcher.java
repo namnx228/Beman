@@ -3,6 +3,7 @@ package com.uet.beman.login;
 import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.Time;
 
 import com.material.widget.FloatingEditText;
 import com.uet.beman.R;
@@ -52,11 +53,23 @@ public class PinWatcher implements TextWatcher
         }
         else
         {
-            SharedPreferencesHelper.getInstance().setCheckIntrusion(true);
+            detectInstrusion();
+
             if (pin.compareTo(PIN_GIRL) == 0) return girlMode;
             else wrongPassAction();
         }
         return null;
+    }
+
+    private void detectInstrusion()
+    {
+        SharedPreferencesHelper.getInstance().setCheckIntrusion(true);
+        Time now = new Time();
+        now.setToNow();
+        int month = now.month + 1;
+        String timeInstrusion = now.monthDay + "/" + month + "/" + now.year +" \nLúc "
+                                + now.hour + ':' + now.minute;
+        SharedPreferencesHelper.getInstance().setInstrusionTime(timeInstrusion);
     }
 
     private void wrongPassAction() {

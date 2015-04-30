@@ -193,6 +193,29 @@ public class BM_ModelScheduler {
         return result;
     }
 
+    public List<SentenceNode> getSentenceNodeByMessage(String body) {
+        openDb();
+        List<SentenceNode> result = new ArrayList<>();
+//        String[] tableMessageColumn = { ScheduleEntry.COLUMN_MESSAGE_ID, ScheduleEntry.COLUMN_MESSAGE };
+//        String[] tableScheduleColumn = { ScheduleEntry.COLUMN_MESSAGE_ID, ScheduleEntry.COLUMN_ALARM_TIME };
+
+        String selection = ScheduleEntry.SQL_JOIN_TABLES_BY_ID + " WHERE " + ScheduleEntry.TABLE_MESSAGE +
+                ScheduleEntry.DOT_SEP + ScheduleEntry.COLUMN_MESSAGE + " = '" + body + "'";
+
+        Cursor cursor = db.rawQuery(selection, null);
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                SentenceNode tmp = (SentenceNode) cursorToSchedule(cursor);
+                result.add(tmp);
+                cursor.moveToNext();
+            }
+        }
+        cursor.close();
+        closeDb();
+        return result;
+    }
+
     public List<SentenceNode> getSentenceNodeByDate(String date) {
         date = addQuote(date);
         openDb();

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -39,6 +40,7 @@ import com.uet.beman.operator.BM_Moment;
 import com.uet.beman.support.BM_CallLog;
 import com.uet.beman.support.BM_Context;
 import com.uet.beman.support.BM_MessageCardHandler;
+import com.uet.beman.support.BM_MessageReceiver;
 import com.uet.beman.support.BM_StorageHandler;
 import com.uet.beman.support.BM_ViewPagerAdapter;
 import com.uet.beman.util.Constant;
@@ -90,10 +92,6 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
 
         BM_Context.getInstance().setContext(this);
         setAlarmFromDb();
-
-
-        Intent intent = new Intent(this, BM_CallLog.class);
-        startService(intent);
 
         new Thread(new Task()).start();
 
@@ -147,7 +145,7 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
             ft.detach(fragment);
             ft.attach(fragment);
             ft.commit();
-            messageCardHandler.setCardView(null, 0, currentNode.getLabel(), this, fragment);
+            //messageCardHandler.setCardView(null, 0, currentNode.getLabel(), this, fragment);
         }
     }
 
@@ -160,7 +158,8 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
     private void setDialog()
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Có người xâm nhập");
+        String timeInstrusion = SharedPreferencesHelper.getInstance().getInstrusionTime();
+        builder.setMessage("Có người xâm nhập\nNgày : " + timeInstrusion);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) { /*cancel dialog */}

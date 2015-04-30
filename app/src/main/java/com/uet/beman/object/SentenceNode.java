@@ -19,6 +19,15 @@ public class SentenceNode extends Node{
         setSendTime(sendTime);
         enabled = "0";
         days = "0000000";
+        label = "";
+        // setSendTimeEpoch(sendTimeEpoch);
+    }
+
+    public SentenceNode(String message) {
+        super(message);
+        enabled = "0";
+        days = "0000000";
+        label = "";
         // setSendTimeEpoch(sendTimeEpoch);
     }
 
