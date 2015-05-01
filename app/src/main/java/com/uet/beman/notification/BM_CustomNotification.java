@@ -48,13 +48,16 @@ public class BM_CustomNotification {
         builder.setContentIntent(pendingIntent);
     }
 
-    public void show() {
+    public void show(Class cls) {
         builder.setStyle(new NotificationCompat.BigTextStyle().bigText("Demo BIG"));
-        Intent i1 = new Intent(ctx, BM_ActivityLogin.class);
+        Intent i1 = new Intent(ctx, cls);
+
         PendingIntent pi1 = PendingIntent.getActivity(ctx, 0, i1, 0);
         builder.addAction(R.drawable.abc_btn_radio_material, "Edit", pi1);
         NotificationManager manager = (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
         manager.notify(0, builder.build());
     }
+
+    //public void showReplyNoti(Class cls)
 
 }

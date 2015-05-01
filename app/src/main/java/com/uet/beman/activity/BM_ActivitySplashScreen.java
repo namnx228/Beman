@@ -14,7 +14,7 @@ public class BM_ActivitySplashScreen extends ActionBarActivity {
 
     private void next() {
         boolean checkLogin = SharedPreferencesHelper.getInstance().getCheckLogin();
-        if (checkLogin) {
+        if (checkLogin && SharedPreferencesHelper.getInstance().getUserRealPW().length() > 0)  {
             Intent intent = new Intent(this, BM_ActivityLogin.class);
             startActivity(intent);
         } else {

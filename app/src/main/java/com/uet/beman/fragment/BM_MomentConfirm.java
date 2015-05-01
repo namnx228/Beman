@@ -16,6 +16,7 @@ import com.uet.beman.R;
 import com.uet.beman.common.BM_Utils;
 import com.uet.beman.common.SharedPreferencesHelper;
 import com.uet.beman.operator.BM_Moment;
+import com.uet.beman.support.BM_BroadcastReceiver;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -133,7 +134,8 @@ public class BM_MomentConfirm extends Fragment implements Button.OnClickListener
             case R.id.buttonConfirm:
                 BM_Moment moment = new BM_Moment();
                 moment.setSchedule();
-
+                BM_BroadcastReceiver b = new BM_BroadcastReceiver();
+                b.showNotification("ta la noti");
                 break;
         }
 

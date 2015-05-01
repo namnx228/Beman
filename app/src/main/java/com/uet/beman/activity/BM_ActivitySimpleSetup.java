@@ -39,6 +39,8 @@ import com.uet.beman.operator.BM_MessageHandler;
 import com.uet.beman.operator.BM_Moment;
 import com.uet.beman.support.BM_CallLog;
 import com.uet.beman.support.BM_Context;
+import com.uet.beman.support.BM_GPSReceiver;
+import com.uet.beman.support.BM_GPStracker;
 import com.uet.beman.support.BM_MessageCardHandler;
 import com.uet.beman.support.BM_MessageReceiver;
 import com.uet.beman.support.BM_StorageHandler;
@@ -71,6 +73,7 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
 //    private BM_StorageHandler storageHandler;
     private BM_MessageCardHandler messageCardHandler;
 
+    private BM_GPStracker gpStracker ;
 
 
 
@@ -92,7 +95,7 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
 
         BM_Context.getInstance().setContext(this);
         setAlarmFromDb();
-
+        gpStracker = BM_GPStracker.getInstance(this);
         new Thread(new Task()).start();
 
 
@@ -204,6 +207,8 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
             storageHandler.initListInMessageSet("\"|miss|\"");
             storageHandler.initListInMessageSet("\"home\"");
             storageHandler.initListInMessageSet("\"work\"");
+            BM_GPSReceiver receiver = new BM_GPSReceiver();
+            receiver.execute(gpStracker);
         }
     }
 

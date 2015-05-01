@@ -3,6 +3,8 @@ package com.uet.beman.support;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.uet.beman.common.SharedPreferencesHelper;
@@ -10,16 +12,16 @@ import com.uet.beman.operator.BM_Place_Message;
 import com.uet.beman.operator.BM_StopSend;
 import com.uet.beman.util.Constant;
 
-public class BM_GPSReceiver extends BroadcastReceiver {
+public class BM_GPSReceiver extends AsyncTask<BM_GPStracker,Integer,Integer> {
 
-    private final float delta = 0.0000001f;
+    private final float delta = 0.0001f;
 
     public BM_GPSReceiver() {
     }
 
     private boolean equal(float x, float y)
     {
-        return (x - y < delta);
+        return (Math.abs(x - y) < delta);
         //return x == y;
     }
 
@@ -32,7 +34,11 @@ public class BM_GPSReceiver extends BroadcastReceiver {
     private void checkHome(SharedPreferencesHelper sp, float longitude, float latitude)
     {
         if (equal(longitude, sp.getLongitude(Constant.HOME_LONGITUDE)) &&
-            equal(latitude, sp.getLatitude(Constant.HOME_LATITUDE))) sendMessage(Constant.HOME);
+            equal(latitude, sp.getLatitude(Constant.HOME_LATITUDE)))
+        {
+            Log.d("Catch home","Tao dang o nha");
+            sendMessage(Constant.HOME);
+        }
     }
 
     private void checkWork(SharedPreferencesHelper sp, float longitude, float latitude)
@@ -50,20 +56,32 @@ public class BM_GPSReceiver extends BroadcastReceiver {
     }
 
     @Override
-    public void onReceive(Context context, Intent intent) {
-        // TODO: This method is called when the BroadcastReceiver is receiving
-        // an Intent broadcast.
-        BM_GPStracker gpsTracker = new BM_GPStracker(context);
-        float longitude = gpsTracker.getLongitude(), latitude = gpsTracker.getLatitude();
+    protected Integer doInBackground(BM_GPStracker... gpsTracker){
 
-        SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance();
 
-        checkHome(sp,longitude, latitude);
-        checkWork(sp, longitude, latitude);
-        checkGirl(sp, longitude, latitude);
+        try {
+            while (true) {
+                Thread.sleep(SLEEPING_TIME);
+                //wait(SLEEPING_TIME);
 
-        Toast.makeText(context, "thay doi vi tri", Toast.LENGTH_LONG);
+                Float longitude = gpsTracker[0].getLongitude(), latitude = gpsTracker[0].getLatitude();
+                Log.d("GPS",longitude.toString() + latitude.toString());
+                SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance();
 
-        throw new UnsupportedOperationException("Not yet implemented");
+                checkHome(sp, longitude, latitude);
+                checkWork(sp, longitude, latitude);
+                checkGirl(sp, longitude, latitude);
+
+                //Toast.makeText(BM_Context.getInstance().getContext(), "thay doi vi tri", Toast.LENGTH_LONG).show();
+
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return 0;
+        }
+
     }
+    private final long SLEEPING_TIME = 60*1000*5;
 }

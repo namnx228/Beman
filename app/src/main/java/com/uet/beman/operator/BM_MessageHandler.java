@@ -47,7 +47,7 @@ public class BM_MessageHandler {
         BM_AlarmManager.getInstance().createAlarm(Integer.valueOf(node.getId()), node.getSendTime());
         Time now = new Time();
         now.set(Long.valueOf(node.getSendTime()));
-        Toast.makeText(BM_Context.getInstance().getContext(), now.toString(), Toast.LENGTH_LONG).show();
+       // Toast.makeText(BM_Context.getInstance().getContext(), now.toString(), Toast.LENGTH_LONG).show();
         Log.d("time send",now.toString());
     }
 

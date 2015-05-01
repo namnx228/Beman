@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.uet.beman.R;
 import com.uet.beman.activity.BM_ActivityLogin;
+import com.uet.beman.activity.BM_ActivityMain;
 import com.uet.beman.common.SharedPreferencesHelper;
 import com.uet.beman.notification.BM_CustomNotification;
 import com.uet.beman.operator.BM_Place_Message;
@@ -90,6 +91,6 @@ public class BM_WifiConnectionReceiver extends BroadcastReceiver {
 //        BM_SimpleNotification noti = new BM_SimpleNotification(context, "Demo", "Current Wifi: " + currWifi, R.drawable.abc_btn_rating_star_on_mtrl_alpha);
         BM_CustomNotification noti = new BM_CustomNotification(context, "Demo", "Current Wifi: " + currWifi, R.drawable.abc_btn_rating_star_on_mtrl_alpha);
         noti.setPendingIntent(BM_ActivityLogin.class);
-        noti.show();
+        noti.show(BM_ActivityMain.class);
     }
 }

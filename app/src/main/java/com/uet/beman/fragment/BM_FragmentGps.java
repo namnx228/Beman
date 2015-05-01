@@ -151,6 +151,7 @@ public class BM_FragmentGps extends Fragment implements SwitchCompat.OnCheckedCh
         String msg = longitudeOfPlace + " is " + longitude.toString() + '\n'
                      + latitudeOfPlace + " is " + latitude.toString();
         Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
+        Log.d("gps home",msg);
     }
 
     private void notifyAfterTurnOffGps(String place)

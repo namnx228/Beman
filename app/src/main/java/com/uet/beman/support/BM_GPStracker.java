@@ -40,6 +40,14 @@ public class BM_GPStracker extends Service implements LocationListener
     // The minimum time between updates in milliseconds
     private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; // 1 minute
 
+    private static BM_GPStracker instance;
+
+    public static BM_GPStracker getInstance(Context context)
+    {
+        if (instance == null) instance = new BM_GPStracker(context);
+        return instance;
+    }
+
     // Declaring a Location Manager
     protected LocationManager locationManager;
 

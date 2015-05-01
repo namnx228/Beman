@@ -227,6 +227,7 @@ public class BM_ModelScheduler {
     public boolean isInMessageList(String body) {
         openDb();
 
+        if (body.indexOf('\'') < 0) body = body.replace("\'","");
 
         String selection = "select " + ScheduleEntry.COLUMN_MESSAGE + " from "
                             + ScheduleEntry.TABLE_MESSAGE + " WHERE " + ScheduleEntry.COLUMN_MESSAGE
