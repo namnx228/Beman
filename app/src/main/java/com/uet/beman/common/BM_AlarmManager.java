@@ -33,8 +33,22 @@ public class BM_AlarmManager extends Service{
     public void createAlarm( int id, String time) {
         Intent intent = new Intent(context, BM_BroadcastReceiver.class);
 
-        long remainTime = Long.valueOf(time) - SystemClock.currentThreadTimeMillis();
+        long remainTime = Long.valueOf(time) - System.currentTimeMillis();
         intent.putExtra("sendTime", time);
+        intent.putExtra("reply", false);
+
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + remainTime, pendingIntent);
+    }
+
+    public void createAlarmReply( int id, String time, String message) {
+        Intent intent = new Intent(context, BM_BroadcastReceiver.class);
+
+        long remainTime = Long.valueOf(time) - System.currentTimeMillis();
+        intent.putExtra("sendTime", time);
+        intent.putExtra("reply", true);
+        intent.putExtra("message", message);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + remainTime, pendingIntent);

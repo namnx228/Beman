@@ -39,7 +39,7 @@ public class BM_Place_Message {
         int index = rand.nextInt(messageRand.size());
         SentenceNode chosenMessage = messageRand.get(index);
         //String time = getTime(day, chosenMessage.getLabel()).toString();
-        Long time = SystemClock.currentThreadTimeMillis() + 10;
+        Long time = System.currentTimeMillis() + 1000*5;
         BM_MessageHandler messageHandler = new BM_MessageHandler();
         messageHandler.messageReadyToSend(chosenMessage, time.toString());
     }

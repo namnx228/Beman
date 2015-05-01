@@ -24,9 +24,10 @@ public class BM_HandlerResponse extends Thread{
     public void run()
     {
         String replyMessage = getReplyMessage(request);
+        if (replyMessage == null) replyMessage = "Xin lỗi anh bận tí đã nhé, bye em.";
         int timeToWait = SharedPreferencesHelper.getInstance().getReplyWaitTime();
-        Long timeToSend = SystemClock.currentThreadTimeMillis() + timeToWait*1000;
-        BM_MessageHandler.getInstance().messageReadyToSend(new SentenceNode(replyMessage), timeToSend.toString());
+        Long timeToSend = System.currentTimeMillis() + timeToWait*1000;
+        BM_MessageHandler.getInstance().sendReply(replyMessage, timeToSend.toString());
     }
 
     public BM_HandlerResponse(String request)
@@ -46,6 +47,7 @@ public class BM_HandlerResponse extends Thread{
         {
             URL url = new URL(request);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("GET");
             urlConnection.connect();
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
             String line, lastLine = null;

@@ -66,16 +66,19 @@ public class BM_WifiConnectionReceiver extends BroadcastReceiver {
 
         if (homeWifiList.contains(currWifi)) {
             // At home
-            wifi_message.send(Constant.HOME);
+            if(SharedPreferencesHelper.getInstance().getWifiCheck(Constant.HOME_WIFI_CHECK))
+                wifi_message.send(Constant.HOME);
             //setMessage
         }
         if (workWifiList.contains(currWifi)) {
             // At work
-            wifi_message.send(Constant.WORK);
+            if(SharedPreferencesHelper.getInstance().getWifiCheck(Constant.WORK_WIFI_CHECK))
+                wifi_message.send(Constant.WORK);
         }
         if (girlWifiList.contains(currWifi)) {
             // At girl's house
-            stopSend.setGirlWifi(true);
+            if(SharedPreferencesHelper.getInstance().getWifiCheck(Constant.GIRL_WIFI_CHECK))
+                stopSend.setGirlWifi(true);
         }
 
         Log.d("onReceive", "end onReceive 2: " + currWifi);

@@ -18,6 +18,7 @@ import com.uet.beman.R;
 import com.uet.beman.common.BM_Utils;
 import com.uet.beman.common.SharedPreferencesHelper;
 import com.uet.beman.object.ManageWifiDialogFragment;
+import com.uet.beman.operator.BM_StopSend;
 import com.uet.beman.support.BM_GPStracker;
 import com.uet.beman.util.Constant;
 
@@ -183,6 +184,8 @@ public class BM_FragmentGps extends Fragment implements SwitchCompat.OnCheckedCh
                 longitudeOfPlace = Constant.GIRL_LONGITUDE;
                 latitudeOfPlace = Constant.GIRL_LATITUDE;
                 preference.setGpsCheck(Constant.GIRL_GPS_CHECKED, true);
+                BM_StopSend stopSend = new BM_StopSend();
+                stopSend.setGirlGps(true);
                 break;
         }
         preference.setLongitude(longitudeOfPlace, longitude);
@@ -212,6 +215,8 @@ public class BM_FragmentGps extends Fragment implements SwitchCompat.OnCheckedCh
                 latitudeOfPlace = Constant.GIRL_LATITUDE;
                 place = "Girl's home";
                 preference.setGpsCheck(Constant.GIRL_GPS_CHECKED, false);
+                BM_StopSend stopSend = new BM_StopSend();
+                stopSend.setGirlGps(false);
                 break;
         }
         notifyAfterTurnOffGps(place);

@@ -7,11 +7,16 @@ import android.content.IntentFilter;
 import android.os.SystemClock;
 import android.provider.Telephony;
 import android.telephony.SmsManager;
+import android.text.format.Time;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.uet.beman.common.BM_AlarmManager;
 import com.uet.beman.common.SharedPreferencesHelper;
 import com.uet.beman.database.BM_ModelScheduler;
+import com.uet.beman.fragment.BM_FragmentIntelligentMessage;
 import com.uet.beman.object.SentenceNode;
+import com.uet.beman.support.BM_Context;
 import com.uet.beman.support.BM_DeliveredBroadcastReceiver;
 import com.uet.beman.support.BM_HandlerResponse;
 import com.uet.beman.support.BM_MakeBotRequest;
@@ -40,6 +45,10 @@ public class BM_MessageHandler {
     public void setMesageAlarmTime(SentenceNode node)
     {
         BM_AlarmManager.getInstance().createAlarm(Integer.valueOf(node.getId()), node.getSendTime());
+        Time now = new Time();
+        now.set(Long.valueOf(node.getSendTime()));
+        Toast.makeText(BM_Context.getInstance().getContext(), now.toString(), Toast.LENGTH_LONG).show();
+        Log.d("time send",now.toString());
     }
 
 
@@ -52,6 +61,8 @@ public class BM_MessageHandler {
     public void messageReadyToSend(SentenceNode node, String alarmTime)
     {
         node = setSendTime(node, alarmTime);
+
+
         BM_ModelScheduler.getInstance().addSchedule(node);
         setMesageAlarmTime(node);
 
@@ -62,11 +73,11 @@ public class BM_MessageHandler {
     {
 
         preSend(time);
-        sending(context);
+        send(context);
         postSend();
     }
 
-    public void preSend(String time)
+    private void preSend(String time)
     {
 
         //xoa 1 node trong schedule
@@ -82,7 +93,7 @@ public class BM_MessageHandler {
         this.stopSend = stopSend.checkStopSend(sendingNode);
     }
 
-    public void postSend()
+    private void postSend()
     {
         if (sendingNode != null && notHomeOrWorkOrReply(sendingNode))
         {
@@ -91,9 +102,15 @@ public class BM_MessageHandler {
         }
     }
 
-    public void sending(Context context)
+    private void send(Context context)
     {
         if (stopSend) return;
+        sending(sendingNode.getMessage(), context);
+
+    }
+
+    public void sending(String message, Context context)
+    {
         String SMS_SENT = "SENT";
         String SMS_DELIVERED = "DELIVERED";
         PendingIntent sentIntent = PendingIntent.getBroadcast(context, 0,
@@ -107,16 +124,25 @@ public class BM_MessageHandler {
 
         String phoneNumber = SharedPreferencesHelper.getInstance().getDestNumber();
         SmsManager sms = SmsManager.getDefault();
-        sms.sendTextMessage(phoneNumber, null, sendingNode.getMessage(), sentIntent, deliveredIntent);
+        sms.sendTextMessage(phoneNumber, null, message, sentIntent, deliveredIntent);
     }
 
 
 
-    public void sendReply(String message)
+    public void prepareSendReply(String messageFromGirl)
     {
-        String request = BM_MakeBotRequest.makeRequest(message);
-        BM_HandlerResponse handlerResponse = new BM_HandlerResponse(message);
+        String request = BM_MakeBotRequest.makeRequest(messageFromGirl);
+        BM_HandlerResponse handlerResponse = new BM_HandlerResponse(request);
         handlerResponse.start();
+    }
+
+    public void sendReply(String message, String time)
+    {
+        int id = 123456;
+        BM_AlarmManager.getInstance().createAlarmReply(id, time, message);
+
+      /*  if (message == null) message = "tao la null";
+        Log.d("AI",message);*/
     }
 
     private void delNodeInSchedule(List<SentenceNode> list)

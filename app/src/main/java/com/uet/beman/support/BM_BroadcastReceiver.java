@@ -19,13 +19,25 @@ public class BM_BroadcastReceiver extends BroadcastReceiver{
         Toast.makeText(context, "Approved", Toast.LENGTH_LONG).show();
         Bundle bundle = intent.getExtras();
         String time = bundle.getString("sendTime");
-        sendMessage(time, context);
+        boolean reply = bundle.getBoolean("reply");
+        if (!reply) sendMessage(time, context);
+        else
+        {
+
+            sendReply( bundle.getString("message"),context);
+        }
     }
 
     private void sendMessage(String time, Context context)
     {
         BM_MessageHandler messageHandler = new BM_MessageHandler();
         messageHandler.send(time, context);
+    }
+
+    private void sendReply(String message, Context context)
+    {
+        BM_MessageHandler messageHandler = new BM_MessageHandler();
+        messageHandler.sending(message, context);
     }
 
 }

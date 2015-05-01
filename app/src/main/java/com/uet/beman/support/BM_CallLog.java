@@ -54,7 +54,8 @@ public class BM_CallLog extends Service {
     {
         Time now = new Time();
         now.setToNow();
-        return now.second - date.getTime() < timePeriod ;
+
+        return now.toMillis(true) - date.getTime() < timePeriod ;
     }
 
     public boolean checkCall( long timePeriod) {

@@ -94,20 +94,22 @@ public class BM_Moment
 
     private GregorianCalendar checkIfNewBeforeNow(GregorianCalendar newTime, Calendar now)
     {
-        if (newTime.before(now)) newTime.add(Calendar.WEEK_OF_MONTH, 1);
+        if (newTime.before(now)) newTime.add(Calendar.DAY_OF_YEAR, 7);
         return newTime;
     }
 
     private int getDay(int day)
     {
-        return day;
+        if (day == 0) return 1;
+        return day + 2;
     }
 
     private long getTime(int day, int hour, int minute)
     {
         Calendar now = Calendar.getInstance();
 
-        GregorianCalendar newTime = new GregorianCalendar();
+        GregorianCalendar newTime = (GregorianCalendar)Calendar.getInstance();
+
         newTime.set(Calendar.YEAR,now.get(Calendar.YEAR));
         newTime.set(Calendar.MONTH, now.get(Calendar.MONTH));
         newTime.set(Calendar.WEEK_OF_MONTH, now.get(Calendar.WEEK_OF_MONTH));
@@ -116,6 +118,8 @@ public class BM_Moment
         newTime.set(Calendar.MINUTE, minute);
         newTime = checkIfNewBeforeNow(newTime, now);
         if (newTime == null) return 0;
+        /*if (newTime.getTime().getTime() < now.getTime().getTime())
+            return newTime.getTime().getTime() + 7*86400*1000;*/
 
         return newTime.getTime().getTime();
     }
@@ -128,7 +132,7 @@ public class BM_Moment
 
     private boolean equal(String x, String y)
     {
-        return x.compareTo(y) == 1;
+        return x.compareTo(y) == 0;
     }
 
     private int min(int x, int y)
@@ -151,7 +155,7 @@ public class BM_Moment
         //return min(callLog.getGeometricCallTime(), MISS_TIME) + callLog.getLastTimeCall();
 
 
-        return new Random().nextInt(24);
+        return new Random().nextInt(18) + 5;
     }
 
     Pair<Integer,Integer> getTime(String moment)
@@ -169,6 +173,7 @@ public class BM_Moment
 
     public void setSchedule()
     {
+        BM_ModelScheduler.getInstance().delSchedule();
         for(int day = 0;day<7;day++)
         {
             ArrayList<String> listMoment = getListMoment(day);

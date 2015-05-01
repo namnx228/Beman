@@ -168,7 +168,7 @@ public class BM_ActivitySetting extends ActionBarActivity {
         if (view.getId() == R.id.calllog)
         {
             BM_CallLog callog = new BM_CallLog();
-            if (callog.checkCall(Constant.ONE_DAY))
+            if (callog.checkCall(miliSecondOfHour(SHORT_PERIOD)))
             {
                 String mes = "OK";
                 Toast.makeText(getBaseContext(), mes, Toast.LENGTH_LONG).show();
@@ -184,7 +184,7 @@ public class BM_ActivitySetting extends ActionBarActivity {
         if (view.getId() == R.id.sms)
         {
             BM_SMS sms = new BM_SMS();
-            if (sms.checkSmsHistory(Constant.ONE_DAY))
+            if (sms.checkSmsHistory((miliSecondOfHour(SHORT_PERIOD))))
             {
                 String mes = "OK";
                 Toast.makeText(getBaseContext(), mes, Toast.LENGTH_LONG).show();
@@ -197,5 +197,13 @@ public class BM_ActivitySetting extends ActionBarActivity {
 
         }
     }
+
+    private long miliSecondOfHour(int h)
+    {
+        return h*3600*1000;
+    }
+
+    private int SHORT_PERIOD = 3;
+    private int LONG_PERIOD = 12;
 
 }

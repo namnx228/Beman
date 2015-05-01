@@ -10,6 +10,7 @@ import android.os.SystemClock;
 import android.provider.Telephony;
 import android.telecom.TelecomManager;
 import android.text.format.Time;
+import android.util.Log;
 
 import com.uet.beman.common.SharedPreferencesHelper;
 import com.uet.beman.database.BM_ModelScheduler;
@@ -36,7 +37,7 @@ public class BM_SMS extends Service{
     {
         Time now = new Time();
         now.setToNow();
-        return now.second - date.getTime() < timePeriod ;
+        return now.toMillis(true) - date.getTime() < timePeriod ;
     }
     public boolean checkSmsHistory(long timePeriod) {
         Cursor cursor = BM_Context.getInstance().getContext().getContentResolver().query(Uri.parse("content://sms/sent"), null, null, null, null);
@@ -45,9 +46,19 @@ public class BM_SMS extends Service{
         int number = cursor.getColumnIndex("address");
         int date = cursor.getColumnIndexOrThrow("date");
         while (cursor.moveToNext()) {
-                Date smsDayTime = new Date(Long.valueOf(date));
+                Date smsDayTime = new Date(Long.valueOf(cursor.getString(date)));
                 String phoneNumber = standardizePhoneNumber(cursor.getString(number));
-                if (girlPhone.compareToIgnoreCase(phoneNumber) == 0) stopSend = checkSmsDate(smsDayTime, timePeriod);
+
+            /*tring time = cursor.getString(date);
+            Time t = new Time();
+            t.set(Long.valueOf(time));
+            Log.d("time sent",t.toString());
+*/
+                if (girlPhone.compareToIgnoreCase(phoneNumber) == 0)
+                {
+                    stopSend = checkSmsDate(smsDayTime, timePeriod);
+                    break;
+                }
         }
         cursor.close();
         return stopSend;
@@ -59,14 +70,17 @@ public class BM_SMS extends Service{
         String girlPhone = standardizePhoneNumber(SharedPreferencesHelper.getInstance().getDestNumber());
         int number = cursor.getColumnIndexOrThrow("address");
         int body = cursor.getColumnIndexOrThrow(Telephony.Sms.BODY);
+        int date = cursor.getColumnIndexOrThrow(Telephony.Sms.DATE_SENT);
         while (cursor.moveToNext()) {
 
             String phoneNumber = standardizePhoneNumber(cursor.getString(number));
+
+
             if (girlPhone.compareToIgnoreCase(phoneNumber) == 0)
             {
                 String bodyMessage = cursor.getString(body);
-                List<SentenceNode> list = BM_ModelScheduler.getInstance().getSentenceNodeByMessage(bodyMessage);
-                return list !=null && list.size() > 0 ;
+
+                return BM_ModelScheduler.getInstance().isInMessageList(bodyMessage);
             }
         }
         return false;

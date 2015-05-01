@@ -22,6 +22,7 @@
     <string name="line_fragment_days_selected_not_all">We\'ll send messages every </string>
     <string name="line_fragment_message_list">%1$s, select and edit messages</string>
     <string name="line_fragment_message_list1">Tap a message to edit. Tap + to write your own.</string>
+    <string name="line_moment_confirm">%1$s, Are you sure to plan this schedule?</string>
     <string name="line_fragment_gps1">%1$s, where about</string>
     <string name="logo_activity_login_description">BeMan</string>
     <string name="hint_activity_login">Enter your pin</string>

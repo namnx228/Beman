@@ -170,6 +170,14 @@ public class BM_ModelScheduler {
         closeDb();
     }
 
+    public void delSchedule()
+    {
+        openDb();
+
+        db.delete(ScheduleEntry.TABLE_MSG_TIME, null,null);
+        closeDb();
+    }
+
     public List<SentenceNode> getSentenceNodeByMessage(int id) {
         openDb();
         List<SentenceNode> result = new ArrayList<>();
@@ -215,6 +223,22 @@ public class BM_ModelScheduler {
         closeDb();
         return result;
     }
+
+    public boolean isInMessageList(String body) {
+        openDb();
+
+
+        String selection = "select " + ScheduleEntry.COLUMN_MESSAGE + " from "
+                            + ScheduleEntry.TABLE_MESSAGE + " WHERE " + ScheduleEntry.COLUMN_MESSAGE
+                            + " = '" + body + "'";
+        //select msg from message where msg = 'body'
+        Cursor cursor = db.rawQuery(selection, null);
+        boolean result = cursor.getCount() > 0;
+        cursor.close();
+        closeDb();
+        return result;
+    }
+
 
     public List<SentenceNode> getSentenceNodeByDate(String date) {
         date = addQuote(date);

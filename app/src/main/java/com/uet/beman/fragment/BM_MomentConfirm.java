@@ -9,9 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.uet.beman.R;
+import com.uet.beman.common.BM_Utils;
+import com.uet.beman.common.SharedPreferencesHelper;
 import com.uet.beman.operator.BM_Moment;
 
 /**
@@ -32,6 +35,7 @@ public class BM_MomentConfirm extends Fragment implements Button.OnClickListener
     private String mParam1;
     private String mParam2;
     Button buttonConfirm;
+
 
 
     private OnFragmentInteractionListener mListener;
@@ -74,6 +78,12 @@ public class BM_MomentConfirm extends Fragment implements Button.OnClickListener
         View view = inflater.inflate(R.layout.fragment_moment_confirm, container, false);
         buttonConfirm = (Button)view.findViewById(R.id.buttonConfirm);
         buttonConfirm.setOnClickListener(this);
+
+        TextView textView = (TextView)view.findViewById(R.id.textView3);
+        String name = SharedPreferencesHelper.getInstance().getUserName();
+        BM_Utils.updateNameReferences(textView, getResources(), R.string.line_moment_confirm, name);
+
+
         return view;
     }
 

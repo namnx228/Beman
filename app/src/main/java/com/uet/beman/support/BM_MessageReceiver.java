@@ -22,7 +22,7 @@ public class BM_MessageReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         // Retrieves a map of extended data from the intent.o
-        //Log.d("smsReceiver","Received");
+        Log.d("smsReceiver","Received");
         if ( !SharedPreferencesHelper.getInstance().getAutoReply()) return;
         BM_SMS sms = new BM_SMS();
         String message = sms.smsFromGirl();
@@ -30,7 +30,7 @@ public class BM_MessageReceiver extends BroadcastReceiver {
         {
 
             Toast.makeText(context, message, Toast.LENGTH_LONG).show();
-            BM_MessageHandler.getInstance().sendReply(message);
+            BM_MessageHandler.getInstance().prepareSendReply(message);
         }
         else Toast.makeText(context, "khong gui reply", Toast.LENGTH_LONG).show();
 

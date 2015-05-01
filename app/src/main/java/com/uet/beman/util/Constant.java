@@ -9,11 +9,11 @@ public class Constant {
 
     public static final String GIRL_WIFI_LIST = "Girl Wifi List";
 
-    public static final String HOME_WIFI_STATE = "Home Wifi State";
+    public static final String HOME_WIFI_CHECK = "Home Wifi State";
 
-    public static final String WORK_WIFI_STATE = "Work Wifi State";
+    public static final String WORK_WIFI_CHECK = "Work Wifi State";
 
-    public static final String GIRL_WIFI_STATE = "Girl Wifi State";
+    public static final String GIRL_WIFI_CHECK = "Girl Wifi State";
 
     public static final String HOME_GPS_CHECKED = "Home Gps Check";
 

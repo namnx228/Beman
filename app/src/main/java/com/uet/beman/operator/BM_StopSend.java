@@ -29,9 +29,19 @@ public class BM_StopSend
         preference.setGirlGpsState(state);
     }
 
-    private long SecondOfHour(int h)
+    private boolean getGirlWifi()
     {
-        return h*3600;
+        return preference.getGirlWifiState();
+    }
+
+    private boolean getGirlGps()
+    {
+        return preference.getGirlGpsState();
+    }
+
+    private long miliSecondOfHour(int h)
+    {
+        return h * 3600 * 1000;
     }
     
 
@@ -44,7 +54,7 @@ public class BM_StopSend
     {
         BM_SMS sms = new BM_SMS();
         BM_CallLog callLog = new BM_CallLog();
-        long timePeriod = SecondOfHour(hour);
+        long timePeriod = miliSecondOfHour(hour);
         return (sms.checkSmsHistory(timePeriod) || callLog.checkCall(timePeriod) );
     }
 
@@ -75,6 +85,7 @@ public class BM_StopSend
 
     public boolean checkStopSend(SentenceNode node)
     {
+        if (getGirlGps() || getGirlWifi()) return true;
         if (node.getLabel().length() == 0) return false;
         if (morning_noon_night_eat(node)) return true;
         if (miss(node)) return true;
@@ -92,7 +103,7 @@ public class BM_StopSend
     private boolean checkPlaceNode(SentenceNode node)
     {
         if (notHomeOrWork(node)) return false;
-        long now = SystemClock.currentThreadTimeMillis(), sendTime = Long.valueOf(node.getSendTime());
+        long now = System.currentTimeMillis(), sendTime = Long.valueOf(node.getSendTime());
         return sendTime - now <= SHORT_PERIOD;
     }
 

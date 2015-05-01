@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.material.widget.CheckBox;
 import com.uet.beman.R;
 import com.uet.beman.common.SharedPreferencesHelper;
+import com.uet.beman.operator.BM_MessageHandler;
 import com.uet.beman.support.BM_MakeBotRequest;
 import com.uet.beman.support.BM_RequestTask;
 
@@ -103,6 +104,8 @@ public class BM_FragmentIntelligentMessage extends Fragment implements View.OnCl
                 BM_RequestTask requestTask = new BM_RequestTask();
                 requestTask.setCallback(this);
                 requestTask.execute(request);
+                //BM_MessageHandler.getInstance().prepareSendReply(messageRequest.getText().toString());
+
                 break;
             case R.id.buttonReply:
                 SharedPreferencesHelper.getInstance().setReplyWaitTime(Integer.valueOf(timeForReply.getText().toString()));

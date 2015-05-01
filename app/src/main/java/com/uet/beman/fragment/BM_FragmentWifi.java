@@ -89,15 +89,15 @@ public class BM_FragmentWifi extends Fragment implements CompoundButton.OnChecke
         // Initialize wifi switches
         homeSwitch = (SwitchCompat) view.findViewById(R.id.fragment_wifi_switch_home);
         homeSwitch.setOnCheckedChangeListener(this);
-        homeSwitch.setChecked(spHelper.getWifiState(Constant.HOME_WIFI_STATE));
+        homeSwitch.setChecked(spHelper.getWifiCheck(Constant.HOME_WIFI_CHECK));
 
         workSwitch = (SwitchCompat) view.findViewById(R.id.fragment_wifi_switch_work);
         workSwitch.setOnCheckedChangeListener(this);
-        workSwitch.setChecked(spHelper.getWifiState(Constant.WORK_WIFI_STATE));
+        workSwitch.setChecked(spHelper.getWifiCheck(Constant.WORK_WIFI_CHECK));
 
         girlSwitch = (SwitchCompat) view.findViewById(R.id.fragment_wifi_switch_girl);
         girlSwitch.setOnCheckedChangeListener(this);
-        girlSwitch.setChecked(spHelper.getWifiState(Constant.GIRL_WIFI_STATE));
+        girlSwitch.setChecked(spHelper.getWifiCheck(Constant.GIRL_WIFI_CHECK));
 
         // Initialize add buttons
         homeAddButton = (ImageView) view.findViewById(R.id.fragment_wifi_add_button_home);
@@ -160,13 +160,13 @@ public class BM_FragmentWifi extends Fragment implements CompoundButton.OnChecke
         //Toast.makeText(getActivity(), "vao wifi", Toast.LENGTH_LONG).show();
         switch (buttonView.getId()) {
             case R.id.fragment_wifi_switch_home:
-                spHelper.setWifiState(Constant.HOME_WIFI_STATE, isChecked);
+                spHelper.setWifiCheck(Constant.HOME_WIFI_CHECK, isChecked);
                 break;
             case R.id.fragment_wifi_switch_work:
-                spHelper.setWifiState(Constant.WORK_WIFI_STATE, isChecked);
+                spHelper.setWifiCheck(Constant.WORK_WIFI_CHECK, isChecked);
                 break;
             case R.id.fragment_wifi_switch_girl:
-                spHelper.setWifiState(Constant.GIRL_WIFI_STATE, isChecked);
+                spHelper.setWifiCheck(Constant.GIRL_WIFI_CHECK, isChecked);
                 break;
         }
     }
