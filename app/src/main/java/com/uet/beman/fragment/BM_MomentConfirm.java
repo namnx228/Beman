@@ -134,8 +134,8 @@ public class BM_MomentConfirm extends Fragment implements Button.OnClickListener
             case R.id.buttonConfirm:
                 BM_Moment moment = new BM_Moment();
                 moment.setSchedule();
-                BM_BroadcastReceiver b = new BM_BroadcastReceiver();
-                b.showNotification("ta la noti");
+               /* BM_BroadcastReceiver b = new BM_BroadcastReceiver();
+                b.showNotification("ta la noti");*/
                 break;
         }
 
