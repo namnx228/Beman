@@ -32,7 +32,7 @@ public class BM_RequestTask extends AsyncTask<String, String, String> {
                 lastLine = line;
 
             if (lastLine == null)
-                return null;
+                return "Xin lỗi, anh có việc bận. Bye em";
             int pos = lastLine.lastIndexOf("<br>") + 4;
 
             org.json.JSONObject response = new org.json.JSONObject(lastLine.substring(pos));
@@ -42,7 +42,7 @@ public class BM_RequestTask extends AsyncTask<String, String, String> {
             return res;
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return "Xin lỗi, anh có việc bận. Bye em";
         }
     }
 
