@@ -15,11 +15,11 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class BM_MakeBotRequest {
 
-    private static final String apiKey = "Jfc8qdXhcctCqrZc";
-    private static final String apiSecret = "Kk3ncf9Ed3iLVfeDbD8i9CJxMXZZRSei";
+    private static final String apiKey = "bWTNi96npipaiudF";
+    private static final String apiSecret = "deBcd03etjpESp62ZE1l2mTNoMr8KcOZ";
 
     private static final String url = "http://www.personalityforge.com/api/chat/";
-    private static final String botId = "124546";
+    private static final String botId = "124766";
 
     private static Mac sha256HMAC = null;
 
