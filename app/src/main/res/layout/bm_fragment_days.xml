@@ -95,7 +95,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_marginEnd="5dp"
                     android:contentDescription="@string/day_evening"
-                    android:src="@drawable/Waiter"
+                    android:src="@drawable/waiter"
                     />
 
                 <ImageView
@@ -106,7 +106,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_marginEnd="5dp"
                     android:contentDescription="@string/day_night"
-                    android:src="@drawable/Drama"
+                    android:src="@drawable/drama"
 
 
                     />

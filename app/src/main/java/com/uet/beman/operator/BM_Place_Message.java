@@ -50,7 +50,7 @@ public class BM_Place_Message {
         ArrayList<SentenceNode> messageRand =  new ArrayList<SentenceNode>();
         for (SentenceNode node:list)
         {
-            if (checkNodeInThatDay(day,node)) messageRand.add(node);
+            if (node.getEnabled().compareTo("1") == 0 || checkNodeInThatDay(day,node)) messageRand.add(node);
 
         }
         chooseRandMessage(messageRand);

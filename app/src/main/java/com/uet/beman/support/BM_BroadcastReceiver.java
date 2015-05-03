@@ -42,7 +42,7 @@ public class BM_BroadcastReceiver extends BroadcastReceiver {
     private void sendReply(String message, Context context) {
         BM_MessageHandler messageHandler = new BM_MessageHandler();
         messageHandler.sending(message, context);
-        showNotification(message);
+      //  showNotification(message);
     }
 
     public void showNotification(String message) {
