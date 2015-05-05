@@ -1,7 +1,5 @@
 package com.uet.beman.support;
 
-import android.bluetooth.BluetoothClass;
-import android.location.LocationListener;
 import android.app.AlertDialog;
 import android.app.Service;
 import android.content.Context;
@@ -14,46 +12,37 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.util.Log;
+
 /**
  * Created by nam on 23/03/2015.
  */
-public class BM_GPStracker extends Service implements LocationListener
-{
+public class BM_GPStracker extends Service implements LocationListener {
+    // The minimum distance to change Updates in meters
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
+    // The minimum time between updates in milliseconds
+    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; // 1 minute
+    private static BM_GPStracker instance;
     private final Context mContext;
-
+    // Declaring a Location Manager
+    protected LocationManager locationManager;
     // flag for GPS status
     boolean isGPSEnabled = false;
-
     // flag for network status
     boolean isNetworkEnabled = false;
-
     // flag for GPS status
     boolean canGetLocation = false;
-
     Location location; // location
     double latitude; // latitude
     double longitude; // longitude
 
-    // The minimum distance to change Updates in meters
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
-
-    // The minimum time between updates in milliseconds
-    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; // 1 minute
-
-    private static BM_GPStracker instance;
-
-    public static BM_GPStracker getInstance(Context context)
-    {
-        if (instance == null) instance = new BM_GPStracker(context);
-        return instance;
-    }
-
-    // Declaring a Location Manager
-    protected LocationManager locationManager;
-
     public BM_GPStracker(Context context) {
         this.mContext = context;
         getLocation();
+    }
+
+    public static BM_GPStracker getInstance(Context context) {
+        if (instance == null) instance = new BM_GPStracker(context);
+        return instance;
     }
 
     public Location getLocation() {
@@ -119,41 +108,42 @@ public class BM_GPStracker extends Service implements LocationListener
     /**
      * Stop using GPS listener
      * Calling this function will stop using GPS in your app
-     * */
-    public void stopUsingGPS(){
-        if(locationManager != null){
+     */
+    public void stopUsingGPS() {
+        if (locationManager != null) {
             locationManager.removeUpdates(BM_GPStracker.this);
         }
     }
 
     /**
      * Function to get latitude
-     * */
-    public float getLatitude(){
+     */
+    public float getLatitude() {
         /*if(location != null){
             latitude = location.getLatitude();
         }*/
 
         // return latitude
-        return (float)latitude;
+        return (float) latitude;
     }
 
     /**
      * Function to get longitude
-     * */
-    public float getLongitude(){
+     */
+    public float getLongitude() {
        /* if(location != null){
             longitude = location.getLongitude();
         }*/
 
         // return longitude
-        return (float)longitude;
+        return (float) longitude;
     }
 
     /**
      * Function to check GPS/wifi enabled
+     *
      * @return boolean
-     * */
+     */
     public boolean canGetLocation() {
         return this.canGetLocation;
     }
@@ -161,8 +151,8 @@ public class BM_GPStracker extends Service implements LocationListener
     /**
      * Function to show settings alert dialog
      * On pressing Settings button will lauch Settings Options
-     * */
-    public void showSettingsAlert(){
+     */
+    public void showSettingsAlert() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
 
         // Setting Dialog Title
@@ -173,7 +163,7 @@ public class BM_GPStracker extends Service implements LocationListener
 
         // On pressing Settings button
         alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog,int which) {
+            public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 mContext.startActivity(intent);
             }

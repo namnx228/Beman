@@ -1,6 +1,7 @@
 package com.uet.beman.fragment;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.SwitchCompat;
@@ -13,22 +14,20 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.material.widget.CheckBox;
 import com.uet.beman.R;
 import com.uet.beman.common.SharedPreferencesHelper;
-import com.uet.beman.operator.BM_MessageHandler;
 import com.uet.beman.support.BM_MakeBotRequest;
 import com.uet.beman.support.BM_RequestTask;
 
 public class BM_FragmentIntelligentMessage extends Fragment implements View.OnClickListener, BM_RequestTask.DisplayResponse
-                                                                        , CompoundButton.OnCheckedChangeListener {
+        , CompoundButton.OnCheckedChangeListener {
 
     private EditText messageRequest;
     private Button requestButton;
     private EditText messageResponse;
     private Button setTimeReplyButton;
     private EditText timeForReply;
-    private SwitchCompat enabelReply;
+    private SwitchCompat enableReply;
     private TextView textView;
     private OnFragmentInteractionListener mListener;
 
@@ -67,13 +66,13 @@ public class BM_FragmentIntelligentMessage extends Fragment implements View.OnCl
 
         timeForReply = (EditText) view.findViewById(R.id.timeForReply);
 
-        enabelReply = (SwitchCompat) view.findViewById(R.id.switchReply);
-        enabelReply.setChecked(SharedPreferencesHelper.getInstance().getAutoReply());
-        enabelReply.setOnCheckedChangeListener(this);
+        enableReply = (SwitchCompat) view.findViewById(R.id.switchReply);
+        enableReply.setChecked(SharedPreferencesHelper.getInstance().getAutoReply());
+        enableReply.setOnCheckedChangeListener(this);
 
         textView = (TextView) view.findViewById(R.id.textReply);
 
-        setVisibleForReplyOptin(SharedPreferencesHelper.getInstance().getAutoReply());
+        setVisibleForReplyOption(SharedPreferencesHelper.getInstance().getAutoReply());
 
         onCreateView = false;
         return view;
@@ -103,25 +102,23 @@ public class BM_FragmentIntelligentMessage extends Fragment implements View.OnCl
                 String request = BM_MakeBotRequest.makeRequest(messageRequest.getText().toString());
                 BM_RequestTask requestTask = new BM_RequestTask();
                 requestTask.setCallback(this);
-                requestTask.execute(request);
+                requestTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, request);
                 //BM_MessageHandler.getInstance().prepareSendReply(messageRequest.getText().toString());
-
                 break;
             case R.id.buttonReply:
                 SharedPreferencesHelper.getInstance().setReplyWaitTime(Integer.valueOf(timeForReply.getText().toString()));
-                Toast.makeText(getActivity(), "Time waitting for reply = " +
-                                 SharedPreferencesHelper.getInstance().getReplyWaitTime() + "s", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Time waiting for reply = " +
+                        SharedPreferencesHelper.getInstance().getReplyWaitTime() + "s", Toast.LENGTH_LONG).show();
                 break;
 
         }
     }
 
     @Override
-    public void onCheckedChanged(CompoundButton button, boolean isChecked)
-    {
+    public void onCheckedChanged(CompoundButton button, boolean isChecked) {
         if (onCreateView) return;
         SharedPreferencesHelper.getInstance().setAutoReply(isChecked);
-        setVisibleForReplyOptin(isChecked);
+        setVisibleForReplyOption(isChecked);
     }
 
     @Override
@@ -132,10 +129,9 @@ public class BM_FragmentIntelligentMessage extends Fragment implements View.OnCl
             messageResponse.setText("NULL");
     }
 
-    private void setVisibleForReplyOptin(boolean check)
-    {
+    private void setVisibleForReplyOption(boolean check) {
         int status;
-        if(check) status = View.VISIBLE;
+        if (check) status = View.VISIBLE;
         else status = View.GONE;
 
         textView.setVisibility(status);

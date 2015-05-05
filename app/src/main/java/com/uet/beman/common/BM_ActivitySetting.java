@@ -15,7 +15,6 @@ import com.uet.beman.R;
 import com.uet.beman.support.BM_CallLog;
 import com.uet.beman.support.BM_GPStracker;
 import com.uet.beman.support.BM_SMS;
-import com.uet.beman.util.Constant;
 
 public class BM_ActivitySetting extends ActionBarActivity {
 
@@ -26,18 +25,17 @@ public class BM_ActivitySetting extends ActionBarActivity {
     Button set_pin;
     TextView textPinReal, textPinFake;
     private boolean enableLogin = SharedPreferencesHelper.getInstance().getCheckLogin();
+    private int SHORT_PERIOD = 3;
+    private int LONG_PERIOD = 12;
 
-    private void setDefaultChecked()
-    {
-        if (enableLogin)
-        {
-            CheckBox checkBox = (CheckBox)findViewById(R.id.checkbox);
+    private void setDefaultChecked() {
+        if (enableLogin) {
+            CheckBox checkBox = (CheckBox) findViewById(R.id.checkbox);
             checkBox.setChecked(true);
         }
     }
 
-    private  void enterPinPlace(boolean status)
-    {
+    private void enterPinPlace(boolean status) {
         int visibleStatus = 0;
         if (status) visibleStatus = View.VISIBLE;
         else visibleStatus = View.GONE;
@@ -48,38 +46,36 @@ public class BM_ActivitySetting extends ActionBarActivity {
         textPinFake.setVisibility(visibleStatus);
 
     }
-    private void enableLoginMode()
-    {
+
+    private void enableLoginMode() {
         enableLogin = true;
         SharedPreferencesHelper.getInstance().setCheckLogin(enableLogin);
         enterPinPlace(SHOW);
     }
 
-    private void disableLoginMode()
-    {
+    private void disableLoginMode() {
         enableLogin = false;
         SharedPreferencesHelper.getInstance().setCheckLogin(enableLogin);
         enterPinPlace(HIDE);
     }
 
-   /* public boolean getLoginPermission()
-    {
-        return enableLogin;
-    }*/
+    /* public boolean getLoginPermission()
+     {
+         return enableLogin;
+     }*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bm_activity_setting);
-        pinReal = (EditText)findViewById(R.id.pin_real);
-        pinFake = (EditText)findViewById((R.id.pin_fake));
-        set_pin = (Button)findViewById(R.id.SetPin);
-        textPinReal = (TextView)findViewById(R.id.text_pin_real);
-        textPinFake = (TextView)findViewById(R.id.text_pin_fake);
+        pinReal = (EditText) findViewById(R.id.pin_real);
+        pinFake = (EditText) findViewById((R.id.pin_fake));
+        set_pin = (Button) findViewById(R.id.SetPin);
+        textPinReal = (TextView) findViewById(R.id.text_pin_real);
+        textPinFake = (TextView) findViewById(R.id.text_pin_fake);
         setDefaultChecked();
         enterPinPlace(enableLogin);
 
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -103,57 +99,50 @@ public class BM_ActivitySetting extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-
-    public void onCheckboxClicked(View view)
-    {
-        boolean checked = ((CheckBox)view).isChecked();
-        if (view.getId() == R.id.checkbox)
-        {
+    public void onCheckboxClicked(View view) {
+        boolean checked = ((CheckBox) view).isChecked();
+        if (view.getId() == R.id.checkbox) {
             if (checked) enableLoginMode();
             else disableLoginMode();
         }
     }
 
-    private boolean checkSymtax(String input)
-    {
+    private boolean checkSymtax(String input) {
         if (input.length() == 4) return true;
         return false;
     }
 
-    private void notifySymtaxError(int type)
-    {
+    private void notifySymtaxError(int type) {
         String message = null;
-        if (type == 0)  message ="your pin is not enough 4 numbers" ;
-        else message = "your fake pin is not enough 4 numbers" ;
+        if (type == 0) message = "your pin is not enough 4 numbers";
+        else message = "your fake pin is not enough 4 numbers";
         Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
     }
 
-    public void setPin(View view)
-    {
+    public void setPin(View view) {
         int real = 0, fake = 1;
-        boolean     pinSuccess = checkSymtax(pinReal.getText().toString())
-                ,   fakeSuccess = checkSymtax(pinFake.getText().toString());
+        boolean pinSuccess = checkSymtax(pinReal.getText().toString()), fakeSuccess = checkSymtax(pinFake.getText().toString());
         //if (view.getId() == R.id.SetPin) {
-            if (pinSuccess)
-                SharedPreferencesHelper.getInstance().setUserRealPW(pinReal.getText().toString());
-            else notifySymtaxError(real);
-            if (fakeSuccess)
-                SharedPreferencesHelper.getInstance().setUserFakePW((pinFake.getText().toString()));
-            else notifySymtaxError(fake);
+        if (pinSuccess)
+            SharedPreferencesHelper.getInstance().setUserRealPW(pinReal.getText().toString());
+        else notifySymtaxError(real);
+        if (fakeSuccess)
+            SharedPreferencesHelper.getInstance().setUserFakePW((pinFake.getText().toString()));
+        else notifySymtaxError(fake);
 
 
-            if (pinSuccess && fakeSuccess ) {
-                String message = "your pin is " +
-                        SharedPreferencesHelper.getInstance().getUserRealPW() +
-                        "\nyour fake pin is " +
-                        SharedPreferencesHelper.getInstance().getUserFakePW();
+        if (pinSuccess && fakeSuccess) {
+            String message = "your pin is " +
+                    SharedPreferencesHelper.getInstance().getUserRealPW() +
+                    "\nyour fake pin is " +
+                    SharedPreferencesHelper.getInstance().getUserFakePW();
 
-                Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
-            }
+            Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
+        }
         //}
 
     }
+
     public void test(View view) {
         if (view.getId() == R.id.test_gps) {
             BM_GPStracker gps = new BM_GPStracker(this);
@@ -165,32 +154,24 @@ public class BM_ActivitySetting extends ActionBarActivity {
 
             }
         }
-        if (view.getId() == R.id.calllog)
-        {
+        if (view.getId() == R.id.calllog) {
             BM_CallLog callog = new BM_CallLog();
-            if (callog.checkCall(miliSecondOfHour(SHORT_PERIOD)))
-            {
+            if (callog.checkCall(miliSecondOfHour(SHORT_PERIOD))) {
                 String mes = "OK";
                 Toast.makeText(getBaseContext(), mes, Toast.LENGTH_LONG).show();
-            }
-            else
-            {
+            } else {
                 String mes = "khong co";
                 Toast.makeText(getBaseContext(), mes, Toast.LENGTH_LONG).show();
             }
 
         }
 
-        if (view.getId() == R.id.sms)
-        {
+        if (view.getId() == R.id.sms) {
             BM_SMS sms = new BM_SMS();
-            if (sms.checkSmsHistory((miliSecondOfHour(SHORT_PERIOD))))
-            {
+            if (sms.checkSmsHistory((miliSecondOfHour(SHORT_PERIOD)))) {
                 String mes = "OK";
                 Toast.makeText(getBaseContext(), mes, Toast.LENGTH_LONG).show();
-            }
-            else
-            {
+            } else {
                 String mes = "khong co";
                 Toast.makeText(getBaseContext(), mes, Toast.LENGTH_LONG).show();
             }
@@ -198,12 +179,8 @@ public class BM_ActivitySetting extends ActionBarActivity {
         }
     }
 
-    private long miliSecondOfHour(int h)
-    {
-        return h*3600*1000;
+    private long miliSecondOfHour(int h) {
+        return h * 3600 * 1000;
     }
-
-    private int SHORT_PERIOD = 3;
-    private int LONG_PERIOD = 12;
 
 }

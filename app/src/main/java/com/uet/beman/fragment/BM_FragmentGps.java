@@ -10,19 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.uet.beman.R;
 import com.uet.beman.common.BM_Utils;
 import com.uet.beman.common.SharedPreferencesHelper;
-import com.uet.beman.object.ManageWifiDialogFragment;
 import com.uet.beman.operator.BM_StopSend;
 import com.uet.beman.support.BM_GPStracker;
 import com.uet.beman.util.Constant;
-
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,8 +28,8 @@ import java.util.ArrayList;
  * Use the {@link BM_FragmentGps#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BM_FragmentGps extends Fragment implements SwitchCompat.OnCheckedChangeListener{
-        //View.OnClickListener{
+public class BM_FragmentGps extends Fragment implements SwitchCompat.OnCheckedChangeListener {
+    //View.OnClickListener{
 
     //ManageWifiDialogFragment.ManageWifiClickListener
     // TODO: Rename parameter arguments, choose names that match
@@ -46,17 +42,19 @@ public class BM_FragmentGps extends Fragment implements SwitchCompat.OnCheckedCh
     private String mParam2;
 
 
-
     private OnFragmentInteractionListener mListener;
-
 
 
     private SwitchCompat homeSwitch;
     private SwitchCompat workSwitch;
     private SwitchCompat girlSwitch;
 
-    private  boolean onCreateViewRunning;
+    private boolean onCreateViewRunning;
 
+
+    public BM_FragmentGps() {
+        // Required empty public constructor
+    }
 
     /**
      * Use this factory method to create a new instance of
@@ -74,10 +72,6 @@ public class BM_FragmentGps extends Fragment implements SwitchCompat.OnCheckedCh
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    public BM_FragmentGps() {
-        // Required empty public constructor
     }
 
     @Override
@@ -146,24 +140,20 @@ public class BM_FragmentGps extends Fragment implements SwitchCompat.OnCheckedCh
      * >Communicating with Other Fragments</a> for more information.
      */
 
-    private void notifyAfterSetGps(String longitudeOfPlace, String latitudeOfPlace, Float longitude, Float latitude)
-    {
+    private void notifyAfterSetGps(String longitudeOfPlace, String latitudeOfPlace, Float longitude, Float latitude) {
         String msg = longitudeOfPlace + " is " + longitude.toString() + '\n'
-                     + latitudeOfPlace + " is " + latitude.toString();
+                + latitudeOfPlace + " is " + latitude.toString();
         Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
-        Log.d("gps home",msg);
+        Log.d("gps home", msg);
     }
 
-    private void notifyAfterTurnOffGps(String place)
-    {
+    private void notifyAfterTurnOffGps(String place) {
         String msg = place + " gps is turn off";
         Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
     }
 
 
-
-    private void setGps(int id)
-    {
+    private void setGps(int id) {
         //Toast.makeText(getActivity(),"vao day", Toast.LENGTH_LONG).show();
         BM_GPStracker gpsTracker = new BM_GPStracker(getActivity());
         float longitude = gpsTracker.getLongitude(), latitude = gpsTracker.getLatitude();
@@ -194,8 +184,7 @@ public class BM_FragmentGps extends Fragment implements SwitchCompat.OnCheckedCh
         notifyAfterSetGps(longitudeOfPlace, latitudeOfPlace, longitude, latitude);
     }
 
-    private void setGpsToZero(int id)
-    {
+    private void setGpsToZero(int id) {
         String longitudeOfPlace = "", latitudeOfPlace = "", place = "";
         SharedPreferencesHelper preference = SharedPreferencesHelper.getInstance();
         switch (id) {

@@ -1,12 +1,9 @@
 package com.uet.beman.activity;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -15,12 +12,10 @@ import android.support.v4.view.PagerAdapter;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.uet.beman.R;
-import com.uet.beman.common.BM_AlarmManager;
 import com.uet.beman.common.BM_CustomViewPager;
 import com.uet.beman.common.SharedPreferencesHelper;
 import com.uet.beman.database.BM_ModelScheduler;
@@ -36,18 +31,13 @@ import com.uet.beman.fragment.BM_FragmentWifi;
 import com.uet.beman.fragment.BM_MomentConfirm;
 import com.uet.beman.object.SentenceNode;
 import com.uet.beman.operator.BM_MessageHandler;
-import com.uet.beman.operator.BM_Moment;
-import com.uet.beman.support.BM_CallLog;
 import com.uet.beman.support.BM_Context;
 import com.uet.beman.support.BM_GPSReceiver;
 import com.uet.beman.support.BM_GPStracker;
 import com.uet.beman.support.BM_MessageCardHandler;
-import com.uet.beman.support.BM_MessageReceiver;
 import com.uet.beman.support.BM_StorageHandler;
 import com.uet.beman.support.BM_ViewPagerAdapter;
-import com.uet.beman.util.Constant;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
@@ -57,7 +47,7 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
         BM_FragmentIntelligentMessage.OnFragmentInteractionListener,
         BM_FragmentMessageDialog.MessageDialogListener,
         BM_FragmentGps.OnFragmentInteractionListener,
-        BM_MomentConfirm.OnFragmentInteractionListener{
+        BM_MomentConfirm.OnFragmentInteractionListener {
 
     /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous
@@ -69,13 +59,32 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
      * The pager adapter, which provides the pages to the view pager widget.
      */
     private PagerAdapter mPagerAdapter;
-//    private BM_ModelScheduler model;
+    //    private BM_ModelScheduler model;
 //    private BM_StorageHandler storageHandler;
     private BM_MessageCardHandler messageCardHandler;
 
-    private BM_GPStracker gpStracker ;
+    private BM_GPStracker gpsTracker;
 
+    // for set color for dialog
+    public static void colorAlertDialogTitle(AlertDialog dialog, int color) {
+        int dividerId = dialog.getContext().getResources().getIdentifier("android:id/titleDivider", null, null);
+        if (dividerId != 0) {
+            View divider = dialog.findViewById(dividerId);
+            divider.setBackgroundColor(color);
+        }
 
+        int textViewId = dialog.getContext().getResources().getIdentifier("android:id/alertTitle", null, null);
+        if (textViewId != 0) {
+            TextView tv = (TextView) dialog.findViewById(textViewId);
+            tv.setTextColor(color);
+        }
+
+        int iconId = dialog.getContext().getResources().getIdentifier("android:id/icon", null, null);
+        if (iconId != 0) {
+            ImageView icon = (ImageView) dialog.findViewById(iconId);
+            icon.setColorFilter(color);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +104,7 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
 
         BM_Context.getInstance().setContext(this);
         setAlarmFromDb();
-        gpStracker = BM_GPStracker.getInstance(this);
+        gpsTracker = BM_GPStracker.getInstance(this);
         new Thread(new Task()).start();
 
 
@@ -116,7 +125,7 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-           return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -131,7 +140,7 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
         }
     }
 
-    public void onFragmentInteraction(Uri uri){
+    public void onFragmentInteraction(Uri uri) {
         //you can leave it empty
     }
 
@@ -143,7 +152,7 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
 //        model.updateDialog(currentNode);
 
         Fragment fragment = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.pager + ":" + mPager.getCurrentItem());
-        if(mPager.getCurrentItem() == 0 && fragment != null) {
+        if (mPager.getCurrentItem() == 0 && fragment != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.detach(fragment);
             ft.attach(fragment);
@@ -152,14 +161,13 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
         }
     }
 
+    // detect instrusion
+
     public void onDialogNegativeClick(DialogFragment dialog) {
         // do nothing
     }
 
-    // detect instrusion
-
-    private void setDialog()
-    {
+    private void setDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         String timeInstrusion = SharedPreferencesHelper.getInstance().getInstrusionTime();
         builder.setMessage("Có người xâm nhập\nNgày : " + timeInstrusion);
@@ -168,32 +176,17 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
             public void onClick(DialogInterface dialogInterface, int i) { /*cancel dialog */}
         }).show();
     }
-    // for set color for dialog
-    public  static void colorAlertDialogTitle(AlertDialog dialog, int color) {
-        int dividerId = dialog.getContext().getResources().getIdentifier("android:id/titleDivider", null, null);
-        if (dividerId != 0) {
-            View divider = dialog.findViewById(dividerId);
-            divider.setBackgroundColor(color);
-        }
 
-        int textViewId = dialog.getContext().getResources().getIdentifier("android:id/alertTitle", null, null);
-        if (textViewId != 0) {
-            TextView tv = (TextView) dialog.findViewById(textViewId);
-            tv.setTextColor(color);
-        }
-
-        int iconId = dialog.getContext().getResources().getIdentifier("android:id/icon", null, null);
-        if (iconId != 0) {
-            ImageView icon = (ImageView) dialog.findViewById(iconId);
-            icon.setColorFilter(color);
-        }
-    }
-
-
-    private void checkIntrusion()
-    {
+    private void checkIntrusion() {
         if (SharedPreferencesHelper.getInstance().getCheckIntrusion()) setDialog();
         SharedPreferencesHelper.getInstance().setCheckIntrusion(false);
+    }
+
+    private void setAlarmFromDb() {
+        List<SentenceNode> list = BM_ModelScheduler.getInstance().getAllNodes();
+        for (SentenceNode node : list) {
+            BM_MessageHandler.getInstance().setMesageAlarmTime(node);
+        }
     }
 
     class Task implements Runnable {
@@ -208,18 +201,7 @@ public class BM_ActivitySimpleSetup extends BM_BaseActivity implements
             storageHandler.initListInMessageSet("\"home\"");
             storageHandler.initListInMessageSet("\"work\"");
             BM_GPSReceiver receiver = new BM_GPSReceiver();
-            receiver.execute(gpStracker);
-        }
-    }
-
-
-
-    private void setAlarmFromDb()
-    {
-        List<SentenceNode> list = BM_ModelScheduler.getInstance().getAllNodes();
-        for(SentenceNode node : list)
-        {
-            BM_MessageHandler.getInstance().setMesageAlarmTime(node);
+            receiver.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, gpsTracker);
         }
     }
 
